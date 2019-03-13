@@ -1,0 +1,152 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!-- header tetxt load -->
+<header th:fragment="header">
+    <div id="sideMenu" class="sidenav">
+        <a href="#no_div" class="closebtn" onclick="closeNav()">&times;</a>
+        
+        <a href="/index"><img style="width: 100%; max-width: 150px;" src="/img/index/logoidx.png"/></a>
+
+        <!-- 테마 선택 -->
+        <a href="#no_div" onclick="openDropdown('theme')">
+            <script>document.write(txtHeader.theme[lang]);</script>▼
+        </a>
+        <div class="header-dropdown" id="header-dropdown-theme">
+            <a href="#no_div" onclick="themeChange(0)">White</a>
+            <a href="#no_div" onclick="themeChange(1)">Black</a>
+            <a href="#no_div" onclick="themeChange(2)">Orange</a>
+        </div>
+
+        <!-- 로그인 -->
+        <a th:if="${token} == null" class="nav-link" href="/login">
+            <script>document.write(txtHeader.login[lang]);</script>
+        </a>
+
+        <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
+            <script>document.write(txtHeader.logout[lang]);</script>
+        </a>
+
+        <!-- 사용설명 -->
+        <a href="#no_div" onclick="openDropdown('howto')">
+            <script>document.write(txtHeader.howtouse.title[lang]);</script>▼
+        </a>
+        <!-- 하단에 추가 div로 설명서 선택할 수 있게 만들기 -->
+        <div class="header-dropdown" id="header-dropdown-howto">
+            <a href="/about0">
+                <script>document.write(txtHeader.howtouse.update_au[lang]);</script>
+            </a>
+            <a href="/about1">
+                <script>document.write(txtHeader.howtouse.update_man[lang]);</script>
+            </a>
+            <a href="/about2">
+                <script>document.write(txtHeader.howtouse.filter_rival[lang]);</script>
+            </a>
+        </div>
+
+        <!-- 프로필 -->
+        <a href="#no_div" onclick="openDropdown('profile')">
+            <script>document.write(txtHeader.mymenu.title[lang]);</script>▼
+        </a>
+        <!-- 프로필 메뉴 선택 -->
+        <div class="header-dropdown" id="header-dropdown-profile">
+            <a href="/profile">
+                <script>document.write(txtHeader.mymenu.profile[lang]);</script>
+            </a>
+            <a href="/myskill/gf">
+                <script>document.write(txtHeader.mymenu.gfskill[lang]);</script>
+            </a>
+            <a href="/myskill/dm">
+                <script>document.write(txtHeader.mymenu.dmskill[lang]);</script>
+            </a>
+            <a href="/mybest">
+                <script>document.write(txtHeader.mymenu.best[lang]);</script>
+            </a>
+            <a href="/rivallist">
+                <script>document.write(txtHeader.mymenu.rivallist[lang]);</script>
+            </a>
+        </div>
+
+        <!-- 스킬 메뉴 -->
+        <a href="#no_div" onclick="openDropdown('skill')">
+            <script>document.write(txtHeader.skill.title[lang]);</script>▼
+        </a>
+        <div class="header-dropdown" id="header-dropdown-skill">
+            <a href="/rank/gf/1">
+                <script>document.write(txtHeader.skill.rank[lang]);</script>
+            </a>
+            <a href="/exc/gf">
+                <script>document.write(txtHeader.skill.exc[lang]);</script>
+            </a>
+            <a href="/cntrank/1">
+                <script>document.write(txtHeader.etc.countrank[lang]);</script>
+            </a>
+            <a href="/register">
+                <script>document.write(txtHeader.skill.register[lang]);</script>
+            </a>
+        </div>
+
+        <!-- 패턴 메뉴 -->
+        <a href="#no_div" onclick="openDropdown('pattern')">
+            <script>document.write(txtHeader.pattern.title[lang]);</script>▼
+        </a>
+        <div class="header-dropdown" id="header-dropdown-pattern">
+            <a href="/ptrank/00/titleasc/1?hot=h">
+                <script>document.write(txtHeader.pattern.ptlist[lang]);</script>
+            </a>
+            <a href="/notplayed">
+                <script>document.write(txtHeader.mymenu.notplayed[lang]);</script>
+            </a>
+            <a href="/cleartable">
+                <script>document.write(txtHeader.mymenu.cleartable[lang]);</script>
+            </a>
+        </div>
+
+        <!-- 기타도라의 탑 -->
+        <a href="/tower/index">
+            <script>document.write(txtHeader.tower.title[lang]);</script>
+        </a>
+        
+        <!-- 검색 -->
+        <a class="btn btn-primary" href="#no_div" id="searchToggle" onclick="openDropdown('search')">
+            Player
+        </a>
+        <div class="header-dropdown" id="header-dropdown-search">
+            <a onclick="changeSearchType('name')" href="#no_div">Player</a>
+            <a onclick="changeSearchType('gskill')" href="#no_div">G-Skill</a>
+            <a onclick="changeSearchType('dskill')" href="#no_div">D-Skill</a>
+            <a onclick="changeSearchType('music')" href="#no_div">Music</a>
+        </div>
+        <input style="width:100%" id="searchinp" name="val" type="search" placeholder="Search" aria-label="Search" />
+
+        <!-- 언어 선택 -->
+        <!--<a href="#no_div" onclick="openDropdown('lang')">
+            <script>document.write(txtHeader.langsel[lang]);</script>▼
+        </a>
+        <div class="header-dropdown" id="header-dropdown-lang">
+            <div class="col-4">
+                <a href="#no_div" onclick="langChange('ko')">한국어</a>
+            </div>
+            <div class="col-4">
+                <a href="#no_div" onclick="langChange('jp')">日本語</a>
+            </div>
+            <div class="col-4">
+                <a href="#no_div" onclick="langChange('en')">English</a>
+            </div>
+        </div>-->
+    </div>
+</header>
+
+<!-- 플로팅 버튼으로 항상 메뉴를 불러올 수 있게 함 -->
+<div th:fragment="menu" class="float-menu">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">
+        <a class="btn btn-primary" href="#no_div">&#9776;<script>document.write(txtHeader.menubtn[lang]);</script></a>
+    </span>
+</div>

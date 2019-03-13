@@ -1,0 +1,491 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/tower.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+  	<section class="crawler" id="titlepopup" style="display:none;">
+  		<h3 id="titleoftitlechange"></h3>
+  		<select class="form-control" id="titleselect">
+  		</select>
+  		<a class="btn btn-primary" href="#no_div" th:onclick="|setTitle(${uid}, $('#titleselect').val(), $('#titlepopup'))|">OK</a>
+  		<a class="btn btn-secondary" href="#no_div" onclick="popupRemove($('#titlepopup'))">CANCEL</a>
+  	</section>
+  
+  	<section class="container" id="loading">
+  		<h1>LOADING... Please wait</h1>
+  	</section>
+  	
+  	<section class="container">
+  		<div class="row">
+  			<div class="col-12 text-center">
+  				<h2 id="towername"></h2>
+  			</div>
+  		</div>
+  		<div class="row">
+			<div class="col-12 text-center">
+    			<span id="towerdesc"></span><br/><br/>
+    			<span><script>document.write(txtTower.detail.desc[lang]);</script></span>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-12 text-center blackandwhite" id="allpassed">
+			</div>
+		</div>
+  	</section>
+  	
+  	<section class="container">
+  		<!-- 진행 상태 표기 -->
+  		<div class="row">
+  			<div class="col-12" id="towerlist">
+				<towerlist-row v-for="tl in towerlist" v-bind:tl="tl"></towerlist-row>  
+			</div>
+  		</div>
+  	</section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/function/pattern.js"></script>
+    <script src="/function/ranktonum.js"></script>
+    <script src="/function/towername.js"></script>
+    <script src="/function/towertitle.js"></script>
+    <script src="/function/titletxt.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+
+	<template id='towerlist-template'>
+		<div class='row'>
+			<div class='col-12'>
+				<a class='innerhref' style='width:100%; height:auto' href='#no_div' v-bind:id='tl.topid' v-bind:onclick="tl.divopen">
+					<div class='row'>
+						<div class='col-2' v-bind:id='tl.btnid' style='font-size:125%'>{{ tl.opbtn }}</div>
+						<div class='col-5'>
+							Floor {{ tl.floor }}
+						</div>
+						<div class='col-2'>
+							<img style='width:50px' v-bind:src="tl.floorclear" />
+						</div>
+						<div class='col-3'>
+							{{ tl.titlechangable }}<br/>
+							<span v-html="tl.btnchangable"></span>
+						</div>
+					</div>
+				</a>
+				<div style="display:none" v-bind:id='tl.floorid'>
+					<div class='row'>
+						<div class='col-12'>
+							<span style='padding:10px;'>
+								{{ tl.clearnotice }}
+							</span>
+						</div>
+					</div>
+					<floor-row v-for="fl in tl.floorlist" v-bind:fl="fl"></floor-row>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="floor-template">
+		<div class='row'>
+			<div class='col-2 listimg-skill'>
+				<img v-bind:src="fl.jacket" />
+			</div>
+			<div class='col-8'>
+				<div class='row'>
+					<div class='col-8 text-center'>
+						<span style='font-size:125%'>{{ fl.name }}</span><br/>
+						{{ fl.pattern }} / {{ fl.lv }}
+					</div>
+					<div class='col-4'>
+						<span class='tower-div-span'>
+							Score <span v-html="fl.score"></span> / {{ fl.condScore }}<br/>
+							Rate <span v-html="fl.rate"></span>% / {{ fl.condRate }}%<br/>
+							Combo <span v-html="fl.combo"></span> / {{ fl.condCombo }}
+						</span>
+					</div>
+				</div>
+				<div class='row' style='padding-bottom:10px' id='description'>
+					<div class='col-4 text-right'>
+						<img src='/img/tower/rightbottom.png' />
+					</div>
+					<div class='col-8 text-left'>
+						<span v-html="fl.description"></span>
+					</div>
+				</div>
+			</div>
+			<div class='col-2'>
+				<img style='width:50px' v-bind:src="fl.clear" />
+				<span v-html="fl.titlechange"></span>
+			</div>
+		</div>
+	</template>
+
+	<script th:inline="javascript">
+	Vue.component('towerlist-row', {
+		template: '#towerlist-template',
+		props: {
+			tl: Object
+		}
+	});
+
+	Vue.component('floor-row', {
+		template: '#floor-template',
+		props: {
+			fl: Object
+		}
+	});
+
+	// Parse JSON
+	var ctower = 0;
+	var towername = /*[[${tower}]]*/'';
+	var uid = /*[[${uid}]]*/0;
+	var towercomp = new Array();
+	var clear = new Array();
+	var pat;
+	var clearstat = new Array();
+
+	// 층 별 클리어 및 칭호 데이터
+	var towerRecord = new Array();
+
+	var vm = new Vue({
+		el: '#towerlist',
+		data: {
+			towerlist: []
+		},
+		methods: {
+			divopen: function(i) {
+				var div = $("#t"+i+"c");
+		
+				if(div.is(":visible")) {
+					div.hide();
+					$("#t"+i+"p").html("▼");
+				}
+				else {
+					div.show();
+					$("#t"+i+"p").html("▲");
+				}
+			}
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/towerdata/'+towername+'/'+uid)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				var towheight = json.tower.levels;
+				towerRecord[towername] = new Array();
+		
+				pat = new Array(towheight);
+				// 들어가기 전에 일단 패턴 분류부터
+				for(var i = 0; i < towheight; i++) {
+					pat[i] = new Array();
+				}
+				
+				for(var i = 0; i < json.towerlist.length; i++) {
+					pat[json.towerlist[i].tower.floor].push(json.towerlist[i]);
+				}
+				
+				for(var i = 0; i < towheight; i++) {
+					towercomp[i] = true;
+					clear[i] = 2;
+				}
+
+				// 층별 클리어 상태 확인
+				clearOX(towheight);
+
+				// 각 탑의 정보 추가 (메인)
+				self.towerlist = updateTower(json.tower, json.towerlist);
+				
+				// 탑의 클리어 상태 체크
+				updateAllPassed();
+
+				$('#loading').hide();
+			});
+		}
+	});
+	
+	$("#titleoftitlechange").append(txtTower.detail.btntitlechange[lang]);
+
+	$("#towername").append(towerName[towername][lang]);
+	$("#towerdesc").append(towerDesc[towername][lang]);
+	
+	function updateTower(manage, tower) {
+		var size = manage.levels;
+		var list = [];
+
+		for(var i = 0; i < size; i++) {
+			var obj = {};
+			obj.index = i;
+			obj.topid = 't'+i;
+			obj.btnid = 't'+i+'p';
+			obj.divopen = 'divopen('+i+');'
+			obj.opbtn = '▼';
+			obj.skillfrom = (manage.skill + (size-i-1)*500);
+			obj.floor = size-i;
+
+			var recIdx = size-i-1;
+
+			var clearstat = checkClear(pat[size-i-1]);
+			if(clearstat['clear'] && clearstat['rate'] == 100) {
+				obj.floorclear = '/img/tower/goldpassed.png';
+			}
+			else if(clearstat['clear']) {
+				obj.floorclear = '/img/tower/passed.png';
+			}
+			else {
+				obj.floorclear = '/img/tower/running.png';
+			}
+			
+			if(clearstat['clear']) {
+				if(checkFloorTitleExist(manage.name)) {
+					var titles = getFloorTitle(manage.name, (manage.levels-i-1), clearstat['rate'], size);
+					
+					for(var j = 0; j < titles.length; j++) {
+						towerRecord[towername].push(titles[j]);
+					}
+
+					obj.titlechangable = txtTower.detail.titlechangable[lang];
+					obj.btnchangable = '<button class="btn btn-primary" onclick="floorTitlePopup(\''+manage.name+'\', '+(manage.levels-i-1)+', '+clearstat['rate']+', '+size+', $(\'#titlepopup\'))">'+txtTower.detail.btntitlechange[lang]+'</button>';
+				}
+			}
+			else {
+				obj.titlechangable = txtTower.detail.titleunchangable[lang];
+				obj.btnchangable = '';
+			}
+
+			// id
+			obj.floorid = 't'+i+'c';
+			obj.clearnotice = txtTower.detail.require1[lang]+pat[size-i-1].length+txtTower.detail.require2[lang]+Math.ceil(pat[size-i-1].length*0.7)+txtTower.detail.require3[lang];
+			
+			obj.floorlist = [];
+
+			for(var j = 0; j < pat[size-i-1].length; j++) {
+				var cfl = pat[size-i-1][j];
+				var flist = {};
+				flist.jacket = '/img/music/'+cfl.tower.musicid+'.jpg';
+				flist.name = cfl.tower.mname;
+				flist.pattern = GDPat[cfl.tower.ptcode-1].pat;
+				flist.lv = (cfl.tower.level/100).toFixed(2);
+
+				if(cfl.score > 0) {
+					var score = 0
+					if(cfl.skill != null) {
+						score = cfl.skill.score;
+					}
+
+					if(score < cfl.tower.score) {
+						flist.score = '<font color="blue">'+score+"</font>";
+					}
+					else {
+						flist.score = '<font color="red">'+score+"</font>";
+					}
+					flist.condScore = cfl.tower.score;
+				}
+				else {
+					flist.score = 0;
+					flist.condScore = 0;
+				}
+
+				if(cfl.tower.rate > 0) {
+					var rate = 0
+					if(cfl.skill != null) {
+						rate = cfl.skill.rate;
+					}
+
+					if(rate < cfl.tower.rate) {
+						flist.rate = '<font color="blue">'+(rate/100).toFixed(2)+"</font>";
+					}
+					else {
+						flist.rate = '<font color="red">'+(rate/100).toFixed(2)+"</font>";
+					}
+					flist.condRate = (cfl.tower.rate/100).toFixed(2);
+				}
+				else {
+					flist.rate = 0;
+					flist.condRate = 0;
+				}
+
+				if(cfl.tower.combo > 0) {
+					var combo = 0;
+					if(cfl.skill != null) {
+						combo = cfl.skill.combo;
+					}
+
+					if(combo < cfl.tower.combo) {
+						flist.combo = '<font color="blue">'+combo+"</font>";
+					}
+					else {
+						flist.combo = '<font color="red">'+combo+"</font>";
+					}
+					flist.condCombo = cfl.tower.combo;
+					if(cfl.tower.fc == true) {
+						flist.condCombo += "(FC)";
+					}
+				}
+				else {
+					flist.combo = 0;
+					flist.condCombo = 0;
+				}
+				
+				flist.description = cfl.tower.description;
+				if(cfl.clear) {
+					flist.clear = '/img/tower/passed.png';
+					if(checkMusicTitleExist(cfl.tower.musicid, cfl.tower.ptcode)) {
+						var title = getMusicTitle(cfl.tower.musicid, cfl.tower.ptcode);
+
+						towerRecord[towername].push(title);
+
+						flist.titlechange = '<button class="btn btn-primary" onclick="musicTitlePopup('+cfl.tower.musicid+', '+cfl.tower.ptcode+', $(\'#titlepopup\'))">'+txtTower.detail.btntitlechange[lang]+'</button>';
+					}
+				}
+				else {
+					flist.clear = '/img/tower/running.png';
+					flist.titlechange = '';
+				}
+				obj.floorlist.push(flist);
+			}
+			list.push(obj);
+		}
+		return list;
+	}
+	
+	function checkClear(list) {
+		var cleared = true;
+		
+		// 일반 곡들을 70%이상 클리어 했는가
+		// 개수 세기
+		var numc = 0;
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].clear) numc++;
+		}
+		
+		var rate = numc*100/list.length;
+		if(rate < 70) cleared = false;
+		
+		var status = new Array();
+		status['clear'] = cleared;
+		status['rate'] = rate;
+		
+		return status;
+	}
+	
+	function updateAllPassed() {
+		var html = "";
+		
+		var passed = true;
+		for(var i = 0; i < towercomp.length; i++) {
+			if(!towercomp[i]) {
+				passed = false;
+				break;
+			}
+		}
+		
+		if(passed) {
+			html += "<img style='width:100%' src='/img/tower/towercleared.png' />";
+		}
+		else {
+			html += "<img style='width:100%' src='/img/tower/towerprogressing.png' />";
+		}
+		
+		$("#allpassed").append(html);
+	}
+	
+	function clearOX(size) {
+		for(var i = 0; i < size; i++) {
+			// 개수세기
+			var numc = 0;
+			for(var j = 0; j < pat[i].length; j++) {
+				if(pat[i][j].clear) numc++;
+			}
+			var rate = numc*100/pat[i].length;
+			
+			if(rate < 70) towercomp[i] = false;
+			
+			if(i-1 >= 0 && !towercomp[i-1]) towercomp[i] = false;
+		}
+	}
+	
+	function divopen(i) {
+		var div = $("#t"+i+"c");
+		
+		if(div.is(":visible")) {
+			div.hide();
+			$("#t"+i+"p").html("▼");
+		}
+		else {
+			div.show();
+			$("#t"+i+"p").html("▲");
+		}
+	}
+	
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

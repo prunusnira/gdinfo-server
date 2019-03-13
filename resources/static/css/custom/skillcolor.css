@@ -1,0 +1,123 @@
+/*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/
+ .s0 {
+    background: -webkit-linear-gradient(#eeeeee, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s1 {
+    background: -webkit-linear-gradient(#FACC2E, #FACC2E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s2 {
+    background: -webkit-linear-gradient(#FACC2E, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s3 {
+    background: -webkit-linear-gradient(#FFFF5C, #FFFF5C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s4 {
+    background: -webkit-linear-gradient(#FFFF5C, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s5 {
+    background: -webkit-linear-gradient(#33FF00, #33FF00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s6 {
+    background: -webkit-linear-gradient(#33FF00, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s7 {
+    background: -webkit-linear-gradient(#7598FF, #7598FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s8 {
+    background: -webkit-linear-gradient(#7598FF, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s9 {
+    background: -webkit-linear-gradient(#FF00FF, #FF00FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s10 {
+    background: -webkit-linear-gradient(#FF00FF, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s11 {
+    background: -webkit-linear-gradient(#FF0000, #FF0000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s12 {
+    background: -webkit-linear-gradient(#FF0000, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s13 {
+    background: -webkit-linear-gradient(#dd8844, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s14 {
+    background: -webkit-linear-gradient(#888888, #dddddd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s15 {
+    background: -webkit-linear-gradient(#C3C300, #FFFFB7, #FFFFB7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s16 {
+    background: -webkit-linear-gradient(#eeeeee, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s17 {
+    background: -webkit-linear-gradient(#eeeeee, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.s18 {
+    background: -webkit-linear-gradient(#eeeeee, #eeeeee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

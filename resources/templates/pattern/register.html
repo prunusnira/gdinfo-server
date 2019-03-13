@@ -1,0 +1,299 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/register.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body onload="checkInitParam()">
+  	<section class="container">
+  		<div class="pagetop text-center">
+    		<h3>Register record manually</h3>
+    		<span><script>document.write(txtRegister.desc[lang]);</script></span>
+    	</div>
+  	</section>
+  	
+  	<section class="container" id="regrecord">
+  		<!-- 2. 등록 -->
+		<div class="row">
+			<span style="color:darkblue;"><b>* CAUTION:</b></span><br/>
+			<span><script>document.write(txtRegister.regdesc[lang]);</script></span>
+			<br/><br/>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				RATE * 100<br/>
+				(80.10% -> 8010)
+			</div>
+			<div class="col-9">
+				<input type="number" id="rate" min="0" max="10000" class="form-control" oninput="rateInputCheck()">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3" style="size:150%;">SCORE</div>
+			<div class="col-9"><input type="number" id="score" class="form-control"></div>
+		</div>
+		<div class="row">
+			<div class="col-3" style="size:150%;">MAX COMBO</div>
+			<div class="col-9"><input type="number" id="combo" class="form-control"></div>
+		</div>
+		<div class="row">
+			<div class="col-3" style="size:150%;">FC</div>
+			<div class="col-9"><input type="checkbox" id="fc" class="form-control"></div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<a class="btn btn-success" onclick="submit()" style="width:100%;">Submit</a>
+			</div>
+		</div>
+  	</section>
+  	
+  	<section class="container">
+  		<!-- 1. 등록 패턴 선택 -->
+		<div class="row">
+			<div class="col-3">
+				<span style="width:100%;">Select Version</span><br/>
+				<span style="width:100%; text-align:right;" id="selver"></span>
+				<div id="versel"></div>
+			</div>
+			<div class="col-6">
+				<span style="width:100%;">Select Music</span><br/>
+				<span style="width:100%; text-align:right;" id="selmus"></span>
+				<div id="mussel"></div>
+			</div>
+			<div class="col-3">
+				<span style="width:100%;">Select Difficulty</span><br/>
+				<span style="width:100%; text-align:right;" id="seldif"></span>
+				<div id="showinfo"></div>
+			</div>
+		</div>
+  	</section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/function/pageloader.js"></script>
+    <script src="/function/version.js"></script>
+    <script src="/function/pattern.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+	<script th:inline="javascript">
+	var SKMid;
+	var SKPat;
+	var SKUid;
+	var SKVer;
+	var SKRate;
+	var SKScore;
+	var SKCombo;
+	var SKFc;
+	var SKRank;
+	var SKSkill;
+	var lv;
+	
+	$("#regrecord").hide();
+	
+	// selection add
+	function versionSelect() {
+		SKUid = /*[[${id}]]*/0;
+		var ext = "";
+		for(var i = 0; i < GDVer.length; i++) {
+			ext += "<a style='width:100%' class='btn btn-primary' href='#'"+
+				" onclick='setVer("+GDVer[i].num+")'>"+GDVer[i].sv+"</a><br/>";
+		}
+		$("#versel").append(ext);
+	}
+	versionSelect();
+	
+	function onMusicSuccess(data) {
+		var json = JSON.parse(data);
+		var ext = "";
+		for(var i = 0; i < json.music.length; i++) {
+			ext += "<a style='width:100%' class='btn btn-primary";
+			
+			if(json.music[i].removed) ext += " disabled";
+			
+			ext += "' href='#' onclick='setMusic("+JSON.stringify(json.music[i])+")'>"+json.music[i].name;
+			
+			if(json.music[i].removed) ext += " <font color='yellow'><b>(removed)</b></font>";
+			
+			ext += "</a><br/>";
+		}
+		$("#mussel").append(ext);
+	}
+	
+	function setVer(ver) {
+		SKVer = ver;
+		$("#mussel").empty();
+		$("#selver").html("<b>"+GDVer[ver-1].full+"</b>");
+		loadJson("/d/musiclist/"+ver, onMusicSuccess);
+	}
+	
+	function setMusic(data) {
+		SKMid = data.id;
+		$("#selmus").html("<b>"+data.name+"</b>");
+		$("#showinfo").empty();
+		var ext = "";
+		
+		for(var i = 0; i < 12; i++) {
+			var diff;
+			switch(i) {
+			case 0: diff = data.gbsc; break;
+			case 1: diff = data.gadv; break;
+			case 2: diff = data.gext; break;
+			case 3: diff = data.gmas; break;
+			case 4: diff = data.bbsc; break;
+			case 5: diff = data.badv; break;
+			case 6: diff = data.bext; break;
+			case 7: diff = data.bmas; break;
+			case 8: diff = data.dbsc; break;
+			case 9: diff = data.dadv; break;
+			case 10: diff = data.dext; break;
+			case 11: diff = data.dmas; break;
+			}
+			ext += "<a style='width:100%' class='btn btn-primary' href='#'"+
+				" onclick='openReg("+(i+1)+", "+diff+")'>"+GDPat[i].pat+"</a><br/>";
+		}
+		$("#showinfo").append(ext);
+	}
+	
+	function openReg(pat, diff) {
+		SKPat = pat;
+		lv = diff;
+		$("#seldif").html("<b>"+GDPat[pat-1].pat+"</b>");
+		$("#regrecord").show();
+	}
+	
+	function submit() {
+		SKRate = $("#rate").val();
+		SKScore = $("#score").val();
+		SKCombo = $("#combo").val();
+		SKFc = $("#fc").prop("checked");
+		
+		if(SKRate < 6300) SKRank = "C";
+		else if(SKRate < 7300) SKRank = "B";
+		else if(SKRate < 8000) SKRank = "A";
+		else if(SKRate < 9500) SKRank = "S";
+		else if(SKRate < 10000) SKRank = "SS";
+		else SKRank = "EXC";
+		
+		$.ajax({
+			url:"/d/manual/${id}",
+			method:"post",
+			data:{
+				userid:SKUid,
+				mid:SKMid,
+				pattern:SKPat,
+				version:SKVer,
+				rate:SKRate,
+				score:SKScore,
+				combo:SKCombo,
+				isfc:SKFc,
+				rank:SKRank,
+				lv:lv
+			},
+			success:function(data){
+				if(data == "200") {
+					alert("Upload complete");
+				}
+			}
+		});
+	}
+
+	var mid = /*[[${mid}]]*/0;
+	var ver = /*[[${ver}]]*/0;
+	
+	function checkInitParam() {
+		if(mid != null && ver != null) {
+			setVer(ver*1);
+			getMusic(mid*1);
+		}
+	}
+	
+	function getMusic(mid) {
+		$.ajax({
+			url:"/d/getmusic/"+mid,
+			success:function(data) {
+				var json = JSON.parse(data);
+				setMusic(json.music);
+			}
+		});
+	}
+	
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	
+	function rateInputCheck() {
+		if($("#rate").val() > 10000) {
+			$("#rate").val(10000);
+		}
+		else if($("#rate").val() < 0) {
+			$("#rate").val(0);
+		}
+	}
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

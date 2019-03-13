@@ -1,0 +1,522 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/ptrank.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+	<link href="/css/custom/table.css" rel="stylesheet">
+	<link href="/css/custom/filter.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+  	<section class="container" id="loading">
+  		<h1>LOADING... Please wait</h1>
+  	</section>
+  	
+  	<section class="container">
+  		<div class="pagetop text-center">
+    		<h2>Pattern Ranking</h2>
+			<span><script>document.write(txtPtrank.desc[lang]);</script></span>
+    	</div>
+  	</section>
+  	
+  	<c:set var="index" value="1" />
+  	
+    <section class="container">
+    	<!-- Filter and Orders -->
+		<div id='filters' class='filters'>
+			<div id='filterShowHide' class='filter-front'>
+				<a href='#' onclick='showfilter(1)'>
+					<h3>Filter Show</h3>
+					<script>document.write(text.other.filter[lang])</script>
+				</a>
+			</div>
+			<form id='filterform'>
+				<div id='filter' style="display:none;">
+					<div class='filter-ver'>
+						<div class='filter-front'>Version</div>
+						<div class='div-table-row filter-back' id='verfilter'></div>
+					</div>
+					<div class='filter-hot'>
+						<div class='filter-front'>Hot/Other</div>
+						<div class='div-table-row filter-back'>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='checkbox' name='hot[]' value='o'>Other</label>
+							</div>
+						</div>
+					</div>
+					<div class='order'>
+						<div class='filter-front'>Order</div>
+						<div class='div-table-row filter-back'>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='titleasc'>Title ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='titledesc'>Title ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='verasc'>Version ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='verdesc'>Version ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gbscasc'>BSC-G ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gbscdesc'>BSC-G ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gadvasc'>ADV-G ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gadvdesc'>ADV-G ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gextasc'>EXT-G ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gextdesc'>EXT-G ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gmasasc'>MAS-G ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='gmasdesc'>MAS-G ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bbscasc'>BSC-B ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bbscdesc'>BSC-B ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='badvasc'>ADV-B ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='badvdesc'>ADV-B ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bextasc'>EXT-B ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bextdesc'>EXT-B ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bmasasc'>MAS-B ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='bmasdesc'>MAS-B ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dbscasc'>BSC-D ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dbscdesc'>BSC-D ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dadvasc'>ADV-D ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dadvdesc'>ADV-D ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dextasc'>EXT-D ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dextdesc'>EXT-D ▼</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dmasasc'>MAS-D ▲</label>
+							</div>
+							<div class='div-table-cell filter-obj'>
+								<label><input type='radio' name='order' value='dmasdesc'>MAS-D ▼</label>
+							</div>
+						</div>
+					</div>
+					<div style="text-align:center;">
+						<div class='div-table-cell filter-obj'>
+							<input class='btn btn-primary' onclick="applyfilterP('ptrank')" type='button' value='Apply'>
+						</div>
+						<div class='div-table-cell filter-obj'>
+							<input class='btn btn-default' onclick='filterReset()' type='button' value='Reset'>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- filter end -->
+    </section>
+    
+    <section class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h4><script>document.write(txtPtrank.ptinfo[lang]);</script></h4>
+					</div>
+					<div class="card-body">
+						<div class="card-text">
+							<div id="musictable">
+								<pt-row v-for="pt in ptlist" v-bind:pt="pt"></pt-row>
+							</div>
+							<div class="row">
+								<div id="pager" class='col-12 text-center'></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/function/skillfilter.js"></script>
+    <script src="/function/filteranalyzer.js"></script>
+    <script src="/function/version.js"></script>
+	<script src="/function/pager.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+
+	<template id='ptlist-template'>
+		<div class='row table-border-bottom' style='padding:10px;'>
+			<div class='col-sm-4 text-center'>
+				<!--자켓-->
+				<img style='width:85px; height:85px;' v-bind:src="pt.jacket" onerror="this.src='/img/music/empty.jpg'" /><br/>
+				<span>
+					<a class='innerhref' v-bind:href="pt.link">
+						{{ pt.name }}
+					</a>
+					<span v-html="pt.removed"></span>
+				</span>
+			</div>
+			<div class='col-sm-8'>
+				<div class='div-table' style='width:100%'>
+					<div class='div-table-header'>
+						<div class='div-table-cell'></div>
+						<div class='div-table-cell'>GUITAR</div>
+						<div class='div-table-cell'>BASS</div>
+						<div class='div-table-cell'>DRUM</div>
+					</div>
+					<!-- component 안에 component 추가 -->
+					<diff-row v-for="diff in pt.difflist" v-bind:diff="diff"></diff-row>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id='diff-template'>
+		<div class='div-table-row'>
+			<div class='div-table-cell'>
+				{{ diff.diff }}
+			</div>
+			<div class='div-table-cell'>
+				<a class='innerhref' v-bind:href="diff.glink">
+					{{ diff.glv }}
+				</a>
+			</div>
+			<div class='div-table-cell'>
+				<a class='innerhref' v-bind:href="diff.blink">
+					{{ diff.blv }}
+				</a>
+			</div>
+			<div class='div-table-cell'>
+				<a class='innerhref' v-bind:href="diff.dlink">
+					{{ diff.dlv }}
+				</a>
+			</div>
+		</div>
+	</template>
+
+	<script th:inline="javascript">
+	Vue.component('pt-row', {
+		template: '#ptlist-template',
+		props: {
+			pt: Object
+		}
+	});
+
+	Vue.component('diff-row', {
+		template: '#diff-template',
+		props: {
+			diff: Object
+		}
+	});
+
+	var hot = /*[[${hot}]]*/'';
+	var ver = /*[[${ver}]]*/'';
+	var order = /*[[${order}]]*/'';
+	var page = /*[[${page}]]*/0;
+
+	var vmPt = new Vue({
+		el: '#musictable',
+		data: {
+			ptlist: []
+		},
+		created: function() {
+			var self = this;
+			$.ajax(addrGen())
+			.done(function(data) {
+				var json = JSON.parse(data);
+				// 유저 로그인 판별
+				var id = -1;
+				if(json.user != null) id = json.user.id;
+
+				for(var i = 0; i < json.musiclist.length; i++) {
+					var obj = {};
+					var music = json.musiclist[i];
+
+					//src
+					obj.jacket = '/img/music/'+music.id+'.jpg';
+					
+					//href
+					if(id != -1) {
+						obj.link = '/music/'+music.id+'/'+id;
+					}
+					else {
+						obj.link = '#no_div';
+					}
+					
+					obj.name = music.name;
+
+					//html
+					switch(music.removed) {
+					case 1:
+						obj.removed = "<br/><span style='color:red'><b>(removed TB)</b></span>";
+						break;
+					case 2:
+						obj.removed = "<br/><span style='color:red'><b>(removed TBRE)</b></span>";
+						break;
+					case 3:
+						obj.removed = "<br/><span style='color:red'><b>(removed MX)</b></span>";
+						break;
+					case 4:
+						obj.removed = "<br/><span style='color:red'><b>(removed EXC)</b></span>";
+						break;
+					default:
+						obj.removed = "";
+						break;
+					}
+
+					obj.difflist = [];
+
+					for(var j = 0; j < 4; j++) {
+						var d = {};
+						if(j == 0) {
+							d.diff = "BASIC";
+							if(music.gbsc != 0) {
+								d.glink = '/ptdetail/'+music.id+'/1/1';
+								d.glv = (music.gbsc/100).toFixed(2);
+							}
+							else {
+								d.glink = '#no_div';
+								d.glv = ''
+							}
+							if(music.bbsc != 0) {
+								d.blink = '/ptdetail/'+music.id+'/5/1';
+								d.blv = (music.bbsc/100).toFixed(2);
+							}
+							else {
+								d.blink = '#no_div';
+								d.blv = ''
+							}
+							if(music.dbsc != 0) {
+								d.dlink = '/ptdetail/'+music.id+'/9/1';
+								d.dlv = (music.dbsc/100).toFixed(2);
+							}
+							else {
+								d.dlink = '#no_div';
+								d.dlv = ''
+							}
+						}
+						else if(j == 1) {
+							d.diff = "ADVANCED";
+							if(music.gadv != 0) {
+								d.glink = '/ptdetail/'+music.id+'/2/1';
+								d.glv = (music.gadv/100).toFixed(2);
+							}
+							else {
+								d.glink = '#no_div';
+								d.glv = ''
+							}
+							if(music.badv != 0) {
+								d.blink = '/ptdetail/'+music.id+'/6/1';
+								d.blv = (music.badv/100).toFixed(2);
+							}
+							else {
+								d.blink = '#no_div';
+								d.blv = ''
+							}
+							if(music.dadv != 0) {
+								d.dlink = '/ptdetail/'+music.id+'/10/1';
+								d.dlv = (music.dadv/100).toFixed(2);
+							}
+							else {
+								d.dlink = '#no_div';
+								d.dlv = ''
+							}
+						}
+						else if(j == 2) {
+							d.diff = "EXTREME";
+							if(music.gext != 0) {
+								d.glink = '/ptdetail/'+music.id+'/3/1';
+								d.glv = (music.gext/100).toFixed(2);
+							}
+							else {
+								d.glink = '#no_div';
+								d.glv = ''
+							}
+							if(music.bext != 0) {
+								d.blink = '/ptdetail/'+music.id+'/7/1';
+								d.blv = (music.bext/100).toFixed(2);
+							}
+							else {
+								d.blink = '#no_div';
+								d.blv = ''
+							}
+							if(music.dext != 0) {
+								d.dlink = '/ptdetail/'+music.id+'/11/1';
+								d.dlv = (music.dext/100).toFixed(2);
+							}
+							else {
+								d.dlink = '#no_div';
+								d.dlv = ''
+							}
+						}
+						else if(j == 3) {
+							d.diff = "MASTER";
+							if(music.gmas != 0) {
+								d.glink = '/ptdetail/'+music.id+'/4/1';
+								d.glv = (music.gmas/100).toFixed(2);
+							}
+							else {
+								d.glink = '#no_div';
+								d.glv = ''
+							}
+							if(music.bmas != 0) {
+								d.blink = '/ptdetail/'+music.id+'/8/1';
+								d.blv = (music.bmas/100).toFixed(2);
+							}
+							else {
+								d.blink = '#no_div';
+								d.blv = ''
+							}
+							if(music.dmas != 0) {
+								d.dlink = '/ptdetail/'+music.id+'/12/1';
+								d.dlv = (music.dmas/100).toFixed(2);
+							}
+							else {
+								d.dlink = '#no_div';
+								d.dlv = ''
+							}
+						}
+						obj.difflist.push(d);
+					}
+					self.ptlist.push(obj);
+				}
+
+				var urlb = '';
+				if(hot != null) {
+					urlb = "?hot="+hot;
+				}
+				$("#pager").append(createPager(page, json.pages, '/ptrank/'+ver+'/'+order+'/', urlb));
+
+				$("#loading").hide();
+			});
+		}
+	});
+	// Filter
+	$("#verfilter").append(generateVerFilter(true));
+	
+	function addrGen() {
+		var url = '/d/ptrank/'+ver+'/'+order+'/'+page;
+		if(hot != null) {
+			url += "?hot="+hot;
+		}
+		return url;
+	}
+	
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	
+	$('.dskill').each(function() {
+		changeColor($(this));
+	});
+	
+	$(function() {
+		var fa = new filteranalyzer();
+		fa.getVersion(ver);
+		fa.getHot(hot);
+		fa.getOrder(order);
+	});
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

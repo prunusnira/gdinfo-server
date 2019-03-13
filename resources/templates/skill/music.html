@@ -1,0 +1,442 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+	<script src="/function/language.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+	<link href="/css/custom/table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+  	<section class="container" id="loading">
+  		<h1>LOADING... Please wait</h1>
+  	</section>
+  	
+  	<section class="container">
+  		<div class="row">
+		  	<div class="col-12 text-center">
+    			<h2>Music</h2>
+			</div>
+    	</div>
+
+  		<div class="div-table">
+			<div class="div-table-row" id="musicinfo">
+				<div class="div-table-cell">
+					<img v-bind:src="musicimg" onerror="this.src='/img/music/empty.jpg'" class='img-fluid' style='max-width:85px;' />
+				</div>
+				<div class="div-table-cell">
+					<span style="font-size:150%">{{ musicname }}</span><br/>
+					<span style="font-size:120%">{{ composer }}</span><br/>
+					<span>{{ version }}</span>
+				</div>
+			</div>
+			<div class="div-table-row">
+				<div class="div-table-cell">
+					<span>Player</span>
+				</div>
+				<div class="div-table-cell" id="userinfo">
+					<span><a id="player" class='innerhref' v-bind:href="proflink">{{ player }}</a></span>
+				</div>
+			</div>
+		</div>
+  	</section>
+  	
+  	<section class="container">
+  		<div id="record">
+			<div class='row text-center'>
+				<div class='col-12'>
+					<h4>Guitar</h4>
+				</div>
+			</div>
+			<music-row v-for="music in glist" v-bind:music="music"></music-row>
+			<hr />
+			<div class='row text-center'>
+				<div class='col-12'>
+					<h4>Bass</h4>
+				</div>
+			</div>
+			<music-row v-for="music in blist" v-bind:music="music"></music-row>
+			<hr />
+			<div class='row text-center'>
+				<div class='col-12'>
+					<h4>Drum</h4>
+				</div>
+			</div>
+			<music-row v-for="music in dlist" v-bind:music="music"></music-row>
+		</div>
+  	</section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/function/version.js"></script>
+	<script src="/function/pattern.js"></script>
+    <script src="/function/towertitle.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+
+	<template id="music-template">
+		<div class='row table-border-bottom'>
+			<!-- 난이도 표시 -->
+			<div class='col-2'>
+				<div class='vert-cent-o'>
+					<div class='vert-cent-m'>
+						<div class='vert-cent-i'>
+							<a class='innerhref' v-bind:href='music.ranklink'>{{ music.diff }}<br/>{{ music.lv }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='col-10'>
+				<!-- 윗줄 -->
+				<div class='row'>
+					<div class='col-sm-6'>
+						<!-- 클리어 횟수 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.playcountTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<span>
+									{{ music.cleartime }} / {{ music.playtime }}
+								</span>
+							</div>
+						</div>
+						<!-- 콤보 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.comboTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<span>
+									{{ music.combo }}
+								</span>
+							</div>
+						</div>
+						<!-- 점수 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.scoreTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<span>
+									{{ music.score }}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='col-sm-6'>
+						<!-- 달성률 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.rateTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<span>
+									{{ music.rate }}%
+								</span>
+							</div>
+						</div>
+						<!-- 스킬 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.skillTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<span>
+									{{ music.skill }}
+								</span>
+							</div>
+						</div>
+						<!-- 랭크 -->
+						<div class='row'>
+							<div class='col-6 text-right'>
+								{{ music.rankTitle }}
+							</div>
+							<div class='col-6 text-left'>
+								<img class='skillrank-img' v-bind:src='music.rank' />
+								<span v-html="music.fc"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 아랫줄 -->
+				<div class='row text-center'>
+					<!-- 클리어미터 -->
+					<div class='col-12'>
+						Clear Meter<br/>
+						<span v-html="music.clearmeter"></span>
+					</div>
+				</div>
+				<div class='row text-center'>
+					<!-- 구작 달성률 -->
+					<div class='col-12'>
+						{{ music.rateTitle }} (OLD)<br/>
+						MX: {{ music.ratemx }}% / TBRE: {{ music.ratetbre }}% / TB: {{ music.ratetb }}%
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script th:inline="javascript">
+	Vue.component('music-row', {
+		template: '#music-template',
+		props: {
+			music: Object
+		}
+	});
+
+	var musicload = false;
+	var infoload = false;
+	var userload = false;
+
+	var mid = /*[[${mid}]]*/0;
+	var uid = /*[[${uid}]]*/0;
+
+	var vmMusic = new Vue({
+		el: '#record',
+		data: {
+			glist: [],
+			blist: [],
+			dlist: []
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/music/'+mid+'/'+uid)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				var music = json.music;
+
+				for(var i = 1; i <= 12; i++) {
+					var obj = {};
+					obj.ranklink = '/ptdetail/'+music.id+'/'+i+'/1';
+
+					var skill = null;
+					switch(i) {
+						case 1: obj.diff = 'BASIC'; obj.lv = (music.gbsc/100).toFixed(2); skill = json.skill.s1; break;
+						case 2: obj.diff = 'ADVANCED'; obj.lv = 
+						(music.gadv/100).toFixed(2); skill = json.skill.s2; break;
+						case 3: obj.diff = 'EXTREME'; obj.lv = (music.gext/100).toFixed(2); skill = json.skill.s3; break;
+						case 4: obj.diff = 'MASTER'; obj.lv = (music.gmas/100).toFixed(2); skill = json.skill.s4; break;
+						case 5: obj.diff = 'BASIC'; obj.lv = (music.bbsc/100).toFixed(2); skill = json.skill.s5; break;
+						case 6: obj.diff = 'ADVANCED'; obj.lv = (music.badv/100).toFixed(2); skill = json.skill.s6; break;
+						case 7: obj.diff = 'EXTREME'; obj.lv = (music.bext/100).toFixed(2); skill = json.skill.s7; break;
+						case 8: obj.diff = 'MASTER'; obj.lv = (music.bmas/100).toFixed(2); skill = json.skill.s8; break;
+						case 9: obj.diff = 'BASIC'; obj.lv = (music.dbsc/100).toFixed(2); skill = json.skill.s9; break;
+						case 10: obj.diff = 'ADVANCED'; obj.lv = (music.dadv/100).toFixed(2); skill = json.skill.s10; break;
+						case 11: obj.diff = 'EXTREME'; obj.lv = (music.dext/100).toFixed(2); skill = json.skill.s11; break;
+						case 12: obj.diff = 'MASTER'; obj.lv = (music.dmas/100).toFixed(2); skill = json.skill.s12; break;
+					}
+
+					if(obj.lv != "0.00" && skill != null) {
+						obj.playcountTitle = text.music.count[lang];
+						obj.cleartime = skill.cleartime;
+						obj.playtime = skill.playtime;
+						obj.comboTitle = text.music.combo[lang];
+						obj.combo = skill.combo;
+						obj.scoreTitle = text.music.score[lang];
+						obj.score = skill.score;
+						obj.rateTitle = text.music.rate[lang];
+						obj.rate = (skill.rate/100).toFixed(2);
+						obj.skillTitle = text.music.skill[lang];
+						obj.skill = (Math.floor(skill.rate*skill.level*20/10000)/100).toFixed(2);
+						obj.rankTitle = text.music.rank[lang];
+
+						switch(skill.rank) {
+							case 'E': obj.rank = '/img/rank/rank_e.png'; break;
+							case 'D': obj.rank = '/img/rank/rank_d.png'; break;
+							case 'C': obj.rank = '/img/rank/rank_c.png'; break;
+							case 'B': obj.rank = '/img/rank/rank_b.png'; break;
+							case 'A': obj.rank = '/img/rank/rank_a.png'; break;
+							case 'S': obj.rank = '/img/rank/rank_s.png'; break;
+							case 'SS':
+							case 'EXC': obj.rank = '/img/rank/rank_ss.png'; break;
+							default: obj.rank = '/img/rank/rank_e.png'; break;
+						}
+
+						if(skill.checkfc == "Y") {
+							if(skill.rank == "EXC")
+								obj.fc = "<img class='skillrank-img' src='/img/rank/exc.png'>";
+							else
+								obj.fc = "<img class='skillrank-img' src='/img/rank/fc.png'>";
+						}
+						else {
+							if(skill.playtime > 0) {
+								obj.fc = '';
+							}
+							else {
+								obj.fc = '';
+							}
+						}
+
+						obj.clearmeter = '';
+						var meter = skill.meter.split('');
+						for(var k = 0; k < meter.length; k++) {
+							if(meter[k] == "0")
+								obj.clearmeter += "<div style='width:0.8vw; max-width:9px; background-color:#81BEF7; float:left'>&nbsp;</div>";
+							else if(meter[k] == "1")
+								obj.clearmeter += "<div style='width:0.8vw; max-width:9px; background-color:#F3F781; float:left'>&nbsp;</div>";
+							else
+								obj.clearmeter += "<div style='width:0.8vw; max-width:9px; background-color:#848484; float:left'>&nbsp;</div>";
+						}
+						
+						obj.ratemx = (skill.ratemx/100).toFixed(2);
+						obj.ratetbre = (skill.ratetbre/100).toFixed(2);
+						obj.ratetb = (skill.ratetb/100).toFixed(2);
+
+						switch(i) {
+						case 1: case 2: case 3: case 4:
+							self.glist.push(obj);
+							break;
+						case 5: case 6: case 7: case 8:
+							self.blist.push(obj);
+							break;
+						case 9: case 10: case 11: case 12:
+							self.dlist.push(obj);
+							break;
+						}
+					}
+					else {
+						obj.playcountTitle = text.music.count[lang];
+						obj.cleartime = 0;
+						obj.playtime = 0;
+						obj.comboTitle = text.music.combo[lang];
+						obj.combo = 0;
+						obj.scoreTitle = text.music.score[lang];
+						obj.score = 0;
+						obj.rateTitle = text.music.rate[lang];
+						obj.rate = '0.00';
+						obj.skillTitle = text.music.skill[lang];
+						obj.skill = '0.00';
+						obj.rankTitle = text.music.rank[lang];
+						obj.rank = '/img/rank/rank_e.png';
+						obj.fc = '';
+						obj.clearmeter = '';
+						obj.ratemx = '0.00';
+						obj.ratetbre = '0.00';
+						obj.ratetb = '0.00';
+					}
+				}
+
+				musicload = true;
+				removeLoading();
+			});
+		}
+	});
+
+	var vmInfo = new Vue({
+		el: '#musicinfo',
+		data: {
+			musicimg: '/img/music/'+mid+'.jpg',
+			musicname: '',
+			composer: '',
+			version: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getmusic/'+mid)
+			.done(function(data) {
+				var json = JSON.parse(data).music;
+				self.musicname = json.name;
+				self.composer = json.composer;
+				self.version = GDVer[json.version - 1].full;
+
+				infoload = true;
+				removeLoading();
+			});
+		}
+	});
+
+	var vmUser = new Vue({
+		el: '#userinfo',
+		data: {
+			player: '',
+			proflink: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getuserid/'+uid)
+			.done(function(data) {
+				var json = JSON.parse(data).mydata;
+				self.player = json.name+" ⓟ";
+				self.proflink = '/profile/'+json.id;
+
+				userload = true;
+				removeLoading();
+			});
+		}
+	});
+
+	function removeLoading() {
+		if(musicload && infoload && userload)
+			$("#loading").hide();
+	}
+
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

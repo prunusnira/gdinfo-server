@@ -1,0 +1,709 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/profile.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+	<link href="/css/custom/profile.css" rel="stylesheet">
+	<link href="/css/custom/skillcolor.css" rel="stylesheet">
+	<link href="/css/custom/skillcolor-rainbow.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+	<div id="opencount" class="crawler" style="display:none;">
+    	<div>
+    		<br/><br/><br/><br/>
+    		<h3><script>document.write(txtProfile.button.setopencount[lang]);</script></h3>
+    		<div class='div-table'>
+	    		<div class='div-table-row'>
+	    			<div class='div-table-cell'>
+	    				<label id="opencntLabelYes"></label>
+		    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    			<label id="opencntLabelNo"></label>
+	    			</div>
+		    	</div>
+		    	<div class='div-table-row'>
+		    		<div class='div-table-cell'>
+		    			<button class='btn btn-primary'
+		    			th:onclick="|submitOpen('${id}')|">Apply
+		    			</button>
+		    			<button class='btn btn-default'
+		    			onclick="closeOpen()">Cancel
+		    			</button>
+		    		</div>
+		    	</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div id="commentset" class="crawler" style="display:none;">
+    	<div>
+    		<br/><br/><br/><br/>
+    		<h3><script>document.write(txtProfile.button.changecomment[lang]);</script></h3>
+    		<div class="div-table">
+    			<div class="div-table-row">
+    				<div class="div-table-cell">
+	    				<label style="color:black" for="newcomment">
+	    					<script>document.write(txtProfile.changecomment.desc[lang]);</script>
+	    				</label>
+	    				<input class="form-control" type="text" name="newcomment">
+    				</div>
+    			</div>
+	    		<div class="div-table-row">
+	    			<div class="div-table-cell">
+	    				<button class='btn btn-primary' th:onclick="|submitComment('${id}')|">Apply</button>
+	    				<button class='btn btn-default' onclick="closeComment()">Cancel</button>
+	    			</div>
+	    		</div>
+	    	</div>
+    	</div>
+    </div>
+    
+    <section class="container" id="loading">
+		<div class="text-center">
+			<h1>LOADING... Please wait</h1>
+		</div>
+	</section>
+    
+    <section class="container">
+    	<div class="text-center">
+    		<h2>Profile</h2>
+    		<span>
+	    		<script>document.write(txtProfile.addr[lang]);</script><br/>
+		    	<a class="innerhref" href="#no_div" th:onclick="|copyToClipboard('http://gitadora.info/profile/${id}')|">http://gitadora.info/profile/[[${id}]]</a>
+	    	</span>
+    	</div>
+    </section>
+    
+    <section class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card text-center">
+					<div class="card-header">
+						<h3><script>document.write(txtProfile.userinfo.title[lang]);</script></h3>
+					</div>
+					<div class="card-body" id="profilescr">
+						<div class="row">
+							<div class="col-6">
+								<div class="row text-center">
+									<div id="usertitle" class="col-12">({{ usertitle }})</div>
+									<div id="username" class="col-12">
+										<span id="usertowertitle" v-html="usertowertitle"></span>
+										<span class="title">{{ username }}</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="row text-center">
+									<div class="col-12">{{ commentTitle }}</div>
+									<div id="comment" class="col-12">{{ comment }}</div>
+								</div>
+							</div>
+						</div>
+						<hr class="col-12">
+						<div class="row">
+							<div class="col-6 text-center">GF</div>
+							<div class="col-6 text-center">DM</div>
+						</div>
+						<div class="row">
+							<div class="col-3 text-center">
+								<div style="max-width: 500px;" id="gskillgraph"></div>
+							</div>
+							<div class="col-3 text-center">
+								<div class="vert-cent-o"><div class="vert-cent-m">
+									<div class="blackandwhite prof-oldver">
+										MX: <span class="dskill" id="gskillmx">{{ gskillmx }}</span><br/>
+										TBRE: <span class="dskill" id="gskilltbre">{{ gskilltbre }}</span><br/>
+										TB: <span class="dskill" id="gskilltb">{{ gskilltb }}</span><br/>
+									</div>
+								</div></div>
+							</div>
+							<div class="col-3" style="text-align:center">
+								<div style="max-width: 500px;" id="dskillgraph"></div>
+							</div>
+							<div class="col-3 text-center">
+								<div class="vert-cent-o"><div class="vert-cent-m">
+									<div class="blackandwhite prof-oldver">
+										MX: <span class="dskill" id="dskillmx">{{ dskillmx }}</span><br/>
+										TBRE: <span class="dskill" id="dskilltbre">{{ dskilltbre }}</span><br/>
+										TB: <span class="dskill" id="dskilltb">{{ dskilltb }}</span><br/>
+									</div>
+								</div></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6" style="text-align:center">
+								<div id="grecentgraph">
+								</div>
+							</div>
+							<div class="col-6" style="text-align:center">
+								<div id="drecentgraph">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+    
+    <section class="container">
+    	<div class="row text-center" id="btnGroups" v-html="btnGroups"></div>
+    </section>
+    
+    <section class="container">
+    	<div id="targetTable">
+			<div class="row">
+				<div class="col-12">
+					<div class="card text-center">
+						<div class="card-header">
+							<h3>{{ tableHeader }}</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-8">
+									<table class="table prof-table" style="width:100%;">
+										<tr>
+											<th>#</th>
+											<th>GuitarFreaks</th>
+											<th>DrumMania</th>
+										</tr>
+										<tr>
+											<th>{{ thSkill }}</th>
+											<td id="tableGskill">{{ tdGskill }}</td>
+											<td id="tableDskill">{{ tdDskill }}</td>
+										</tr>
+										<tr>
+											<th>{{ thClear }}</th>
+											<td id="tableGclear">{{ tdGclear }}</td>
+											<td id="tableDclear">{{ tdDclear }}</td>
+										</tr>
+										<tr>
+											<th>{{ thFc }}</th>
+											<td id="tableGfc">{{ tdGfc }}</td>
+											<td id="tableDfc">{{ tdDfc }}</td>
+										</tr>
+										<tr>
+											<th>{{ thExc }}</th>
+											<td id="tableGexc">{{ tdGexc }}</td>
+											<td id="tableDexc">{{ tdDexc }}</td>
+										</tr>
+										<tr>
+											<th id="tableAcnt">{{ thCount }}<br/>{{ thTotalCnt }}</th>
+											<td id="tableGcnt">{{ tdGcnt }}</td>
+											<td id="tableDcnt">{{ tdDcnt }}</td>
+										</tr>
+									</table>
+									<span class="prof-table" v-html='countdesc'></span><br/>
+									<div class="row" id="reset" v-html="reset"></div>
+								</div>
+								<div class='col-sm-4'>
+									<img style="width:100%;"
+											th:src="|/board/${id}.png|" onerror="this.src='/img/music/empty.jpg'" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/raphael.min.js"></script>
+    <script src="/function/skillcolor.js"></script>
+    <script src="/function/skillraphael.js"></script>
+    <script src="/function/rivalmanage.js"></script>
+    <script src="/function/towertitle.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+	<script th:inline="javascript">
+	var loadProf = false;
+	var loadTable = false;
+	var loadBtn = false;
+	var loadGraph = false;
+
+	var id = /*[[${id}]]*/0;
+	var token;
+
+	var vmUserProfile = new Vue({
+		el: "#profilescr",
+		data: {
+			// 상단 프로필 정보
+			usertitle: '',
+			username: '',
+			usertowertitle: '',
+			commentTitle: txtProfile.table1.comment[lang],
+			comment: '',
+			gskillmx: 0,
+			gskilltbre: 0,
+			gskilltb: 0,
+			dskillmx: 0,
+			dskilltbre: 0,
+			dskilltb: 0,
+			grecentgraph: '',
+			drecentgraph: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax("/d/getuserid/"+id)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				if(json.mydata.title == '') {
+					self.usertitle = "No Title";
+				}
+				else {
+					self.usertitle = json.mydata.title;
+				}
+				if(json.mydata.name == '') {
+					self.username = "(No Name)";
+				}
+				else {
+					self.username = json.mydata.name;
+				}
+				self.comment = json.mydata.comment;
+				self.gskillmx = json.mydata.gskillmx;
+				self.gskilltbre = json.mydata.gskilltbre;
+				self.gskilltb = json.mydata.gskilltb;
+				self.dskillmx = json.mydata.dskillmx;
+				self.dskilltbre = json.mydata.dskilltbre;
+				self.dskilltb = json.mydata.dskilltb;
+
+				if(json.mydata.titletower != "") {
+					self.usertowertitle = '<img class="towertitle50" src="/img/title/'+json.mydata.titletower+'.png" />';
+				}
+
+				updateSkillGraph(json.mydata.gskill, json.mydata.dskill);
+			});
+		},
+		mounted: function() {
+			loadProf = true;
+			checkLoading();
+		},
+		updated: function() {
+			updateColor();
+		}
+	});
+
+	var vmTable = new Vue({
+		el: '#targetTable',
+		data: {
+			// 테이블 정리
+			tableHeader: txtProfile.detail[lang],
+			thSkill: txtProfile.detailed.s[lang],
+			tdGskill: '',
+			tdDskill: '',
+			thClear: txtProfile.detailed.clv[lang],
+			tdGclear: '',
+			tdDclear: '',
+			thFc: txtProfile.detailed.flv[lang],
+			tdGfc: '',
+			tdDfc: '',
+			thExc: txtProfile.detailed.elv[lang],
+			tdGexc: '',
+			tdDexc: '',
+			thCount: txtProfile.detailed.count[lang],
+			thTotalCnt: '',
+			tdGcnt: '',
+			tdDcnt: '',
+			countdesc: txtProfile.detailed.countdesc[lang],
+			reset: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getuserid/'+id)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				self.tdGskill = json.mydata.gskill+' ('+json.mydata.gskillall+')';
+				self.tdDskill = json.mydata.dskill+' ('+json.mydata.dskillall+')';
+				self.tdGclear = json.mydata.gclearlv+' ('+json.mydata.gclearnum+')';
+				self.tdDclear = json.mydata.dclearlv+' ('+json.mydata.dclearnum+')';
+				self.tdGfc = json.mydata.gfclv+' ('+json.mydata.gfcnum+')';
+				self.tdDfc = json.mydata.dfclv+' ('+json.mydata.dfcnum+')';
+				self.tdGexc = json.mydata.gexclv+' ('+json.mydata.gexcnum+')';
+				self.tdDexc = json.mydata.dexclv+' ('+json.mydata.dexcnum+')';
+
+				if(json.mydata.opencount == "Y" || json.token == json.mydata.token) {
+					self.thTotalCnt = json.mydata.countgf + json.mydata.countdm;
+					self.tdGcnt = json.mydata.countgf;
+					self.tdDcnt = json.mydata.countdm;
+				}
+				else {
+					self.tdGcnt = 'Not Opened';
+					self.tdDcnt = 'Not Opened';
+				}
+				
+				if(json.token == json.mydata.token) {
+					var btnReset = document.createElement("a");
+					btnReset.className = "btn btn-primary";
+					btnReset.setAttribute("onclick", "reset()");
+					btnReset.href = "#no_div";
+					btnReset.textContent = txtProfile.button.reset[lang];
+					self.reset = btnReset.outerHTML;
+				}
+
+				// opencount 관련 추가 설정
+				if(json.mydata.opencount == "Y") {
+					$("#opencntLabelYes").append("<input type='radio' name='opencount' value='Y' checked>"+txtProfile.opencount.yes[lang]);
+					$("#opencntLabelNo").append("<input type='radio' name='opencount' value='N'>"+txtProfile.opencount.no[lang]);
+				}
+				else {
+					$("#opencntLabelYes").append("<input type='radio' name='opencount' value='Y'>"+txtProfile.opencount.yes[lang]);
+					$("#opencntLabelNo").append("<input type='radio' name='opencount' value='N' checked>"+txtProfile.opencount.no[lang]);
+				}
+			});
+		},
+		mounted: function() {
+			loadTable = true;
+			checkLoading();
+		}
+	});
+
+	var vmBtn = new Vue({
+		el: '#btnGroups',
+		data: {
+			btnGroups: ''
+		},
+		created: function() {
+			var self = this;
+
+			$.ajax('/d/getuserid/'+id)
+			.done(function(data) {
+				var json = JSON.parse(data);
+
+				// button
+				var btnGroup = document.createElement("div");
+				var btnGroup2 = document.createElement("div");
+				var btnGroup3 = document.createElement("div");
+				var btnGroup4 = document.createElement("div");
+				
+				// 로그인유저이고 본인인 경우
+				if(json.token != null && json.token == json.mydata.token) {
+					btnGroup.className = "col-12 btn-group btn-group-justified";
+					btnGroup.setAttribute("role", "group");
+					btnGroup2.className = "col-12 btn-group btn-group-justified";
+					btnGroup2.setAttribute("role", "group");
+					btnGroup3.className = "col-12 btn-group btn-group-justified";
+					btnGroup3.setAttribute("role", "group");
+					
+					var btnChkpskill = document.createElement("a");
+					btnChkpskill.style.width = "100%";
+					btnChkpskill.className = "btn btn-primary";
+					btnChkpskill.href = "/skill/2/"+json.mydata.id+"/gf/1/skilldesc";
+					btnChkpskill.textContent = txtProfile.button.chkpskill[lang];
+					
+					var btnOpencount = document.createElement("a");
+					btnOpencount.style.width = "100%";
+					btnOpencount.className = "btn btn-primary";
+					btnOpencount.href = "#no_div";
+					btnOpencount.setAttribute("onclick", "setOpenCount('"+json.mydata.opencount+"')");
+					btnOpencount.textContent = txtProfile.button.setopencount[lang];
+					
+					var btnComment = document.createElement("a");
+					btnComment.style.width = "100%";
+					btnComment.className = "btn btn-primary"
+					btnComment.href = "#no_div";
+					btnComment.setAttribute("onclick", "setComment()");
+					btnComment.textContent = txtProfile.button.changecomment[lang];
+					
+					var btnMybest = document.createElement("a");
+					btnMybest.style.width = "100%";
+					btnMybest.className = "btn btn-primary";
+					btnMybest.href = "/mybest/"+id;
+					btnMybest.textContent = txtProfile.button.mybest[lang];
+
+					var btnTowerUpdate = document.createElement('a');
+					btnTowerUpdate.style.width = '100%';
+					btnTowerUpdate.className = 'btn btn-primary';
+					btnTowerUpdate.href = '#no_div';
+					btnTowerUpdate.setAttribute('onclick', 'towerUpdate()');
+					btnTowerUpdate.textContent = txtProfile.button.towerupdate[lang];
+
+					var btnTowerStatus = document.createElement('a');
+					btnTowerStatus.style.width = '100%';
+					btnTowerStatus.className = 'btn btn-primary';
+					btnTowerStatus.href = '/profile/towerstatus/'+id;
+					btnTowerStatus.textContent = txtProfile.button.towerstatus[lang];
+					
+					btnGroup.appendChild(btnChkpskill);
+					btnGroup.appendChild(btnOpencount);
+					btnGroup2.appendChild(btnComment);
+					btnGroup2.appendChild(btnMybest);
+					btnGroup3.appendChild(btnTowerUpdate);
+					btnGroup3.appendChild(btnTowerStatus);
+				}
+				else {
+					btnGroup.className = "col-12 btn-group btn-group-justified";
+					btnGroup.setAttribute("role", "group");
+					btnGroup2.className = "col-12 btn-group btn-group-justified";
+					btnGroup2.setAttribute("role", "group");
+					btnGroup3.className = "col-12 btn-group btn-group-justified";
+					btnGroup3.setAttribute("role", "group");
+					btnGroup4.className = "col-12 btn-group btn-group-justified";
+					btnGroup4.setAttribute("role", "group");
+					
+					var btnChkpskill = document.createElement("a");
+					btnChkpskill.style.width = "100%";
+					btnChkpskill.className = "btn btn-primary";
+					btnChkpskill.href = "/skill/2/"+json.mydata.id+"/gf/1/skilldesc";
+					btnChkpskill.textContent = txtProfile.button.chkpskill[lang];
+					
+					var btnClearTable = document.createElement("a");
+					btnClearTable.style.width = "100%";
+					btnClearTable.className = "btn btn-primary";
+					btnClearTable.href = "/cleartable/"+json.mydata.id;
+					btnClearTable.setAttribute("target", "_blank");
+					btnClearTable.textContent = txtProfile.button.clearRankTable[lang];
+					
+					var btnMybest = document.createElement("a");
+					btnMybest.style.width = "100%";
+					btnMybest.className = "btn btn-primary";
+					btnMybest.href = "/mybest/"+id;
+					btnMybest.textContent = txtProfile.button.mybest[lang];
+					
+					btnGroup.appendChild(btnChkpskill);
+					btnGroup2.appendChild(btnClearTable);
+					btnGroup3.appendChild(btnMybest);
+					
+					var btnCompare = document.createElement("a");
+					btnCompare.style.width = "100%";
+					
+					var iconCompare = document.createElement("span");
+					iconCompare.className = "glyphicon, glyphicon-random";
+					iconCompare.setAttribute("aria-hidden", "true");
+					
+					btnCompare.appendChild(iconCompare);
+					btnCompare.appendChild(document.createTextNode(txtProfile.button.compare[lang]));
+					
+					var btnRivalGF = document.createElement("a");
+					btnRivalGF.style.width = "100%";
+					btnRivalGF.textContent = "GF "+txtProfile.button.rivaladd[lang];
+					btnRivalGF.href = "#no_div";
+					
+					var btnRivalDM = document.createElement("a");
+					btnRivalDM.style.width = "100%";
+					btnRivalDM.textContent = "DM "+txtProfile.button.rivaladd[lang];
+					btnRivalDM.href = "#no_div";
+					
+					if(json.token == null) {
+						btnCompare.href = "#no_div";
+						btnCompare.className = "btn btn-primary disabled";
+						btnRivalGF.className = "btn btn-primary disabled";
+						btnRivalDM.className = "btn btn-primary disabled";
+					}
+					else {
+						btnCompare.href = "/comparison/"+json.mydata.id+"/gf/1";
+						btnCompare.className = "btn btn-primary";
+						
+						btnRivalGF.setAttribute("onclick", "addAsRival('gf', '"+json.mydata.id+"')");
+						btnRivalGF.className = "btn btn-primary";
+						
+						btnRivalDM.setAttribute("onclick", "addAsRival('dm', '"+json.mydata.id+"')");
+						btnRivalDM.className = "btn btn-primary";
+					}
+					
+					btnGroup.appendChild(btnCompare);
+					btnGroup2.appendChild(btnRivalGF);
+					btnGroup3.appendChild(btnRivalDM);
+
+					var btnTowerStatus = document.createElement('a');
+					btnTowerStatus.style.width = '100%';
+					btnTowerStatus.className = 'btn btn-primary';
+					btnTowerStatus.href = '/profile/towerstatus/'+id;
+					btnTowerStatus.textContent = txtProfile.button.towerstatus[lang];
+
+					btnGroup4.appendChild(btnTowerStatus);
+				}
+				
+				self.btnGroups += btnGroup.outerHTML;
+				self.btnGroups += btnGroup2.outerHTML;
+				self.btnGroups += btnGroup3.outerHTML;
+				self.btnGroups += btnGroup4.outerHTML;
+			});
+		},
+		mounted: function() {
+			loadBtn = true;
+			checkLoading();
+		}
+	});
+
+	function updateSkillRecord() {
+		$.ajax('/d/skillrecord/'+id)
+		.done(function(data) {
+			var record = JSON.parse(data).record;
+
+			var length = record.length;
+			var datearr = new Array(length);
+			var garr = new Array(length);
+			var darr = new Array(length);
+			
+			for(var i = 0; i < length; i++) {
+				datearr[i] = record[i].date;
+				garr[i] = record[i].gskill;
+				darr[i] = record[i].dskill;
+			}
+
+			var winsize = window.innerWidth / 3;
+			if(winsize < 768) winsize = window.innerWidth;
+			
+			var div = $("#grecentgraph");
+			var divwidth = div.width();
+			var divheight = $("#gskillgraph").height();
+			
+			getRecordGraph(winsize, 'grecentgraph', datearr, garr, divwidth, divheight / 2);
+			getRecordGraph(winsize, 'drecentgraph', datearr, darr, divwidth, divheight / 2);
+
+			loadGraph = true;
+			checkLoading();
+		});
+	}
+	
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	
+	function copyToClipboard(element) {
+		var $temp = $("<input>");
+		$("body").append($temp);
+		$temp.val(element).select();
+		document.execCommand("copy");
+		$temp.remove();
+	}
+	
+	// Functions for open count
+	function setOpenCount() {
+		$("#opencount").show();
+	}
+	
+	function closeOpen() {
+		$("#opencount").hide();
+	}
+	
+	function submitOpen(id) {
+		var open = $("input[name='opencount']:checked").val();
+		location.href = "/d/setopencount?open="+open+"&id="+id;
+	}
+	
+	// Functions for comment
+	function setComment() {
+		$("#commentset").show();
+	}
+	
+	function closeComment() {
+		$("#commentset").hide();
+	}
+	
+	function submitComment(id) {
+		var comment = $("input[name='newcomment']").val();
+		location.href = "/d/setcomment?val="+comment+"&id="+id;
+	}
+
+	function updateColor() {
+		$('.gskill').each(function() {
+			changeColor($(this));
+		});
+		$('.dskill').each(function() {
+			changeColor($(this));
+		});
+	}
+	
+	function updateSkillGraph(gskill, dskill) {
+		var winsize = window.innerWidth / 5;
+		if(winsize > 200) winsize = 200;
+		getSkillGraph(winsize, 'gskillgraph', gskill);
+		getSkillGraph(winsize, 'dskillgraph', dskill);
+	}
+	
+	function reset() {
+		$form = $("<form method='post' action='/reset'></form>");
+		$form.append("<input type='hidden' name='id' value='"+id+"'>");
+		$("body").append($form);
+		$form.submit();
+	}
+
+	function checkLoading() {
+		if(loadBtn && loadGraph && loadProf && loadTable)
+			$("#loading").hide();
+	}
+
+	$(function() {
+		updateSkillRecord();
+	});
+
+	// update tower info
+	function towerUpdate() {
+		if(confirm(txtProfile.towerupdate.alert[lang])) {
+			$.ajax('/d/profile/towerupdate/'+id)
+			.done(function(data) {
+				alert(txtProfile.towerupdate.done[lang]);
+			});
+		}
+	}
+	
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

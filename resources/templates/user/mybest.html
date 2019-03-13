@@ -1,0 +1,354 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/mybest.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+	<section class="container" id="loading">
+		<h1>LOADING... Please wait</h1>
+	</section>
+	
+	<section class="container">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h3>Most played pattern and music</h3>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-12">
+				<a style="width:100%;" class="btn btn-warning" href="#no_div" onclick="scrShot('#scrshot', '${id}_mybest.jpg')">
+					<script>document.write(txtMyb.button.scrshot[lang]);</script>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12" style="text-align:center">
+				<span><script>document.write(txtMyb.desc[lang]);</script></span>
+			</div>
+		</div>
+		<div class="row" id="scrshot">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header text-center" id="userinfo">
+						<h4>Most Played List</h4>
+						<span>Player: <span v-html="usertowertitle"></span>{{ username }}</span>
+					</div>
+					<div class="card-body">
+						<div class="card-title">
+							<div class="row">
+								<div class="col-12 btn-group btn-group-justified" role='group'>
+									<a style='width:100%' href='#no_div' class="btn btn-primary" onclick="changeDiv(0)">
+										<script>document.write(txtMyb.button.music[lang]);</script>
+									</a>
+									<a style='width:100%' href='#no_div' class="btn btn-primary" onclick="changeDiv(1)">
+										<script>document.write(txtMyb.button.pt[lang]);</script>
+									</a>
+								</div>
+								<div class="col-12 btn-group btn-group-justified" role='group'>
+									<a style='width:100%' href='#no_div' class="btn btn-primary" onclick="changeDiv(2)">
+										<script>document.write(txtMyb.button.gf[lang]);</script>
+									</a>
+									<a style='width:100%' href='#no_div' class="btn btn-primary" onclick="changeDiv(3)">
+										<script>document.write(txtMyb.button.dm[lang]);</script>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="card-text">
+							<div class="row">
+								<div class="col-12" id="mybest">
+									<div class="row" id="mybestp" style="display:none">
+										<mybest-div v-for="myb in myplist" v-bind:myb="myb" :key="myb.key"></mybest-div>
+									</div>
+									<div class="row" id="mybestpg" style="display:none">
+										<mybest-div v-for="myb in myglist" v-bind:myb="myb" :key="myb.key"></mybest-div>
+									</div>
+									<div class="row" id="mybestpd" style="display:none">
+										<mybest-div v-for="myb in mydlist" v-bind:myb="myb" :key="myb.key"></mybest-div>
+									</div>
+									<div class="row" id="mybestm">
+										<mybest-div v-for="myb in mymlist" v-bind:myb="myb" :key="myb.key"></mybest-div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/html2canvas.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/function/capture.js"></script>
+    <script src="/function/pattern.js"></script>
+    <script src="/function/towertitle.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+
+	<template id="mybest-template">
+		<div class='col-4 col-sm-3 text-center' style='height: 200px;'>
+			<span style='display:block; margin:0 auto'>
+				<img class='listimg-skill' v-bind:src="myb.jacket" onerror='this.src="/img/music/empty.jpg"' /><br/>
+				<span v-html="myb.pattern"></span>
+			</span>
+			<span style="font-size: 80%;">
+				{{ myb.number }}. {{ myb.name }}<br/>
+				{{ myb.count }}{{ myb.countstr }}
+			</span>
+		</div>
+	</template>
+
+	<script th:inline="javascript">
+	Vue.component('mybest-div', {
+		template: '#mybest-template',
+		props: {
+			myb: Object
+		}
+	});
+
+	var id = /*[[${id}]]*/0;
+
+	var vmMybest = new Vue({
+		el: '#mybest',
+		data: {
+			myplist: [],
+			myglist: [],
+			mydlist: [],
+			mymlist: []
+		},
+		created: function() {
+			var self = this;
+
+			$.ajax('/d/mybest/'+id)
+			.done(function(data) {
+				var json = JSON.parse(data);
+
+				for(var i = 0; i < json.mybestp.length; i++) {
+					var mypdata = {
+						key: 'p'+i,
+						number: i+1,
+						jacket: '/img/music/'+json.mybestp[i].id+'.jpg',
+						name: json.mybestp[i].name,
+						pattern: "",
+						count: json.mybestp[i].playtime,
+						countstr: txtMyb.table.time[lang]
+					};
+					mypdata.pattern = "<img style='width:90px' src='"+getPatternImg600(json.mybestp[i].patterncode)+"'/>";
+					self.myplist.push(mypdata);
+				}
+
+				for(var i = 0; i < json.mybestpg.length; i++) {
+					var mygdata = {
+						key: 'g'+i,
+						number: i+1,
+						jacket: '/img/music/'+json.mybestpg[i].id+'.jpg',
+						name: json.mybestpg[i].name,
+						pattern: "",
+						count: json.mybestpg[i].playtime,
+						countstr: txtMyb.table.time[lang]
+					};
+					mygdata.pattern = "<img style='width:90px' src='"+getPatternImg600(json.mybestpg[i].patterncode)+"'/>";
+					self.myglist.push(mygdata);
+				}
+				
+				for(var i = 0; i < json.mybestpd.length; i++) {
+					var myddata = {
+						key: 'd'+i,
+						number: i+1,
+						jacket: '/img/music/'+json.mybestpd[i].id+'.jpg',
+						name: json.mybestpd[i].name,
+						pattern: "",
+						count: json.mybestpd[i].playtime,
+						countstr: txtMyb.table.time[lang]
+					};
+					myddata.pattern = "<img style='width:90px' src='"+getPatternImg600(json.mybestpd[i].patterncode)+"'/>";
+					self.mydlist.push(myddata);
+				}
+				
+				for(var i = 0; i < json.mybestm.length; i++) {
+					var mymdata = {
+						key: 'm'+i,
+						number: i+1,
+						jacket: '/img/music/'+json.mybestm[i].id+'.jpg',
+						name: json.mybestm[i].name,
+						pattern: '',
+						count: json.mybestm[i].playtime,
+						countstr: txtMyb.table.time[lang]
+					};
+					self.mymlist.push(mymdata);
+				}
+
+				$("#loading").hide();
+			});
+		}
+	});
+
+	var vmUser = new Vue({
+		el: '#userinfo',
+		data: {
+			usertowertitle: '',
+			username: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getuserid/'+id)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				if(json.mydata.titletower != "") {
+					self.usertowertitle = "<img class='towertitle35' src='/img/title/"+json.mydata.titletower+".png' />";
+				}
+				self.username = json.mydata.name;
+			});
+		}
+	});
+
+	// parse JSON
+	function onSuccess(data) {
+		var json = JSON.parse(data);
+		update("mybestp", json.mybestp);
+		update("mybestpg", json.mybestpg);
+		update("mybestpd", json.mybestpd);
+		update("mybestm", json.mybestm);
+		updateProfile(json.p);
+		$("#loading").hide();
+	}
+	
+	//loadJson("/d/mybest/${id}", onSuccess);
+	
+	function updateProfile(data) {
+		// username
+		var towertitlesp = document.createElement("span");
+		// 칭호 표시
+		getTowerTitle(data.id, function(result) {
+			if(result != "") {
+				var timg = document.createElement("img");
+				timg.setAttribute("class", "towertitle35");
+				timg.src = "/img/title/"+result+".png";
+				towertitlesp.appendChild(timg);
+			}
+		});
+		$("#username").append(towertitlesp);
+		$("#username").append(data.name);
+	}
+	
+	function update(name, data) {
+		var ext = "";
+		for(var i = 0; i < data.length; i++) {
+			ext +=
+				"<div class='col-4 col-sm-3 text-center' style='height: 175px;'>"+
+					"<span class='listimg-skill' style='display:block; margin:0 auto'>"+
+						"<img src='/img/music/"+data[i].id+".jpg' onerror='this.src=\'/img/music/empty.jpg\'' />"+
+					"</span>"+
+					(i+1)+"."+" "+data[i].name+"<br/>";
+					
+			if(name != "mybestm") {
+				ext += GDPat[data[i].pattern-1].pat+"<br/>";
+			}
+				ext += data[i].count+txtMyb.table.time[lang]+"</div>";
+		}
+		$("#"+name).append(ext);
+	}
+	
+	// signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	
+	function changeDiv(type) {
+		if(type == 0) {
+			$("#mybestm").show();
+			$("#mybestp").hide();
+			$("#mybestpg").hide();
+			$("#mybestpd").hide();
+		}
+		else if(type == 1) {
+			$("#mybestm").hide();
+			$("#mybestp").show();
+			$("#mybestpg").hide();
+			$("#mybestpd").hide();
+		}
+		else if(type == 2) {
+			$("#mybestm").hide();
+			$("#mybestp").hide();
+			$("#mybestpg").show();
+			$("#mybestpd").hide();
+		}
+		else if(type == 3) {
+			$("#mybestm").hide();
+			$("#mybestp").hide();
+			$("#mybestpg").hide();
+			$("#mybestpd").show();
+		}
+	}
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

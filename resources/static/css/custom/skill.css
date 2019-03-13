@@ -1,0 +1,47 @@
+/*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/
+ .skillupper {
+    font-size: 75%;
+}
+
+.skilltable {
+    font-size: 80%;
+}
+
+.skill-float-menu {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	height: 50px;
+    z-index: 998;
+    border-radius: 50%;
+}
+
+.sidenav-r {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    background-color: #ffaaaa;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav-r .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}

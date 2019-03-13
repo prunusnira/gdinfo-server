@@ -1,0 +1,235 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+	<script src="/function/language.js"></script>
+    <title>GITADORA Info - PIU Score Tool</title>
+
+	<link href="/css/jquery-ui.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+	<link href="/css/piu-custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+	<section class="container" id="loading">
+		<div class="text-center">
+			<h1>LOADING... Please wait</h1>
+		</div>
+	</section>
+    
+    <section class="container">
+    	<div class="text-center pagetop">
+    		<h2>Pump It Up XX</h2>
+    		<span>Score management tool</span>
+    	</div>
+    </section>
+    
+    <section class="container">
+    	<div class="row">
+    		<div class="col-12" id="howto"></div>
+    	</div>
+    </section>
+    
+    <section class="container text-center">
+    	<div class="row">
+    		<div class="col-12">
+    			<a href="#no_div" class="btn btn-primary" onclick="newUser()">New User</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="loadUser()">Load File</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="saveUser()">Save File</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="scrShot('#targetTable', 'PIUClearTable.jpg')">Take Screenshot</a>
+    		</div>
+    		<div class="col-12" id="seldiffSingle">
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '13')">S13</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '14')">S14</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '15')">S15</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '16')">S16</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '17')">S17</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '18')">S18</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '19')">S19</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '20')">S20</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '21')">S21</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '22')">S22</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '23')">S23</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '24')">S24 over</a>
+    		</div>
+    		<div class="col-12" id="seldiffDouble">
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '13')">D13</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '14')">D14</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '15')">D15</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '16')">D16</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '17')">D17</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '18')">D18</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '19')">D19</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '20')">D20</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '21')">D21</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '22')">D22</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '23')">D23</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '24')">D24</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '25')">D25 over</a>
+    		</div>
+    	</div>
+    </section>
+    
+    <section class="container piu-namebg" id="userinfo">
+    	<div class="row">
+    		<div class="col-6 text-right">
+    			User Name
+    		</div>
+    		<div class="col-6 text-left" id="username">
+    		</div>
+    	</div>
+    	
+    	<div class="row">
+    		<div class="col-6 text-right">
+    			PIU XX Level
+    		</div>
+    		<div class="col-6 text-left" id="userlv">
+    		</div>
+    	</div>
+    	
+    	<div class="row">
+    		<div class="col-12 text-center">
+    			<a href="#no_div" class="btn btn-primary" onclick="editUser()">Edit User</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="updatePatternMultiple()">Update Checked Patterns</a>
+    		</div>
+    	</div>
+    </section>
+    
+    <section class="container text-center" id="targetTable">
+    	<div class="row">
+    		<div class="col-12">
+    			<h3>Pump It Up XX</h3>
+    		</div>
+    		<div class="col-12">
+    			<span id="type"></span> Lv.<span id="lv"></span> Clear Table
+    		</div>
+    		<div class="col-12" id="username2"></div>
+    		
+    		<div class="col-12" id="username2">
+    			** <b><font color="lightblue">Blue A</font></b> = Break On, <b><font color="green">Green A</font></b> = Break Off
+    		</div>
+    	</div>
+    	
+    	<div class="row div-lineadd" id="divov" style="background-color: #ff4d4d">
+    		<div class="col-sm-1 piu-left" id="cat5"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvover"></div>
+    		</div>
+    	</div>
+    	
+    	<div class="row div-lineadd" id="divhi" style="background-color: #4d7bff">
+    		<div class="col-sm-1 piu-left" id="cat4"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvhigh"></div>
+    		</div>
+    	</div>
+    	
+    	<div class="row div-lineadd" id="divnr" style="background-color: #079b0e">
+    		<div class="col-sm-1 piu-left" id="cat3"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvnorm"></div>
+    		</div>
+    	</div>
+    	
+    	<div class="row div-lineadd" id="divlo" style="background-color: #d5ce14">
+    		<div class="col-sm-1 piu-left" id="cat2"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvlow"></div>
+    		</div>
+    	</div>
+    	
+    	<div class="row div-lineadd" id="divbe" style="background-color: #4dcfff">
+    		<div class="col-sm-1 piu-left" id="cat1"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvbelow"></div>
+    		</div>
+    	</div>
+    	
+    	<div class="row" id="divrn" style="background-color: #d57814">
+    		<div class="col-sm-1 piu-left" id="cat0"></div>
+    		<div class="col-sm-11">
+    			<div class="row" id="lvrand"></div>
+    		</div>
+    	</div>
+    </section>
+    
+    <div id="newuserDialog" title="Register new profile" style="overflow:auto;"></div>
+    <div id="updateDialog" title="Update pattern clear info" style="overflow:auto;"></div>
+    <input id="fileopen" accept=".csv" type="file" name="fileopen" style="display:none;" />
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/html2canvas.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/function/capture.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="/function/piu.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+	<script>
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>

@@ -1,0 +1,438 @@
+<!-- /*****************************************************
+ * GITADORA Info Server
+ * Developed by Tae Jun Kang a.k.a Prunus Nira
+ * (c) Nira 2016
+ *
+ * 1. This project is protected under GNU AGPL v3.0
+ *    Please refer to LICENSE file on root
+ * 2. Also, products and libraries used to implement
+ *    this server are on USED-LIBRARIES file on root
+ *****************************************************/ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id"
+      content="signin_client_id.apps.googleusercontent.com">
+    <link rel="icon" href="/favicon.ico">
+
+    <script src="/function/language.js"></script>
+	<script src="/function/language/ptdetail.js"></script>
+    <title>GITADORA Info</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom css -->
+	<link href="/css/custom/header.css" rel="stylesheet">
+	<link href="/css/custom/footer.css" rel="stylesheet">
+	<link href="/css/custom/table.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!-- Google Adsense -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-adsense_id",
+			enable_page_level_ads: true
+		});
+	</script>
+  </head>
+
+  <body>
+  	<section class="container" id="loading">
+  		<h1>LOADING... Please wait</h1>
+  	</section>
+  	
+  	<section class="container">
+  		<div class="row text-center">
+		  	<div class="col-12">
+				<h3>Pattern Ranking</h3>
+				<span>
+					<script>document.write(txtPtdetail.title[lang]);</script>
+					<br/>
+					<script>document.write(txtPtdetail.desc[lang]);</script>
+				</span>
+			</div>
+    	</div>
+  	</section>
+  	
+  	<section class="container">
+	  	<div class="row">
+		  	<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h4><script>document.write(txtPtdetail.table.ptinfo[lang]);</script></h4>
+					</div>
+					<div class="card-body">
+						<div class="card-text">
+							<div class="row" id="upper">
+								<div class="col-sm-4 text-center"> 
+									<img th:src="|/img/music/${mid}.jpg|" onerror="this.src='/img/music/empty.jpg'" style="width:75%; max-width: 100px;" /><br/>
+									<img v-bind:src="pattern" style="width:75%; max-width: 100px;" /><br/>
+									<span>{{ level }}</span>
+								</div>
+								<div class="col-sm-8 text-center">
+									<div class="row" style="padding:10px">
+										<div class='col-12'>
+											<span style='font-size:125%'>{{ mname }}</span><br/>
+											<span>{{ composer }}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  	<div class="row">
+		  	<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-4">
+								<h4><script>document.write(txtPtdetail.table.ranking[lang]);</script></h4>
+							</div>
+							<div class="col-8 text-right">
+								<div class='btn-group btn-group-justified' role='group' id='rankver'>
+									<a class="btn btn-primary" th:href='|/ptdetail/${mid}/${ptcode}/1|' v-bind:class="rank27">EXCHAIN</a>
+									<a class="btn btn-primary" th:href='|/ptdetail/${mid}/${ptcode}/1?ver=26|' v-bind:class="rank26">MATIXX</a>
+									<a class="btn btn-primary" th:href='|/ptdetail/${mid}/${ptcode}/1?ver=25|' v-bind:class="rank25">TBRE</a>
+									<a class="btn btn-primary" th:href='|/ptdetail/${mid}/${ptcode}/1?ver=24|' v-bind:class="rank24">Tri-Boost</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  		<div class="row">
+			<div class="col-12">
+				<div class='div-table table-border-outer' id="ranktable">
+					<ptdetail-row v-for="pd in ranklist" v-bind:pd="pd"></ptdetail-row>
+				</div>
+				<div id="empty"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class='col-12 text-center' id="pager"></div>
+		</div>
+  	</section>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/function/skillcolor.js"></script>
+    <script src="/function/pattern.js"></script>
+	<script src="/function/pager.js"></script>
+    <script src="/function/towertitle.js"></script>
+	<script src="/function/version.js"></script>
+    <script src="/function/overall.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
+    <div style='display:none'>
+		<form action='/logout' id='logout' method='post'>
+		</form>
+	</div>
+
+	<template id='ptdetail-template'>
+		<div class='div-table-row table-border-bottom'>
+			<div class='div-table-cell' v-bind:style="pd.ratecolor"></div>
+			<div class='div-table-cell' v-bind:style="pd.skillcolor"></div>
+			<div class='div-table-cell'>{{ pd.index }}</div>
+			<div class='div-table-cell'>
+				<div class='row'>
+					<div class='col-sm-6 text-left' style='font-size:120%'>
+						<span v-html="pd.towertitle"></span>
+						<a class='innerhref' v-bind:href="pd.profile">
+							{{ pd.name }} ⓟ
+						</a>
+					</div>
+					<div class='col-sm-6 text-left'>
+						<img class='skillrank-img' v-bind:src='pd.rank' />
+						<span v-html='pd.fc'></span>
+						/ {{ pd.skill }} / {{ pd.rate }}%
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script th:inline="javascript">
+	Vue.component('ptdetail-row', {
+		template: '#ptdetail-template',
+		props: {
+			pd: Object
+		}
+	});
+
+	var rankload = false;
+	var upperload = false;
+
+	var mid = /*[[${mid}]]*/0;
+	var ptcode = /*[[${ptcode}]]*/0;
+	var page = /*[[${page}]]*/0;
+	var version = /*[[${version}]]*/0;
+
+	var vmVerbtn = new Vue({
+		el: '#rankver',
+		data: {
+			rank24: '',
+			rank25: '',
+			rank26: '',
+			rank27: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getmusic/'+mid)
+			.done(function(data) {
+				var ver = JSON.parse(data).version;
+				if(ver == 25) {
+					self.rank24 = 'btn btn-primary disabled';
+					self.rank25 = 'btn btn-primary';
+					self.rank26 = 'btn btn-primary';
+					self.rank27 = 'btn btn-primary';
+				}
+				else if(ver == 26) {
+					self.rank24 = 'btn btn-primary disabled';
+					self.rank25 = 'btn btn-primary disabled';
+					self.rank26 = 'btn btn-primary';
+					self.rank27 = 'btn btn-primary';
+				}
+				else if(ver == 27) {
+					self.rank24 = 'btn btn-primary disabled';
+					self.rank25 = 'btn btn-primary disabled';
+					self.rank26 = 'btn btn-primary disabled';
+					self.rank27 = 'btn btn-primary';
+				}
+				else {
+					self.rank24 = 'btn btn-primary';
+					self.rank25 = 'btn btn-primary';
+					self.rank26 = 'btn btn-primary';
+					self.rank27 = 'btn btn-primary';
+				}
+			});
+		}
+	});
+
+	var vmPd = new Vue({
+		el: '#ranktable',
+		data: {
+			ranklist: []
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/ptdetail/'+mid+'/'+ptcode+'/'+page+'/'+version)
+			.done(function(data) {
+				var json = JSON.parse(data);
+				
+				var lv = 0;
+				var userskill = 0;
+				switch(ptcode) {
+				case 1: lv = json.music.gbsc; break;
+				case 2: lv = json.music.gadv; break;
+				case 3: lv = json.music.gext; break;
+				case 4: lv = json.music.gmas; break;
+				case 5: lv = json.music.bbsc; break;
+				case 6: lv = json.music.badv; break;
+				case 7: lv = json.music.bext; break;
+				case 8: lv = json.music.bmas; break;
+				case 9: lv = json.music.dbsc; break;
+				case 10: lv = json.music.dadv; break;
+				case 11: lv = json.music.dext; break;
+				case 12: lv = json.music.dmas; break;
+				}
+
+				for(var i = 0; i < json.list.length; i++) {
+					var cur = json.list[i];
+					var user = json.users[i];
+					var obj = {};
+
+					var rate = cur.rate;
+					obj.rate = (rate/100).toFixed(2);
+					var skill = obj.rate*lv*20/10000;
+					obj.skill = skill.toFixed(2);
+					obj.ratecolor = 'width:10px; '+skillTableColor(skill*1000000);
+
+					if(ptcode < 9) {
+						switch(version) {
+							case 24: userskill = user.gskilltb; break;
+							case 25: userskill = user.gskilltbre; break;
+							case 26: userskill = user.gskillmx; break;
+							case 27: userskill = user.gskill; break;
+						}
+					}
+					else {
+						switch(version) {
+							case 24: userskill = user.dskilltb; break;
+							case 25: userskill = user.dskilltbre; break;
+							case 26: userskill = user.dskillmx; break;
+							case 27: userskill = user.dskill; break;
+						}
+					}
+
+					obj.skillcolor = 'width:10px; '+skillTableColor(userskill*20000);
+
+					obj.index = (page-1)*30+i+1;
+
+					if(user.titletower != '') {
+						obj.towertitle = "<img class='towertitle35' src='/img/title/"+user.titletower+".png' />";
+					}
+					else {
+						obj.towertitle = '';
+					}
+
+					obj.profile = '/music/'+mid+'/'+cur.userid;
+					obj.name = cur.name;
+
+					switch(cur.rank) {
+					case "E":
+						obj.rank = "/img/rank/rank_e.png";
+						break;
+					case "D":
+						obj.rank = "/img/rank/rank_d.png";
+						break;
+					case "C":
+						obj.rank = "/img/rank/rank_c.png";
+						break;
+					case "B":
+						obj.rank = "/img/rank/rank_b.png";
+						break;
+					case "A":
+						obj.rank = "/img/rank/rank_a.png";
+						break;
+					case "S":
+						obj.rank = "/img/rank/rank_s.png";
+						break;
+					case "SS":
+					case "EXC":
+						obj.rank = "/img/rank/rank_ss.png";
+						break;
+					}
+					
+					if(cur.checkfc == "Y" && cur.rank != "EXC") {
+						obj.fc = "<img class='fc-img' src='/img/rank/fc_300.png' />";
+					}
+					else if(cur.checkfc == "Y" && cur.rank == "EXC") {
+						obj.fc = "<img class='fc-img' src='/img/rank/exc_300.png' />";
+					}
+					else {
+						obj.fc = "<img class='fc-img' src='/img/rank/cleared_300.png' />";
+					}
+
+					self.ranklist.push(obj);
+				}
+
+				var verurl = '';
+				if(version != currentVer) verurl = '?ver='+version;
+				$("#pager").append(createPager(page, json.pages, '/ptdetail/'+mid+'/'+ptcode+'/', verurl));
+
+				rankload = true;
+				removeLoading();
+			});
+		}
+	});
+
+	var vmUpper = new Vue({
+		el: '#upper',
+		data: {
+			mname: '',
+			composer: '',
+			pattern: '',
+			level: ''
+		},
+		created: function() {
+			var self = this;
+			$.ajax('/d/getmusic/'+mid)
+			.done(function(data) {
+				var json = JSON.parse(data);
+
+				self.pattern = getPatternImg600(ptcode);
+				switch(ptcode) {
+				case 1:
+					self.level = (json.music.gbsc/100).toFixed(2);
+					break;
+				case 2:
+					self.level = (json.music.gadv/100).toFixed(2);
+					break;
+				case 3:
+					self.level = (json.music.gext/100).toFixed(2);
+					break;
+				case 4:
+					self.level = (json.music.gmas/100).toFixed(2);
+					break;
+				case 5:
+					self.level = (json.music.bbsc/100).toFixed(2);
+					break;
+				case 6:
+					self.level = (json.music.badv/100).toFixed(2);
+					break;
+				case 7:
+					self.level = (json.music.bext/100).toFixed(2);
+					break;
+				case 8:
+					self.level = (json.music.bmas/100).toFixed(2);
+					break;
+				case 9:
+					self.level = (json.music.dbsc/100).toFixed(2);
+					break;
+				case 10:
+					self.level = (json.music.dadv/100).toFixed(2);
+					break;
+				case 11:
+					self.level = (json.music.dext/100).toFixed(2);
+					break;
+				case 12:
+					self.level = (json.music.dmas/100).toFixed(2);
+					break;
+				default: self.level = 0; break;
+				}
+
+				self.mname = json.music.name;
+				self.composer = json.music.composer;
+
+				upperload = true;
+				removeLoading();
+			});
+		}
+	});
+
+	function removeLoading() {
+		if(rankload && upperload) {
+			$("#loading").hide();
+		}
+	}
+	
+	//signout
+	function gsignLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
+		$("#logout").submit();
+	}
+
+	</script>
+	<div th:insert="header :: header"></div>
+	<div th:insert="header :: menu"></div>
+	<div th:insert="footer :: footer"></div>
+  </body>
+</html>
