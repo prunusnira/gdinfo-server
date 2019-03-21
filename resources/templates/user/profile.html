@@ -235,6 +235,7 @@
 											<td id="tableDcnt">{{ tdDcnt }}</td>
 										</tr>
 									</table>
+									<div class="row" id="countupdate" v-html="countupdate"></div>
 									<span class="prof-table" v-html='countdesc'></span><br/>
 									<div class="row" id="reset" v-html="reset"></div>
 								</div>
@@ -357,7 +358,8 @@
 			tdGcnt: '',
 			tdDcnt: '',
 			countdesc: txtProfile.detailed.countdesc[lang],
-			reset: ''
+			reset: '',
+			countupdate: ''
 		},
 		created: function() {
 			var self = this;
@@ -390,6 +392,16 @@
 					btnReset.href = "#no_div";
 					btnReset.textContent = txtProfile.button.reset[lang];
 					self.reset = btnReset.outerHTML;
+
+					var spanCountUpdate = document.createElement("span");
+					spanCountUpdate.textContent = txtProfile.button.countdesc[lang];
+
+					var btnCountUpdate = document.createElement("a");
+					btnCountUpdate.className = "btn btn-primary";
+					btnCountUpdate.setAttribute("onclick", "countupdate()");
+					btnCountUpdate.href = "#no_div";
+					btnCountUpdate.textContent = txtProfile.button.countupdate[lang];
+					self.countupdate = spanCountUpdate.outerHTML+"<br/>"+btnCountUpdate.outerHTML;
 				}
 
 				// opencount 관련 추가 설정
@@ -680,6 +692,13 @@
 		$form.append("<input type='hidden' name='id' value='"+id+"'>");
 		$("body").append($form);
 		$form.submit();
+	}
+
+	function countupdate() {
+		$.ajax('/d/profile/countupdate/'+id)
+			.done(function(data) {
+				location.reload();
+			});
 	}
 
 	function checkLoading() {

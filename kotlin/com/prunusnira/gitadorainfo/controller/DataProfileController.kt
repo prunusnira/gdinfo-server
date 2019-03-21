@@ -299,4 +299,14 @@ class DataProfileController {
 		node.putPOJO("floor", mapper.writeValueAsString(floor))
 		return node.toString()
 	}
+	
+	@RequestMapping("/d/profile/countupdate/{id}")
+	@ResponseBody
+	fun updateTotalCount(@PathVariable("id") id: Int): String {
+		val gfc = skillService.getPlayCountGF(id)
+		val dfc = skillService.getPlayCountDM(id)
+		userService.updatePlayCount(gfc, dfc, id)
+		
+		return "ok";
+	}
 }

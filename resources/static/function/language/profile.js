@@ -84,6 +84,16 @@ var txtProfile = {
             "ko":"스킬데이터 리셋",
             "en":"Skill data reset"
         },
+        countupdate: {
+            "jp":"プレイカウント更新",
+            "ko":"플카 강제갱신",
+            "en":"Update playcount"
+        },
+        countdesc: {
+            "jp":"更新後、プレイ回数だけが更新されなかった場合以下のボタンを押してください",
+            "ko":"업데이트 갱신으로 플레이 횟수가 바뀌지 않았을 경우에 아래 버튼을 눌러보세요",
+            "en":"When you find your play count is not updated after you used updater, please press the button below"
+        },
         rivaladd: {
             "jp":"ライバル登録",
             "ko":"라이벌 등록",
