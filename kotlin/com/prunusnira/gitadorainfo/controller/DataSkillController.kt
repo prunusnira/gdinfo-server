@@ -203,9 +203,9 @@ class DataSkillController {
 		val os = skillService.getEXCData(gtype, "N")
 		var totalskill = 0
 		for(d in hs)
-			totalskill += d.level*100*20/1000
+			totalskill += d.level.toInt()*100*20/1000
 		for(d in os)
-			totalskill += d.level*100*20/1000
+			totalskill += d.level.toInt()*100*20/1000
 		
 		val user = User("EXCELLENT",
 						totalskill.toDouble()/100,

@@ -18,7 +18,7 @@
 
 .skill-float-menu {
 	position: fixed;
-	top: 20px;
+	top: 80px;
 	right: 20px;
 	height: 50px;
     z-index: 998;
@@ -34,13 +34,13 @@
     right: 0;
     background-color: #ffaaaa;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 150px;
     transition: 0.5s;
 }
 
 .sidenav-r .closebtn {
     position: absolute;
-    top: 0;
+    top: 100px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;

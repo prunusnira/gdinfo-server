@@ -25,7 +25,7 @@ class SkillTable(var musicid: Int,
 				 var version: Int,
 				 var combo: Int,
 				 var playtime: Int,
-				 var level: Int,
+				 var level: Long,
 				 var checkfc: String,
 				 var meter: String) {
 }

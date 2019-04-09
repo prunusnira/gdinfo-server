@@ -10,33 +10,38 @@
  *****************************************************/ -->
  <!-- header tetxt load -->
 <header th:fragment="header">
+    <!-- PC용 -->
     <div id="sideMenu" class="sidenav">
-        <a href="#no_div" class="closebtn" onclick="closeNav()">&times;</a>
-        
-        <a href="/index"><img style="width: 100%; max-width: 150px;" src="/img/index/logoidx.png"/></a>
-
-        <!-- 테마 선택 -->
-        <a href="#no_div" onclick="openDropdown('theme')">
-            <script>document.write(txtHeader.theme[lang]);</script>▼
+        <!--<a href="#no_div" class="closebtn" onclick="closeNav()">&times;</a>-->
+        <a id="sideopen" href="#no_div" onclick="openNav()">
+            <img id="navopen" class="navicon" src="/img/header/next.png"/>
         </a>
-        <div class="header-dropdown" id="header-dropdown-theme">
-            <a href="#no_div" onclick="themeChange(0)">White</a>
-            <a href="#no_div" onclick="themeChange(1)">Black</a>
-            <a href="#no_div" onclick="themeChange(2)">Orange</a>
-        </div>
+
+        <a class="navhomeicon" href="/index">
+            <img style="width: 100%; max-width: 150px;" src="/img/index/logoidx.png"/>
+        </a>
 
         <!-- 로그인 -->
         <a th:if="${token} == null" class="nav-link" href="/login">
-            <script>document.write(txtHeader.login[lang]);</script>
+            <img class="navicon" src="/img/header/login.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.login[lang]);</script>
+            </span>
         </a>
 
         <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
-            <script>document.write(txtHeader.logout[lang]);</script>
+            <img class="navicon" src="/img/header/logout.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.logout[lang]);</script>
+            </span>
         </a>
 
         <!-- 사용설명 -->
         <a href="#no_div" onclick="openDropdown('howto')">
-            <script>document.write(txtHeader.howtouse.title[lang]);</script>▼
+            <img class="navicon" src="/img/header/howto.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.howtouse.title[lang]);</script>▼
+            </span>
         </a>
         <!-- 하단에 추가 div로 설명서 선택할 수 있게 만들기 -->
         <div class="header-dropdown" id="header-dropdown-howto">
@@ -53,7 +58,10 @@
 
         <!-- 프로필 -->
         <a href="#no_div" onclick="openDropdown('profile')">
-            <script>document.write(txtHeader.mymenu.title[lang]);</script>▼
+            <img class="navicon" src="/img/header/mydata.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.mymenu.title[lang]);</script>▼
+            </span>
         </a>
         <!-- 프로필 메뉴 선택 -->
         <div class="header-dropdown" id="header-dropdown-profile">
@@ -76,7 +84,10 @@
 
         <!-- 스킬 메뉴 -->
         <a href="#no_div" onclick="openDropdown('skill')">
-            <script>document.write(txtHeader.skill.title[lang]);</script>▼
+            <img class="navicon" src="/img/header/skill.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.skill.title[lang]);</script>▼
+            </span>
         </a>
         <div class="header-dropdown" id="header-dropdown-skill">
             <a href="/rank/gf/1">
@@ -95,7 +106,10 @@
 
         <!-- 패턴 메뉴 -->
         <a href="#no_div" onclick="openDropdown('pattern')">
-            <script>document.write(txtHeader.pattern.title[lang]);</script>▼
+            <img class="navicon" src="/img/header/pattern.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.pattern.title[lang]);</script>▼
+            </span>
         </a>
         <div class="header-dropdown" id="header-dropdown-pattern">
             <a href="/ptrank/00/titleasc/1?hot=h">
@@ -111,42 +125,203 @@
 
         <!-- 기타도라의 탑 -->
         <a href="/tower/index">
-            <script>document.write(txtHeader.tower.title[lang]);</script>
+            <img class="navicon" src="/img/header/tower.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.tower.title[lang]);</script>
+            </span>
         </a>
-        
-        <!-- 검색 -->
-        <a class="btn btn-primary" href="#no_div" id="searchToggle" onclick="openDropdown('search')">
-            Player
-        </a>
-        <div class="header-dropdown" id="header-dropdown-search">
-            <a onclick="changeSearchType('name')" href="#no_div">Player</a>
-            <a onclick="changeSearchType('gskill')" href="#no_div">G-Skill</a>
-            <a onclick="changeSearchType('dskill')" href="#no_div">D-Skill</a>
-            <a onclick="changeSearchType('music')" href="#no_div">Music</a>
-        </div>
-        <input style="width:100%" id="searchinp" name="val" type="search" placeholder="Search" aria-label="Search" />
 
-        <!-- 언어 선택 -->
-        <!--<a href="#no_div" onclick="openDropdown('lang')">
-            <script>document.write(txtHeader.langsel[lang]);</script>▼
+        <!-- PIU -->
+        <a href="/piu">
+            <img class="navicon" src="/img/header/piu.png"/>
+            <span class="navlefttxt">
+                <script>document.write(txtHeader.piu.title[lang]);</script>
+            </span>
         </a>
-        <div class="header-dropdown" id="header-dropdown-lang">
-            <div class="col-4">
-                <a href="#no_div" onclick="langChange('ko')">한국어</a>
+    </div>
+
+    <!-- 모바일용 -->
+    <div id="sideMenu2" class="sidenav2">
+        <!-- 상단 아이콘 -->
+        <div id="navtop" class="row">
+            <div class="col-12">
+                <a href="/index">
+                    <img class="navicon" src="/img/header/home.png"/>
+                </a>
+        
+                <!-- 로그인 -->
+                <a href="#no_div">
+                    <img th:if="${token} == null" id="m-nav-login" class="navicon"
+                    onclick="openDropdown2('login')"
+                    src="/img/header/login.png"/>
+
+                    <img th:unless="${token} == null" id="m-nav-logout" class="navicon"
+                    onclick="openDropdown2('login')"
+                    src="/img/header/logout.png"/>
+                </a>
+        
+                <!-- 사용설명 -->
+                <a href="#no_div">
+                    <img id="m-nav-howto" class="navicon"
+                    onclick="openDropdown2('howto')"
+                    src="/img/header/howto.png"/>
+                </a>
+        
+                <!-- 프로필 -->
+                <a href="#no_div">
+                    <img id="m-nav-mydata" class="navicon"
+                    onclick="openDropdown2('profile')"
+                    src="/img/header/mydata.png"/>
+                </a>
+        
+                <!-- 스킬 메뉴 -->
+                <a href="#no_div">
+                    <img id="m-nav-skill" class="navicon"
+                    onclick="openDropdown2('skill')"
+                    src="/img/header/skill.png"/>
+                </a>
+        
+                <!-- 패턴 메뉴 -->
+                <a href="#no_div">
+                    <img id="m-nav-pattern" class="navicon"
+                    onclick="openDropdown2('pattern')"
+                    src="/img/header/pattern.png"/>
+                </a>
+        
+                <!-- 기타도라의 탑 -->
+                <a href="#no_div">
+                    <img id="m-nav-tower" class="navicon"
+                    onclick="openDropdown2('tower')"
+                    src="/img/header/tower.png"/>
+                </a>
+        
+                <!-- PIU -->
+                <a href="#no_div">
+                    <img id="m-nav-piu" class="navicon"
+                    onclick="openDropdown2('piu')"
+                    src="/img/header/piu.png"/>
+                </a>
             </div>
-            <div class="col-4">
-                <a href="#no_div" onclick="langChange('jp')">日本語</a>
+        </div>
+
+        <!-- 하단 메뉴 표시 -->
+        <div id="navsub">
+            <!-- Login -->
+            <div class="header-dropdown2" id="navsub-login">
+                <a href="#no_div" onclick="openDropdown2('login')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span th:if="${token} == null" id="m-nav-login-txt" class="navtext">
+                    <script>document.write(txtHeader.login[lang]);</script>
+                </span>
+                <span th:unless="${token} == null" id="m-nav-logout-txt" class="navtext">
+                    <script>document.write(txtHeader.logout[lang]);</script>
+                </span>
+
+                <a th:if="${token} == null" class="nav-link" href="/login">
+                    <script>document.write(txtHeader.login[lang]);</script>
+                </a>
+                <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
+                    <script>document.write(txtHeader.logout[lang]);</script>
+                </a>
             </div>
-            <div class="col-4">
-                <a href="#no_div" onclick="langChange('en')">English</a>
+
+            <!-- Howto -->
+            <div class="header-dropdown2" id="navsub-howto">
+                <a href="#no_div" onclick="openDropdown2('howto')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-howto-txt" class="navtext">
+                    <script>document.write(txtHeader.howtouse.title[lang]);</script>
+                </span>
+                <a href="/about0">
+                    <script>document.write(txtHeader.howtouse.update_au[lang]);</script>
+                </a>
+                <a href="/about1">
+                    <script>document.write(txtHeader.howtouse.update_man[lang]);</script>
+                </a>
+                <a href="/about2">
+                    <script>document.write(txtHeader.howtouse.filter_rival[lang]);</script>
+                </a>
             </div>
-        </div>-->
+
+            <!-- Profile -->
+            <div class="header-dropdown2" id="navsub-profile">
+                <a href="#no_div" onclick="openDropdown2('profile')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-mydata-txt" class="navtext">
+                    <script>document.write(txtHeader.mymenu.title[lang]);</script>
+                </span>
+                <a href="/profile">
+                    <script>document.write(txtHeader.mymenu.profile[lang]);</script>
+                </a>
+                <a href="/myskill/gf">
+                    <script>document.write(txtHeader.mymenu.gfskill[lang]);</script>
+                </a>
+                <a href="/myskill/dm">
+                    <script>document.write(txtHeader.mymenu.dmskill[lang]);</script>
+                </a>
+                <a href="/mybest">
+                    <script>document.write(txtHeader.mymenu.best[lang]);</script>
+                </a>
+                <a href="/rivallist">
+                    <script>document.write(txtHeader.mymenu.rivallist[lang]);</script>
+                </a>
+            </div>
+
+            <!-- Skill -->
+            <div class="header-dropdown2" id="navsub-skill">
+                <a href="#no_div" onclick="openDropdown2('skill')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-skill-txt" class="navtext">
+                    <script>document.write(txtHeader.skill.title[lang]);</script>
+                </span>
+                <a href="/rank/gf/1">
+                    <script>document.write(txtHeader.skill.rank[lang]);</script>
+                </a>
+                <a href="/exc/gf">
+                    <script>document.write(txtHeader.skill.exc[lang]);</script>
+                </a>
+                <a href="/cntrank/1">
+                    <script>document.write(txtHeader.etc.countrank[lang]);</script>
+                </a>
+                <a href="/register">
+                    <script>document.write(txtHeader.skill.register[lang]);</script>
+                </a>
+            </div>
+
+            <!-- Pattern -->
+            <div class="header-dropdown2" id="navsub-pattern">
+                <a href="#no_div" onclick="openDropdown2('pattern')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-pattern-txt" class="navtext">
+                    <script>document.write(txtHeader.pattern.title[lang]);</script>
+                </span>
+                <a href="/ptrank/00/titleasc/1?hot=h">
+                    <script>document.write(txtHeader.pattern.ptlist[lang]);</script>
+                </a>
+                <a href="/notplayed">
+                    <script>document.write(txtHeader.mymenu.notplayed[lang]);</script>
+                </a>
+                <a href="/cleartable">
+                    <script>document.write(txtHeader.mymenu.cleartable[lang]);</script>
+                </a>
+            </div>
+
+            <!-- Tower -->
+            <div class="header-dropdown2" id="navsub-tower">
+                <a href="#no_div" onclick="openDropdown2('tower')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-tower-txt" class="navtext">
+                    <script>document.write(txtHeader.tower.title[lang]);</script>
+                </span>
+                <a href="/tower/index">
+                    <script>document.write(txtHeader.tower.title[lang]);</script>
+                </a>
+            </div>
+
+            <!-- piu -->
+            <div class="header-dropdown2" id="navsub-piu">
+                <a href="#no_div" onclick="openDropdown2('piu')"><img class="navicon" src="/img/header/prev.png"/></a>
+                <span id="m-nav-piu-txt" class="navtext">
+                    <script>document.write(txtHeader.piu.title[lang]);</script>
+                </span>
+                <a href="/piu">
+                    <script>document.write(txtHeader.piu.title[lang]);</script>
+                </a>
+            </div>
+        </div>
     </div>
 </header>
-
-<!-- 플로팅 버튼으로 항상 메뉴를 불러올 수 있게 함 -->
-<div th:fragment="menu" class="float-menu">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">
-        <a class="btn btn-primary" href="#no_div">&#9776;<script>document.write(txtHeader.menubtn[lang]);</script></a>
-    </span>
-</div>

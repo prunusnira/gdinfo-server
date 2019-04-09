@@ -61,7 +61,7 @@
 		
 		<div class="row">
 			<div class="col-12">
-				<a style="width:100%;" class="btn btn-warning" href="#no_div" onclick="scrShot('#scrshot', '${id}_mybest.jpg')">
+				<a style="width:100%;" class="btn btn-warning" href="#no_div" th:onclick="|scrShot('#scrshot', '${id}_mybest.jpg')|">
 					<script>document.write(txtMyb.button.scrshot[lang]);</script>
 				</a>
 			</div>
@@ -348,7 +348,7 @@
 	}
 	</script>
 	<div th:insert="header :: header"></div>
-	<div th:insert="header :: menu"></div>
 	<div th:insert="footer :: footer"></div>
+	<script src="/function/menu.js"></script>
   </body>
 </html>

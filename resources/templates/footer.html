@@ -9,19 +9,52 @@
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/ -->
  <footer th:fragment="footer" class="footer">
-    <div class='container'>
-        <div class='row'>
-            <div class="col-10">
+    <div class='container innerfooter'>
+        <div class='row footerrow'>
+            <div class="col-sm-3 col-xs-6">
+                <b><script>document.write(txtHeader.theme[lang]);</script></b><br/>
+                <a href="#no_div" onclick="themeChange(0)">White</a><br/>
+                <a href="#no_div" onclick="themeChange(1)">Black</a><br/>
+                <a href="#no_div" onclick="themeChange(2)">Orange</a>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <b><script>document.write(txtHeader.langsel[lang]);</script></b><br/>
+                <a href="#no_div" onclick="langChange('ko')">한국어</a><br/>
+                <a href="#no_div" onclick="langChange('jp')">日本語</a><br/>
+                <a href="#no_div" onclick="langChange('en')">English</a>
+            </div>
+        </div>
+        <div class="row footerrow">
+            <div class="col-12">
+                <a class="btn btn-primary" href="#no_div" id="searchToggle" onclick="openDropdown('search')">
+                    Player
+                </a>
+                <div class="header-dropdown" id="header-dropdown-search">
+                    <a onclick="changeSearchType('name')" href="#no_div">Player</a>
+                    <a onclick="changeSearchType('gskill')" href="#no_div">G-Skill</a>
+                    <a onclick="changeSearchType('dskill')" href="#no_div">D-Skill</a>
+                    <a onclick="changeSearchType('music')" href="#no_div">Music</a>
+                </div>
+                <input style="width:100%" id="searchinp" name="val" type="search" placeholder="Search" aria-label="Search" />
+            </div>
+        </div>
+        <div class='row footerrow'>
+            <div class="col-12">
                 <span>
                     <script>document.write(txtFooter.p1);</script><br/>
                     <script>document.write(txtFooter.p2);</script><br/>
                     <script>document.write(txtFooter.about[lang]);</script>
                 </span>
             </div>
-            <div class="col-2">
-                <a href="/piu">
-                    <img style="width:100%;" src="/img/index/piulogo.png" />
-                </a>
+        </div>
+        <div class='row footerrow'>
+            <div class='col-12'>
+                <span>
+                    Icons by<br/>
+                    Smashicons from flaticon(CC 3.0 BY) https://www.flaticon.com/authors/smashicons<br/>
+                    Linkware http://www.iconsmind.com required<br/>
+                    Design Contest http://www.designcontest.com
+                </span>
             </div>
         </div>
     </div>

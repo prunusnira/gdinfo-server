@@ -8,15 +8,51 @@
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/
-var lang = navigator.language || navigator.systemLanguage;
-if(lang=='ko' || lang=='ko-kr' || lang=='ko-KR') {
-	lang = 'ko';
+
+// Cookie control from stackoverflow
+// https://stackoverflow.com/questions/28654595/how-do-you-create-a-cookie-in-javascript-without-jquery
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
 }
-else if(lang=='ja' || lang=='ja-jp' || lang=='ja-JP') {
-	lang = 'jp';
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
+
+var lang = navigator.language || navigator.systemLanguage;
+if(readCookie("lang") == 'ko' || readCookie("lang") == 'jp' || readCookie("lang") == 'en') {
+	lang = readCookie("lang");
 }
 else {
-	lang = 'en';
+	if(lang=='ko' || lang=='ko-kr' || lang=='ko-KR') {
+		lang = 'ko';
+	}
+	else if(lang=='ja' || lang=='ja-jp' || lang=='ja-JP') {
+		lang = 'jp';
+	}
+	else {
+		lang = 'en';
+	}
+
+	eraseCookie("lang");
+	createCookie("lang", lang, false);
 }
 
 var text = {

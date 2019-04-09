@@ -168,10 +168,10 @@ class SkillService {
 		var oskill = 0
 		
 		for(i in 0..hot.size-1) {
-			hskill += hot[i].level*hot[i].rate*20/10000
+			hskill += hot[i].level.toInt()*hot[i].rate*20/10000
 		}
 		for(i in 0..other.size-1) {
-			oskill += other[i].level*other[i].rate*20/10000
+			oskill += other[i].level.toInt()*other[i].rate*20/10000
 		}
 		
 		if(pattern < 9)

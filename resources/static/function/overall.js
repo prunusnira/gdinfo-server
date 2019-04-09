@@ -12,25 +12,6 @@ $('head').append('<script src="/function/language/header.js"><\/script>');
 $('head').append('<script src="/function/language/footer.js"><\/script>');
 $('head').append('<script src="/js/jquery.cookie.js"><\/script>');
 
-// HEADER SCRIPTS
-function openNav() {
-    document.getElementById("sideMenu").style.width = "50%";
-}
-
-function closeNav() {
-    document.getElementById("sideMenu").style.width = "0";
-}
-
-function openDropdown(name) {
-    var stat = $("#header-dropdown-"+name);
-
-    if(stat.css("display") == 'block')
-        stat.hide();
-    else if(stat.css("display") == 'none') {
-        stat.show();
-    }
-}
-
 var searchtype = "name";
 
 function changeSearchType(type) {
@@ -85,7 +66,7 @@ if (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgen
 }
 else {
     $(document).keyup(function(e) {
-        if ($("#searchinp:focus") && (e.keyCode === 13)) {
+        if ($("#searchinp").is(':focus') && (e.keyCode === 13)) {
             search();
         }
     });
@@ -116,7 +97,7 @@ else if (themeVal == 2) {
 }
 else {
     var overall = document.createElement('link');
-    overall.href = "/css/custom/overall-w.css";
+    overall.href = "/css/custom/overall-b.css";
     overall.type = "text/css";
     overall.rel = "stylesheet";
     $("head").append(overall.outerHTML);
