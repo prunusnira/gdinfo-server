@@ -43,18 +43,25 @@ function openDropdown2(name) {
     var all = $("#navsub");
     var stat = $("#navsub-"+name);
 
-    if(all.height() != 0) {
-        closeAllSub();
-        stat.hide();
-        all.height(0);
-        menu.height(top[0].scrollHeight);
-    }
-    else if(all.height() == 0) {
-        closeAllSub();
-        stat.show();
-        all.height(all[0].scrollHeight);
-        menu.height(menu[0].scrollHeight);
-    }
+    closeAllSub();
+    stat.hide();
+    all.height(0);
+    menu.height(top[0].scrollHeight);
+    stat.show();
+    all.height(all[0].scrollHeight);
+    menu.height(menu[0].scrollHeight);
+}
+
+function closeSub() {
+    var menu = $("#sideMenu2");
+    var top = $("#navtop");
+    var all = $("#navsub");
+    var stat = $("#navsub-"+name);
+
+    closeAllSub();
+    stat.hide();
+    all.height(0);
+    menu.height(top[0].scrollHeight);
 }
 
 function closeAllSub() {

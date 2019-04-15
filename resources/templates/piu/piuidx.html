@@ -22,6 +22,7 @@
     <link rel="icon" href="/favicon.ico">
 
 	<script src="/function/language.js"></script>
+	<script src="/function/language/piu.js"></script>
     <title>GITADORA Info - PIU Score Tool</title>
 
 	<link href="/css/jquery-ui.css" rel="stylesheet">
@@ -57,8 +58,8 @@
     
     <section class="container">
     	<div class="text-center pagetop">
-    		<h2>Pump It Up XX</h2>
-    		<span>Score management tool</span>
+    		<h1>Pump It Up XX</h1>
+    		<h3><script>document.write(txtPIU.subtitle[lang]);</script></h3>
     	</div>
     </section>
     
@@ -70,12 +71,23 @@
     
     <section class="container text-center">
     	<div class="row">
+				<div class="col-12">
+					<h4><script>document.write(txtPIU.functitle[lang]);</script></h4>
+				</div>
     		<div class="col-12">
-    			<a href="#no_div" class="btn btn-primary" onclick="newUser()">New User</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="loadUser()">Load File</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="saveUser()">Save File</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="scrShot('#targetTable', 'PIUClearTable.jpg')">Take Screenshot</a>
+					<a href="#no_div" class="btn btn-primary" onclick="newUser()">
+						<script>document.write(txtPIU.newuser[lang]);</script>
+					</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="loadUser()">
+						<script>document.write(txtPIU.load[lang]);</script>
+					</a>
+    			<a href="#no_div" class="btn btn-primary" onclick="saveUser()">
+						<script>document.write(txtPIU.save[lang]);</script>
+					</a>
     		</div>
+				<div class="col-12" id="seldiffSingletitle">
+					<h4><script>document.write(txtPIU.single[lang]);</script></h4>
+				</div>
     		<div class="col-12" id="seldiffSingle">
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '13')">S13</a>
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '14')">S14</a>
@@ -90,6 +102,9 @@
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '23')">S23</a>
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '24')">S24 over</a>
     		</div>
+				<div class="col-12" id="seldiffDoubletitle">
+					<h4><script>document.write(txtPIU.double[lang]);</script></h4>
+				</div>
     		<div class="col-12" id="seldiffDouble">
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '13')">D13</a>
     			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '14')">D14</a>
@@ -127,8 +142,12 @@
     	
     	<div class="row">
     		<div class="col-12 text-center">
-    			<a href="#no_div" class="btn btn-primary" onclick="editUser()">Edit User</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="updatePatternMultiple()">Update Checked Patterns</a>
+					<a href="#no_div" class="btn btn-primary" onclick="editUser()">
+						<script>document.write(txtPIU.edit[lang]);</script>
+					</a>
+					<a href="#no_div" class="btn btn-primary" onclick="updatePatternMultiple()">
+						<script>document.write(txtPIU.updatecheckedbtn[lang]);</script>
+					</a>
     		</div>
     	</div>
     </section>
@@ -139,13 +158,11 @@
     			<h3>Pump It Up XX</h3>
     		</div>
     		<div class="col-12">
-    			<span id="type"></span> Lv.<span id="lv"></span> Clear Table
+    			<h4>
+						<span id="type"></span> Lv.<span id="lv"></span> Clear Table
+					</h4>
     		</div>
     		<div class="col-12" id="username2"></div>
-    		
-    		<div class="col-12" id="username2">
-    			** <b><font color="lightblue">Blue A</font></b> = Break On, <b><font color="green">Green A</font></b> = Break Off
-    		</div>
     	</div>
     	
     	<div class="row div-lineadd" id="divov" style="background-color: #ff4d4d">
@@ -191,8 +208,8 @@
     	</div>
     </section>
     
-    <div id="newuserDialog" title="Register new profile" style="overflow:auto;"></div>
-    <div id="updateDialog" title="Update pattern clear info" style="overflow:auto;"></div>
+    <div id="newuserDialog" title="Edit profile" style="overflow:auto;"></div>
+    <div id="updateDialog" title="Rank update" style="overflow:auto;"></div>
     <input id="fileopen" accept=".csv" type="file" name="fileopen" style="display:none;" />
 
     <!-- Bootstrap core JavaScript

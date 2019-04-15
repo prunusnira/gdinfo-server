@@ -44,4 +44,12 @@ data class Skill(var userid: Int,
 			: this(userid, musicid, version, patterncode,
 					playtime, cleartime, rank, rate, 0, 0, 0, score, combo,
 					checkfc, meter, 0)
+	
+	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int,
+				playtime: Int, cleartime: Int, rank: String, rate: Int,
+				ratemx: Int, ratetbre: Int, ratetb: Int,
+				score: Int, combo: Int, checkfc: String, meter: String)
+			: this(userid, musicid, version, patterncode,
+					playtime, cleartime, rank, rate, ratemx, ratetbre, ratetb,
+					score, combo, checkfc, meter, 0)
 }

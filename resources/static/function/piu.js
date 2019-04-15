@@ -23,35 +23,16 @@ var userlv = 0;
 var userstat = new Map();
 
 $("#loading").hide();
+$("#seldiffSingletitle").hide();
+$("#seldiffDoubletitle").hide();
 $("#seldiffSingle").hide();
 $("#seldiffDouble").hide();
 $("#userinfo").hide();
 $("#targetTable").hide();
 
 $(function() {
-	
 	// Update how to use
-	var howto = "";
-	if(lang == "ko") {
-		howto +=
-			"사용법:<br/>"+
-			"0. <b><font color='red'>반드시 구글 크롬 계열의 브라우저를 사용한다 (모바일도 마찬가지)</font></b><br/>"+
-			"1. 새로운 유저를 생성하거나 자신의 파일을 불러온다<br/>"+
-			"2. 난이도를 선택하고 패턴을 골라서 랭크 등을 설정<br/>"+
-			"3. 저장 버튼을 누르고 파일을 보관<br/>"+
-			"* 버전과 상관없이 사용 가능하며 삭제곡도 데이터는 그대로 보관됩니다";
-	}
-	else {
-		howto +=
-			"How to use:<br/>"+
-			"0. <b><font color='red'>MUST USE Google Chrome or related webkit browser (Also for mobile devices)</font></b><br/>"+
-			"1. Create new user or load your CSV data file created here<br/>"+
-			"2. Select level, pattern and set your rank<br/>"+
-			"3. Save file and keep on your disk<br/>"+
-			"* You can use this tool regardless version. Data kept for removed songs.";
-	}
-	
-	$("#howto").append(howto);
+	$("#howto").append(txtPIU.howto[lang]);
 });
 
 function cleardata() {
@@ -66,22 +47,19 @@ function newUser() {
 	$("#newuserDialog").empty();
 	var ext =
 		"<div class='row'>"+
-			"<div class='col-12'>";
-	if(lang == "ko")
-		ext += "새로운 사용자 추가: 이름에는 영문자와 숫자만 사용 가능합니다.<br/>" +
-			"<span style='color:red'>** 엔터키는 누르지 마세요</span>";
-	else
-		ext += "Add new user: Only alphabet and number are allowed for user name<br/>" +
-			"<span style='color:red'>** DO NOT PRESS ENTER/RETURN</span>";
-	ext += "</div>"+
+			"<div class='col-12'>"+
+				txtPIU.newuserdiv[lang]+
+			"</div>"+
 			"<div class='col-12'>"+
 				"<input class='form-control' type='text' id='newname' placeholder='NAME' onkeyup='nameValidCheck()'/>"+
 				"<input class='form-control' type='number' min='1' step='1' id='newlv' onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder='LEVEL'/>"+
-				"<a href='#no_div' class='btn btn-primary' onclick='addNewUser()'>Create Profile</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='addNewUser()'>"+
+				txtPIU.newuserbtn[lang]+
+				"</a>"+
 			"</div>"+
 		"</div>";
 	$("#newuserDialog").append(ext);
-	$("#newuserDialog").dialog();
+	$("#newuserDialog").dialog(/*'option', 'title', txtPIU.newusertitle[lang]*/);
 }
 
 function nameValidCheck() {
@@ -107,8 +85,7 @@ function addNewUser() {
 		showLevels();
 	}
 	else {
-		if(lang == "ko") alert("이름과 레벨은 빈칸이 될 수 없습니다");
-		else alert("Name and Level cannot be empty");
+		alert(txtPIU.newuserempty[lang]);
 	}
 }
 
@@ -116,20 +93,19 @@ function editUser() {
 	$("#newuserDialog").empty();
 	var ext =
 		"<div class='row'>"+
-			"<div class='col-12'>";
-		if(lang == "ko")
-			ext += "현재 사용자 정보 수정: 이름에는 영문자와 숫자만 사용 가능합니다";
-		else
-			ext += "Edit user data: Only alphabet and number are allowed for user name";
-	ext += "</div>"+
+			"<div class='col-12'>"+
+				txtPIU.edituserdiv[lang]+
+			"</div>"+
 			"<div class='col-12'>"+
 				"<input class='form-control' type='text' id='newname' placeholder='NAME' onkeyup='nameValidCheck()'/>"+
 				"<input class='form-control' type='number' min='1' step='1' id='newlv' onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder='LEVEL'/>"+
-				"<a href='#no_div' class='btn btn-primary' onclick='addNewUser()'>Modify</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='addNewUser()'>"+
+				txtPIU.edituserbtn[lang]+
+				"</a>"+
 			"</div>"+
 		"</div>";
 	$("#newuserDialog").append(ext);
-	$("#newuserDialog").dialog();
+	$("#newuserDialog").dialog(/*'option', 'titile', txtPIU.editusertitle[lang]*/);
 	
 	$("#newname").val(username);
 	$("#newlv").val(userlv);
@@ -138,14 +114,7 @@ function editUser() {
 function loadUser() {
 	// 파일 열기 대화상자를 열고 데이터를 가져옴
 	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
-		if(lang == "ko") {
-			alert("이 브라우저는 정상적으로 지원되지 않을 수도 있습니다");
-		    alert("파일 대화상자를 여는 시도를 수행합니다. 하지만 정상적인 동작을 위해 되도록 구글 크롬을 사용해주세요");
-		}
-		else {
-			alert("This browser may not fully support this tool.");
-		    alert("Try to show file open dialog. But, please try to use Google Chrome");
-		}
+		alert(txtPIU.loadwarn[lang]);
     }
 	//$("#fileopen").on('change', handleFileSelect);
 	$("#fileopen").trigger("click");
@@ -181,6 +150,8 @@ function callbackOpen(result) {
 }
 
 function showLevels() {
+	$("#seldiffSingletitle").show();
+	$("#seldiffDoubletitle").show();
 	$("#seldiffSingle").show();
 	$("#seldiffDouble").show();
 	$("#userinfo").show();
@@ -243,8 +214,15 @@ function updateTable(data) {
 		if(current.removed == 0) {
 			var data = 
 				"<div class='col-3 col-sm-2 div-pattern' style='padding:5px'>"+
-					"<input style='transform:scale(2); left:48%;' type='checkbox' id='ptnsel' value='"+current.ptid+"' />"+
-					"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_ko+"\")'>"+
+					"<input style='transform:scale(2); left:48%;' type='checkbox' id='ptnsel' value='"+current.ptid+"' />";
+			
+			if(lang == "ko")
+				data +=
+					"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_ko+"\")'>";
+			else
+				data +=
+					"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_en+"\")'>";
+					data +=
 						"<div style='background-origin:content-box;" +
 									"background-image: url(\"/img/piumusic/"+current.musicid+".png\"), url(\"/img/piumusic/empty.jpg\");" +
 									"background-repeat: no-repeat;" +
@@ -378,12 +356,16 @@ function updatePattern(ptid, title) {
 				"</div>"+
 			"</div>"+
 			"<div class='col-12'>"+  
-				"<a href='#no_div' class='btn btn-primary' onclick='updateData("+ptid+")'>Update</a>"+
-				"<a href='#no_div' class='btn btn-primary' onclick='closeUP()'>Cancel</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='updateData("+ptid+")'>"+
+				txtPIU.update[lang]+
+				+"</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='closeUP()'>"+
+				txtPIU.cancel[lang]+
+				"</a>"+
 			"</div>"+
 		"</div>";
 	$("#updateDialog").append(html);
-	$("#updateDialog").dialog();
+	$("#updateDialog").dialog(/*'option', 'title', txtPIU.updatedivtitle[lang]*/);
 }
 
 function updatePatternMultiple() {
@@ -392,13 +374,13 @@ function updatePatternMultiple() {
 	var html =
 		"<div class='row'>"+
 			"<div class='col-12'>"+
-				"Update all selected patterns"+
+				txtPIU.updatealldiv[lang]+
 				"<div class='form-group'>"+
 					"<label for='grade'>Select rank:</label>"+
 					"<select class='form-control' id='grade'>"+
-					    "<option value='0'>SS</option>"+
-					    "<option value='1'>S(Gold)</option>"+
-					    "<option value='2'>S(Blue)</option>"+
+					    "<option value='0'>SSS</option>"+
+					    "<option value='1'>SS</option>"+
+					    "<option value='2'>S</option>"+
 					    "<option value='3'>A(Break On)</option>"+
 					    "<option value='4'>A(Break Off)</option>"+
 					    "<option value='5'>Break Off under A</option>"+
@@ -408,12 +390,16 @@ function updatePatternMultiple() {
 				"</div>"+
 			"</div>"+
 			"<div class='col-12'>"+  
-				"<a href='#no_div' class='btn btn-primary' onclick='updateMultipleData()'>Update</a>"+
-				"<a href='#no_div' class='btn btn-primary' onclick='closeUP()'>Cancel</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='updateMultipleData()'>"+
+				txtPIU.update[lang]+
+				"</a>"+
+				"<a href='#no_div' class='btn btn-primary' onclick='closeUP()'>"+
+				txtPIU.cancel[lang]+
+				"</a>"+
 			"</div>"+
 		"</div>";
 	$("#updateDialog").append(html);
-	$("#updateDialog").dialog();
+	$("#updateDialog").dialog(/*'option', 'title', txtPIU.updatedivtitle[lang]*/);
 }
 
 function updateData(ptid) {
