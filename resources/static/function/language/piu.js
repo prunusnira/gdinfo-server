@@ -141,5 +141,15 @@ var txtPIU = {
         "jp":"ランク選択",
         "ko":"랭크 선택",
         "en":"Select rank"
+    },
+    hidechkbox: {
+        "jp":"チェックボックスを隠す/見せる",
+        "ko":"체크박스 숨기기/보이기",
+        "en":"Hide/Show Checkboxes"
+    },
+    hiderank: {
+        "jp":"ランクを隠す/見せる",
+        "ko":"랭크 숨기기/보이기",
+        "en":"Hide/Show Rank"
     }
 }

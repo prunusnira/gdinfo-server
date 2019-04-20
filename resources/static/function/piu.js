@@ -22,6 +22,19 @@ var userlv = 0;
 
 var userstat = new Map();
 
+// 랭크 개수
+var ranksss = 0;
+var rankss = 0;
+var ranks = 0;
+var ranka = 0;
+var rankao = 0;
+var rankbcd = 0;
+var rankf = 0;
+var ranknp = 0;
+var all = 0;
+
+var ptidlist = new Array();
+
 $("#loading").hide();
 $("#seldiffSingletitle").hide();
 $("#seldiffDoubletitle").hide();
@@ -205,12 +218,17 @@ function updateTable(data) {
 	var cntlo = 0;
 	var cntbe = 0;
 	var cntrn = 0;
+
+	ptidlist.length = 0;
+	all = 0;
 	
 	var json = JSON.parse(data);
 	
 	for(var i = 0; i < json.patterns.length; i++) {
 		var current = json.patterns[i];
-		
+		ptidlist.push(current.ptid);
+		all++;
+
 		if(current.removed == 0) {
 			var data = 
 				"<div class='col-3 col-sm-2 div-pattern' style='padding:5px'>"+
@@ -226,15 +244,14 @@ function updateTable(data) {
 						"<div style='background-origin:content-box;" +
 									"background-image: url(\"/img/piumusic/"+current.musicid+".png\"), url(\"/img/piumusic/empty.jpg\");" +
 									"background-repeat: no-repeat;" +
-									"background-size: 100%;" +
-									"height:50%;'>"+
+									"background-size: 100%;'>"+
 							"<div>";
 					if(current.steptype == 1)
 						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/half.png'/>";
 					else if(current.steptype == 2)
 						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/pref.png'/>";
 					data += "</div>" +
-							"<div id='cs"+current.ptid+"'>"+
+							"<div class='rank' id='cs"+current.ptid+"'>"+
 								"<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_np.png'/>"+
 							"</div>"+
 							"<img src='/img/piumusic/"+current.musicid+".png' onerror='/img/piumusic/empty.jpg' " +
@@ -281,6 +298,10 @@ function updateTable(data) {
 			updateRecord(current.ptid);
 		}
 	}
+
+	rankreset();
+	updateRankData();
+	updateRanks();
 
 	if(cntov == 0) {
 		$("#cat5").text('');
@@ -407,6 +428,9 @@ function updateData(ptid) {
 	userstat.set(ptid.toString(), $("#grade").val());
 	updateRecord(ptid);
 	closeUP();
+	rankreset();
+	updateRankData();
+	updateRanks();
 }
 
 function updateMultipleData() {
@@ -418,6 +442,9 @@ function updateMultipleData() {
 		$(this).attr("checked", false);
 	});
 	closeUP();
+	rankreset();
+	updateRankData();
+	updateRanks();
 }
 
 function closeUP() {
@@ -490,11 +517,16 @@ function updateTableOver(data) {
 	$("#lvlow").empty();
 	$("#lvbelow").empty();
 	$("#lvrand").empty();
+
+	ptidlist.length = 0;
+	all = 0;
 	
 	var json = JSON.parse(data);
 	
 	for(var i = 0; i < json.patterns.length; i++) {
 		var current = json.patterns[i];
+		ptidlist.push(current.ptid);
+		all++;
 		
 		if(current.removed == 0) {
 			var data = 
@@ -511,7 +543,7 @@ function updateTableOver(data) {
 					else if(current.steptype == 2)
 						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/pref.png'/>";
 					data += "</div>" +
-							"<div id='cs"+current.ptid+"'>"+
+							"<div class='rank' id='cs"+current.ptid+"'>"+
 								"<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_np.png'/>"+
 							"</div>"+
 							"<img src='/img/piumusic/"+current.musicid+".png' onerror='/img/piumusic/empty.jpg' " +
@@ -566,4 +598,72 @@ function updateTableOver(data) {
 			updateRecord(current.ptid);
 		}
 	}
+
+	rankreset();
+	updateRankData();
+	updateRanks();
+}
+
+function hideCheckbox() {
+	if($("[id='ptnsel']").is(":visible")) $("[id='ptnsel']").hide();
+	else $("[id='ptnsel']").show();
+}
+
+function hideRank() {
+	if($(".rank").is(":visible")) $(".rank").hide();
+	else $(".rank").show();
+}
+
+function rankreset() {
+	ranksss = 0;
+	rankss = 0;
+	ranks = 0;
+	ranka = 0;
+	rankao = 0;
+	rankbcd = 0;
+	rankf = 0;
+	ranknp = 0;
+}
+
+function updateRankData() {
+	for(var i = 0; i < ptidlist.length; i++) {
+		if(userstat.has(ptidlist[i].toString())) {
+			switch(userstat.get(ptidlist[i].toString())) {
+			case "0":
+				ranksss++;
+				break;
+			case "1":
+				rankss++;
+				break;
+			case "2":
+				ranks++;
+				break;
+			case "3":
+				ranka++;
+				break;
+			case "4":
+				rankao++;
+				break;
+			case "5":
+				rankbcd++;
+				break;
+			case "6":
+				rankf++;
+				break;
+			}
+		}
+	}
+}
+
+function updateRanks() {
+	$("#ranks").html(
+		"SSS: "+ranksss+" | "+
+		"SS: "+rankss+" | "+
+		"S: "+ranks+" | "+
+		"A: "+ranka+"<br/>"+
+		"A: "+rankao+" (Break Off)  | "+
+		"BCD: "+rankbcd+" | "+
+		"F: "+rankf+" | "+
+		"No Play: "+(all-ranksss-rankss-ranks-ranka-rankao-rankbcd-rankf)
+	);
 }
