@@ -28,4 +28,9 @@ class SkillTable(var musicid: Int,
 				 var level: Int,
 				 var checkfc: String,
 				 var meter: String) {
+	constructor(musicid: Int, mname: String, ishot: String,
+				patterncode: Long, version: Int, level: Int)
+		: this(musicid, mname, ishot, patterncode.toInt(), "EXC", 10000, 0 ,0 ,0,
+		version, 1, 1, level, "Y",
+		"1111111111111111111111111111111111111111111111111111111111111111")
 }
