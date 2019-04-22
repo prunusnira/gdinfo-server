@@ -19,4 +19,7 @@ class NotPlayed(var id: Int,
 				var lv: Int,
 				var version: Int,
 				var hot: String) {
+	constructor(id: Int, name: String, ptcode: Long,
+				lv: Int, version: Int, hot: String)
+	: this(id, name, ptcode.toInt(), lv, version, hot)
 }
