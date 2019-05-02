@@ -29,9 +29,19 @@ var ranks = 0;
 var ranka = 0;
 var rankao = 0;
 var rankbcd = 0;
+var rankbcdo = 0;
 var rankf = 0;
 var ranknp = 0;
 var all = 0;
+
+var cntov = 0;
+var cnthi = 0;
+var cntnh = 0;
+var cntnr = 0;
+var cntne = 0;
+var cntlo = 0;
+var cntbe = 0;
+var cntrn = 0;
 
 var ptidlist = new Array();
 
@@ -205,19 +215,23 @@ function updateUserNameLv() {
 function updateTable(data) {
 	$("#targetTable").show();
 	// 기존 테이블 초기화
-	$("#lvover").empty();
-	$("#lvhigh").empty();
-	$("#lvnorm").empty();
-	$("#lvlow").empty();
-	$("#lvbelow").empty();
-	$("#lvrand").empty();
+	$("#lvOver").empty();
+	$("#lvHigh").empty();
+	$("#lvNH").empty();
+	$("#lvNormal").empty();
+	$("#lvNE").empty();
+	$("#lvEasy").empty();
+	$("#lvBelow").empty();
+	$("#lvRandom").empty();
 
-	var cntov = 0;
-	var cnthi = 0;
-	var cntnr = 0;
-	var cntlo = 0;
-	var cntbe = 0;
-	var cntrn = 0;
+	cntov = 0;
+	cnthi = 0;
+	cntnh = 0;
+	cntnr = 0;
+	cntne = 0;
+	cntlo = 0;
+	cntbe = 0;
+	cntrn = 0;
 
 	ptidlist.length = 0;
 	all = 0;
@@ -270,27 +284,35 @@ function updateTable(data) {
 			
 			switch(current.difftype) {
 			case 0:
-				$("#lvbelow").append(data);
+				$("#lvBelow").append(data);
 				cntbe++;
 				break;
 			case 1:
-				$("#lvlow").append(data);
+				$("#lvEasy").append(data);
 				cntlo++;
 				break;
 			case 2:
-				$("#lvnorm").append(data);
+				$("#lvNE").append(data);
+				cntne++;
+				break;
+			case 3: // 2->3
+				$("#lvNormal").append(data);
 				cntnr++;
 				break;
-			case 3:
-				$("#lvhigh").append(data);
+			case 4:
+				$("#lvNH").append(data);
+				cntnh++;
+				break;
+			case 5: // 3->5
+				$("#lvHigh").append(data);
 				cnthi++;
 				break;
-			case 4:
-				$("#lvover").append(data);
+			case 6: // 4->6
+				$("#lvOver").append(data);
 				cntov++;
 				break;
-			case 5:
-				$("#lvrand").append(data);
+			case 7: // 5->7
+				$("#lvRandom").append(data);
 				cntrn++;
 				break;
 			}
@@ -302,25 +324,6 @@ function updateTable(data) {
 	rankreset();
 	updateRankData();
 	updateRanks();
-
-	if(cntov == 0) {
-		$("#cat5").text('');
-	}
-	if(cnthi == 0) {
-		$("#cat4").text('');
-	}
-	if(cntnr == 0) {
-		$("#cat3").text('');
-	}
-	if(cntlo == 0) {
-		$("#cat2").text('');
-	}
-	if(cntbe == 0) {
-		$("#cat1").text('');
-	}
-	if(cntrn == 0) {
-		$("#cat0").text('');
-	}
 }
 
 function updateRecord(id) {
@@ -343,13 +346,16 @@ function updateRecord(id) {
 			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_aoff.png' />");
 			break;
 		case "5":
-			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_bcd.png' />");
+			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_bcdoff.png' />");
 			break;
 		case "6":
 			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_f.png' />");
 			break;
 		case "7":
 			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_np.png' />");
+			break;
+		case "8":
+			$("#cs"+id).html("<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_bcdon.png' />");
 			break;
 		}
 	}
@@ -368,10 +374,11 @@ function updatePattern(ptid, title) {
 					    "<option value='0'>SSS</option>"+
 					    "<option value='1'>SS</option>"+
 					    "<option value='2'>S</option>"+
-					    "<option value='3'>A(Break On)</option>"+
-					    "<option value='4'>A(Break Off)</option>"+
-					    "<option value='5'>Break Off under A</option>"+
-					    "<option value='6'>Stage Failed</option>"+
+					    "<option value='3'>A (Break On)</option>"+
+					    "<option value='4'>A (Break Off)</option>"+
+					    "<option value='8'>BCD (Break On)</option>"+
+					    "<option value='5'>BCD (Break Off)</option>"+
+					    "<option value='6'>F or GameOver</option>"+
 					    "<option value='7'>No Play</option>"+
 					"</select>"+
 				"</div>"+
@@ -402,10 +409,11 @@ function updatePatternMultiple() {
 					    "<option value='0'>SSS</option>"+
 					    "<option value='1'>SS</option>"+
 					    "<option value='2'>S</option>"+
-					    "<option value='3'>A(Break On)</option>"+
-					    "<option value='4'>A(Break Off)</option>"+
-					    "<option value='5'>Break Off under A</option>"+
-					    "<option value='6'>Stage Failed</option>"+
+					    "<option value='3'>A (Break On)</option>"+
+					    "<option value='4'>A (Break Off)</option>"+
+					    "<option value='8'>BCD (Break On)</option>"+
+					    "<option value='5'>BCD (Break Off)</option>"+
+					    "<option value='6'>F or GameOver</option>"+
 					    "<option value='7'>No Play</option>"+
 					"</select>"+
 				"</div>"+
@@ -461,12 +469,14 @@ function getPatterns(type, level) {
 				if(type == "s") $("#type").text("Single");
 				if(type == "d") $("#type").text("Double");
 				$("#lv").text(level+" Over");
-				$("#cat0").text("25 E");
-				$("#cat1").text("25 N");
-				$("#cat2").text("25 H");
-				$("#cat3").text(level*1+1);
-				$("#cat4").text(level*1+2);
-				$("#cat5").text(level*1+3);
+				$("#catRandom").text("");
+				$("#catBelow").text("");
+				$("#catEasy").text("25 E");
+				$("#catNE").text("25 N");
+				$("#catNormal").text("25 H");
+				$("#catNH").text(level*1+1);
+				$("#catHigh").text(level*1+2);
+				$("#catOver").text(level*1+3);
 			}
 		});
 	}
@@ -479,12 +489,14 @@ function getPatterns(type, level) {
 				if(type == "s") $("#type").text("Single");
 				if(type == "d") $("#type").text("Double");
 				$("#lv").text(level+" Over");
-				$("#cat0").text("");
-				$("#cat1").text("");
-				$("#cat2").text("");
-				$("#cat3").text(level*1);
-				$("#cat4").text(level*1+1);
-				$("#cat5").text(level*1+2);
+				$("#catRandom").text("");
+				$("#catBelow").text("");
+				$("#catEasy").text("");
+				$("#catNE").text("");
+				$("#catNormal").text("");
+				$("#catNH").text(level*1);
+				$("#catHigh").text(level*1+1);
+				$("#catOver").text(level*1+2);
 			}
 		});
 	}
@@ -497,26 +509,64 @@ function getPatterns(type, level) {
 				if(type == "s") $("#type").text("Single");
 				if(type == "d") $("#type").text("Double");
 				$("#lv").text(level);
-				$("#cat0").text("?");
-				$("#cat1").text((level*1-1)+"-");
-				$("#cat2").text("E");
-				$("#cat3").text("N");
-				$("#cat4").text("H");
-				$("#cat5").text((level*1+1)+"+");
+				$("#catRandom").text(txtPIU.diff.random[lang]);
+				$("#catBelow").text((level*1-1)+txtPIU.diff.below[lang]);
+				$("#catEasy").text(txtPIU.diff.easy[lang]);
+				$("#catNE").text(txtPIU.diff.ne[lang]);
+				$("#catNormal").text(txtPIU.diff.normal[lang]);
+				$("#catNH").text(txtPIU.diff.nh[lang]);
+				$("#catHigh").text(txtPIU.diff.high[lang]);
+				$("#catOver").text((level*1+1)+txtPIU.diff.over[lang]);
 			}
 		});
+	}
+
+	if(cntov == 0) {
+		$("#catOver").text('');
+	}
+	if(cnthi == 0) {
+		$("#catHigh").text('');
+	}
+	if(cntnh == 0) {
+		$("#catNH").text('');
+	}
+	if(cntnr == 0) {
+		$("#catNormal").text('');
+	}
+	if(cntne == 0) {
+		$("#catNE").text('');
+	}
+	if(cntlo == 0) {
+		$("#catEasy").text('');
+	}
+	if(cntbe == 0) {
+		$("#catBelow").text('');
+	}
+	if(cntrn == 0) {
+		$("#catRandom").text('');
 	}
 }
 
 function updateTableOver(data) {
 	$("#targetTable").show();
 	// 기존 테이블 초기화
-	$("#lvover").empty();
-	$("#lvhigh").empty();
-	$("#lvnorm").empty();
-	$("#lvlow").empty();
-	$("#lvbelow").empty();
-	$("#lvrand").empty();
+	$("#lvOver").empty();
+	$("#lvHigh").empty();
+	$("#lvNH").empty();
+	$("#lvNormal").empty();
+	$("#lvNE").empty();
+	$("#lvEasy").empty();
+	$("#lvBelow").empty();
+	$("#lvRandom").empty();
+
+	cntov = 0;
+	cnthi = 0;
+	cntnh = 0;
+	cntnr = 0;
+	cntne = 0;
+	cntlo = 0;
+	cntbe = 0;
+	cntrn = 0;
 
 	ptidlist.length = 0;
 	all = 0;
@@ -563,13 +613,13 @@ function updateTableOver(data) {
 			if(current.type == 0) {
 				switch(current.lv) {
 				case 24:
-					$("#lvnorm").append(data);
+					$("#lvNH").append(data);
 					break;
 				case 25:
-					$("#lvhigh").append(data);
+					$("#lvHigh").append(data);
 					break;
 				case 26:
-					$("#lvover").append(data);
+					$("#lvOver").append(data);
 					break;
 				}
 			}
@@ -577,20 +627,20 @@ function updateTableOver(data) {
 				switch(current.lv) {
 				case 25:
 					if(current.difftype == 1)
-						$("#lvrand").append(data);
+						$("#lvEasy").append(data);
 					if(current.difftype == 2)
-						$("#lvbelow").append(data);
+						$("#lvNE").append(data);
 					if(current.difftype == 3)
-						$("#lvlow").append(data);
+						$("#lvNormal").append(data);
 					break;
 				case 26:
-					$("#lvnorm").append(data);
+					$("#lvNH").append(data);
 					break;
 				case 27:
-					$("#lvhigh").append(data);
+					$("#lvHigh").append(data);
 					break;
 				case 28:
-					$("#lvover").append(data);
+					$("#lvOver").append(data);
 					break;
 				}
 			}
@@ -621,6 +671,7 @@ function rankreset() {
 	ranka = 0;
 	rankao = 0;
 	rankbcd = 0;
+	rankbcdo = 0;
 	rankf = 0;
 	ranknp = 0;
 }
@@ -645,10 +696,13 @@ function updateRankData() {
 				rankao++;
 				break;
 			case "5":
-				rankbcd++;
+				rankbcdo++;
 				break;
 			case "6":
 				rankf++;
+				break;
+			case "8":
+				rankbcd++;
 				break;
 			}
 		}
@@ -660,10 +714,11 @@ function updateRanks() {
 		"SSS: "+ranksss+" | "+
 		"SS: "+rankss+" | "+
 		"S: "+ranks+" | "+
-		"A: "+ranka+"<br/>"+
-		"A: "+rankao+" (Break Off)  | "+
-		"BCD: "+rankbcd+" | "+
+		"A: "+ranka+" | "+
+		"BCD: "+rankbcd+"<br/>"+
+		"A: "+rankao+" (Break Off) | "+
+		"BCD: "+rankbcdo+" (Break Off) | "+
 		"F: "+rankf+" | "+
-		"No Play: "+(all-ranksss-rankss-ranks-ranka-rankao-rankbcd-rankf)
+		"No Play: "+(all-ranksss-rankss-ranks-ranka-rankao-rankbcd-rankbcdo-rankf)
 	);
 }
