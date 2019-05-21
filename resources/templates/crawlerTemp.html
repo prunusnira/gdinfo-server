@@ -666,67 +666,271 @@ function SkillCrawler() {
 		jsonMusic.data = new Array();
 		// infos
 
-		var gfExist = $(elem).find('div.md_part_GUITAR').length;
-		var baExist = $(elem).find('div.md_part_BASS').length;
-		var dmExist = $(elem).find('div.md_part_').length;
-
-		var divlist = new Array();
-
-		$(elem).find('div.white_box').children().each(function(i) {
-			var str = $(this).attr('class');
-
-			if(str == 'md_part_GUITAR' || str == 'md_part_BASS' || str == 'md_part_') {
-				divlist.push(str);
-			}
-
-			if(str == 'md_list_contents') {
-				divlist.push($(this).find('th').attr('class'));
-			}
-		});
-
 		if(gtype == 'gf') {
-			var gfon = false;
-			var baon = false;
-			var ptcodelist = new Array();
-			for(var i = 0; i < divlist.length; i++) {
-				if(divlist[i] == 'md_part_GUITAR') {
-					gfon = true;
-					baon = false;
-				}
-				else if(divlist[i] == 'md_part_BASS') {
-					gfon = false;
-					baon = true;
-				}
-
-				if(gfon) {
-					if(divlist[i] == 'diff_BASIC') ptcodelist.push(1);
-					else if(divlist[i] == 'diff_ADVANCED') ptcodelist.push(2);
-					else if(divlist[i] == 'diff_EXTREME') ptcodelist.push(3);
-					else if(divlist[i] == 'diff_MASTER') ptcodelist.push(4);
-				}
-				else if(baon) {
-					if(divlist[i] == 'diff_BASIC') ptcodelist.push(5);
-					else if(divlist[i] == 'diff_ADVANCED') ptcodelist.push(6);
-					else if(divlist[i] == 'diff_EXTREME') ptcodelist.push(7);
-					else if(divlist[i] == 'diff_MASTER') ptcodelist.push(8);
-				}
-			}
-
-			$(divs).each(function(i) {
+			var isGexist = $(elem).find('div.md_part_GUITAR').length;
+			var isBexist = $(elem).find('div.md_part_BASS').length;
+			$(divs).each(function(k,v) {
 				var jsonGf = new Object();
 				var table = $(this).children('table');
 				var levels = table.children('thead').children('tr');
-
-				jsonGf.patterncode = ptcodelist[i];
-				var diffstr;
-				switch(ptcodelist[i]) {
-					case 1: case 5: diffstr = 'diff_BASIC'; break;
-					case 2: case 6: diffstr = 'diff_ADVANCED'; break;
-					case 3: case 7: diffstr = 'diff_EXTREME'; break;
-					case 4: case 8: diffstr = 'diff_MASTER'; break;
+				
+				// guitar only
+				if(isGexist > 0 && isBexist == 0) {
+					if($(divs).size() == 3) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 1;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 2;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 3;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+					else if($(divs).size() == 4) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 1;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 2;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 3;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 3:
+							jsonGf.patterncode = 4;
+							jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
 				}
-				jsonGf.level = $(levels).children('th.'+diffstr).children('div.'+diffstr).children('div.diff_area').get(0).innerHTML;
+				// bass only
+				else if(isGexist == 0 && isBexist > 0) {
+					if($(divs).size() == 3) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 5;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 6;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 7;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+					else if($(divs).size() == 4) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 5;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 6;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 7;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 3:
+							jsonGf.patterncode = 8;
+							jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+				}
+				else {
+					if($(divs).size() == 5) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 1;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 2;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 3;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 3:
+							jsonGf.patterncode = 5;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 4:
+							jsonGf.patterncode = 6;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+					if($(divs).size() == 6) {
+						// Guitar 3-3 = Normal
+						// Guitar 4-2 = Classic
+						// 위에부터 순서대로 읽도록 해야...
+						var g6all = $(divs).parent().children();
 
+						var g6size = g6all.length;
+						var g6g = 0;
+						var g6b = 0;
+						var g6pg = false;
+						var g6pb = false;
+
+						for(var q = 0; q < g6size; q++) {
+							if(g6all[q].className == 'md_part_GUITAR') g6pg = true;
+							if(g6all[q].className == 'md_part_BASS') {
+								g6pb = true;
+								g6pg = false;
+							}
+							if(g6pg) {
+								if(g6all[q].className == 'md_list_contents') g6g++;
+							}
+							if(g6pb) {
+								if(g6all[q].className == 'md_list_contents') g6b++;
+							}
+						}
+
+						if(g6g == 3 && g6b == 3) {
+							switch(k) {
+							case 0:
+								jsonGf.patterncode = 1;
+								jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 1:
+								jsonGf.patterncode = 2;
+								jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 2:
+								jsonGf.patterncode = 3;
+								jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 3:
+								jsonGf.patterncode = 5;
+								jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 4:
+								jsonGf.patterncode = 6;
+								jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 5:
+								jsonGf.patterncode = 7;
+								jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+								break;
+							}
+						}
+						if(g6g == 4 && g6b == 2) {
+							switch(k) {
+							case 0:
+								jsonGf.patterncode = 1;
+								jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 1:
+								jsonGf.patterncode = 2;
+								jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 2:
+								jsonGf.patterncode = 3;
+								jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 3:
+								jsonGf.patterncode = 4;
+								jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 4:
+								jsonGf.patterncode = 5;
+								jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+								break;
+							case 5:
+								jsonGf.patterncode = 6;
+								jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+								break;
+							}
+						}
+					}
+					else if($(divs).size() == 7) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 1;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 2;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 3;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 3:
+							jsonGf.patterncode = 4;
+							jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 4:
+							jsonGf.patterncode = 5;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 5:
+							jsonGf.patterncode = 6;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 6:
+							jsonGf.patterncode = 7;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+					else if($(divs).size() == 8) {
+						switch(k) {
+						case 0:
+							jsonGf.patterncode = 1;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 1:
+							jsonGf.patterncode = 2;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 2:
+							jsonGf.patterncode = 3;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 3:
+							jsonGf.patterncode = 4;
+							jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 4:
+							jsonGf.patterncode = 5;
+							jsonGf.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 5:
+							jsonGf.patterncode = 6;
+							jsonGf.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 6:
+							jsonGf.patterncode = 7;
+							jsonGf.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+							break;
+						case 7:
+							jsonGf.patterncode = 8;
+							jsonGf.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+							break;
+						}
+					}
+				}
+				
+				//var body = $(this).children('table').children('tbody').children('tr');
 				var body = table.children('tbody').children('tr');
 				
 				// 성과 데이터
@@ -776,29 +980,29 @@ function SkillCrawler() {
 			});
 		}
 		else if(gtype == 'dm') {
-            var ptcodelist = new Array();
-			for(var i = 0; i < divlist.length; i++) {
-				if(divlist[i] == 'diff_BASIC') ptcodelist.push(9);
-                else if(divlist[i] == 'diff_ADVANCED') ptcodelist.push(10);
-                else if(divlist[i] == 'diff_EXTREME') ptcodelist.push(11);
-                else if(divlist[i] == 'diff_MASTER') ptcodelist.push(12);
-            }
-            
-			$(divs).each(function(i) {
+			$(divs).each(function(k,v) {
 				var jsonDm = new Object();
 				var table = $(this).children('table');
 				var levels = table.children('thead').children('tr');
-                
-                jsonDm.patterncode = ptcodelist[i];
-				var diffstr;
-				switch(ptcodelist[i]) {
-					case 9: diffstr = 'diff_BASIC'; break;
-					case 10: diffstr = 'diff_ADVANCED'; break;
-					case 11: diffstr = 'diff_EXTREME'; break;
-					case 12: diffstr = 'diff_MASTER'; break;
+				
+				switch(k) {
+				case 0:
+					jsonDm.patterncode = 9;
+					jsonDm.level = $(levels).children('th.diff_BASIC').children('div.diff_BASIC').children('div.diff_area').get(0).innerHTML;
+					break;
+				case 1:
+					jsonDm.patterncode = 10;
+					jsonDm.level = $(levels).children('th.diff_ADVANCED').children('div.diff_ADVANCED').children('div.diff_area').get(0).innerHTML;
+					break;
+				case 2:
+					jsonDm.patterncode = 11;
+					jsonDm.level = $(levels).children('th.diff_EXTREME').children('div.diff_EXTREME').children('div.diff_area').get(0).innerHTML;
+					break;
+				case 3:
+					jsonDm.patterncode = 12;
+					jsonDm.level = $(levels).children('th.diff_MASTER').children('div.diff_MASTER').children('div.diff_area').get(0).innerHTML;
+					break;
 				}
-                jsonDm.level = $(levels).children('th.'+diffstr).children('div.'+diffstr).children('div.diff_area').get(0).innerHTML;
-                
 				var body = $(this).children('table').children('tbody').children('tr');
 
 				$(body).each(function(l,vv) {

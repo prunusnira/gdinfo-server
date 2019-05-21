@@ -155,7 +155,25 @@
 						<script>document.write(txtPIU.hiderank[lang]);</script>
 					</a>
     		</div>
-    	</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12 text-center">
+					<h4>
+						<script>document.write(txtPIU.songtype[lang]);</script>
+					</h4>
+				</div>
+				<div class="col-12 text-center">
+					<input id="musarcade" type="checkbox" value="musarcade" onclick="handleMusicType(this, 0)" checked/>
+					<label for="musarcade">Arcade</label>
+					<input id="musshort" type="checkbox" value="musshort" onclick="handleMusicType(this, 1)" checked/>
+					<label for="musshort">Shortcut</label>
+					<input id="musfull" type="checkbox" value="musfull" onclick="handleMusicType(this, 2)" checked/>
+					<label for="musfull">Fullsong</label>
+					<input id="musremix" type="checkbox" value="musremix" onclick="handleMusicType(this, 3)" checked/>
+					<label for="musremix">Remix</label>
+				</div>
+			</div>
     </section>
     
     <section class="container text-center" id="targetTable">

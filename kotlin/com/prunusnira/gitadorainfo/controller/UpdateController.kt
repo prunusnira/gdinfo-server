@@ -60,6 +60,9 @@ class UpdateController {
 	@Value("classpath:/templates/crawler.html")
 	lateinit var resource: Resource
 	
+	@Value("classpath:/templates/crawlerTest.html")
+	lateinit var resourceTest: Resource
+	
 	val logger = LoggerFactory.getLogger(javaClass)
 	
 	@RequestMapping("/$/update")
@@ -246,6 +249,9 @@ class UpdateController {
 			val lvmap = getLevelMap(jsonMusic) as HashMap<String, Int>
 			
 			if(gtype == "gf") {
+				if(lvmap["gbsc"] == null) lvmap["gbsc"] = 0
+				if(lvmap["gadv"] == null) lvmap["gadv"] = 0
+				if(lvmap["gext"] == null) lvmap["gext"] = 0
 				if(lvmap["gmas"] == null) lvmap["gmas"] = 0
 				if(lvmap["bbsc"] == null) lvmap["bbsc"] = 0
 				if(lvmap["badv"] == null) lvmap["badv"] = 0
@@ -253,6 +259,9 @@ class UpdateController {
 				if(lvmap["bmas"] == null) lvmap["bmas"] = 0
 			}
 			else if(gtype == "dm") {
+				if(lvmap["dbsc"] == null) lvmap["dbsc"] = 0
+				if(lvmap["dadv"] == null) lvmap["dadv"] = 0
+				if(lvmap["dext"] == null) lvmap["dext"] = 0
 				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
 			}
 			

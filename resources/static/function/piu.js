@@ -34,6 +34,7 @@ var rankf = 0;
 var ranknp = 0;
 var all = 0;
 
+// 패턴 개수
 var cntov = 0;
 var cnthi = 0;
 var cntnh = 0;
@@ -42,6 +43,12 @@ var cntne = 0;
 var cntlo = 0;
 var cntbe = 0;
 var cntrn = 0;
+
+// 음악 타입에 따른 표시 설정
+var musarcade = true;
+var musshort = true;
+var musfull = true;
+var musremix = true;
 
 var ptidlist = new Array();
 
@@ -248,6 +255,19 @@ function updateTable(data) {
 				"<div class='col-3 col-sm-2 div-pattern' style='padding:5px'>"+
 					"<input style='transform:scale(2); left:48%;' type='checkbox' id='ptnsel' value='"+current.ptid+"' />";
 			
+			if(current.songtype == 0) {
+				data += "<span data-songtype='0'></span>";
+			}
+			if(current.songtype == 1) {
+				data += "<span data-songtype='1'></span>";
+			}
+			if(current.songtype == 2) {
+				data += "<span data-songtype='2'></span>";
+			}
+			if(current.songtype == 3) {
+				data += "<span data-songtype='3'></span>";
+			}
+
 			if(lang == "ko")
 				data +=
 					"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_ko+"\")'>";
@@ -545,6 +565,15 @@ function getPatterns(type, level) {
 	if(cntrn == 0) {
 		$("#catRandom").text('');
 	}
+
+	checkboxReset();
+}
+
+function checkboxReset() {
+	$("input:checkbox[id='musarcade']").prop('checked', true);
+	$("input:checkbox[id='musshort']").prop('checked', true);
+	$("input:checkbox[id='musfull']").prop('checked', true);
+	$("input:checkbox[id='musremix']").prop('checked', true);
 }
 
 function updateTableOver(data) {
@@ -581,8 +610,23 @@ function updateTableOver(data) {
 		if(current.removed == 0) {
 			var data = 
 				"<div class='col-3 col-sm-2 div-pattern' style='padding:5px'>"+
-					"<input style='transform:scale(2); left:48%;' type='checkbox' id='ptnsel' value='"+current.ptid+"' />"+
-					"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_ko+"\")'>"+
+					"<input style='transform:scale(2); left:48%;' type='checkbox' id='ptnsel' value='"+current.ptid+"' />";
+
+			if(current.songtype == 0) {
+				data += "<span data-songtype='0'></span>";
+			}
+			if(current.songtype == 1) {
+				data += "<span data-songtype='1'></span>";
+			}
+			if(current.songtype == 2) {
+				data += "<span data-songtype='2'></span>";
+			}
+			if(current.songtype == 3) {
+				data += "<span data-songtype='3'></span>";
+			}
+
+				data +=
+						"<a href='#no_div' onclick='updatePattern("+current.ptid+",\""+current.title_ko+"\")'>"+
 						"<div style='background-origin:content-box;" +
 									"background-image: url(\"/img/piumusic/"+current.musicid+".png\"), url(\"/img/piumusic/empty.jpg\");" +
 									"background-repeat: no-repeat;" +
@@ -721,4 +765,61 @@ function updateRanks() {
 		"F: "+rankf+" | "+
 		"No Play: "+(all-ranksss-rankss-ranks-ranka-rankao-rankbcd-rankbcdo-rankf)
 	);
+}
+
+function handleMusicType(box, type) {
+	switch(type) {
+	case 0:
+		var arcade = $.find("[data-songtype='0']");
+		if(box.checked) {
+			$.each(arcade, function(i, elem) {
+				$(elem.parentElement).show();
+			});
+		}
+		else {
+			$.each(arcade, function(i, elem) {
+				$(elem.parentElement).hide();
+			});
+		}
+		break;
+	case 1:
+		var short = $.find("[data-songtype='1']");
+		if(box.checked) {
+			$.each(short, function(i, elem) {
+				$(elem.parentElement).show();
+			});
+		}
+		else {
+			$.each(short, function(i, elem) {
+				$(elem.parentElement).hide();
+			});
+		}
+		break;
+	case 2:
+		var full = $.find("[data-songtype='2']");
+		if(box.checked) {
+			$.each(full, function(i, elem) {
+				$(elem.parentElement).show();
+			});
+		}
+		else {
+			$.each(full, function(i, elem) {
+				$(elem.parentElement).hide();
+			});
+		}
+		break;
+	case 3:
+		var remix = $.find("[data-songtype='3']");
+		if(box.checked) {
+			$.each(remix, function(i, elem) {
+				$(elem.parentElement).show();
+			});
+		}
+		else {
+			$.each(remix, function(i, elem) {
+				$(elem.parentElement).hide();
+			});
+		}
+		break;
+	}
 }

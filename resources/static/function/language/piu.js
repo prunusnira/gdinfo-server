@@ -152,6 +152,11 @@ var txtPIU = {
         "ko":"랭크 숨기기/보이기",
         "en":"Hide/Show Rank"
     },
+    songtype: {
+        "jp":"表示する曲のタイプを選択",
+        "ko":"표시할 음악 타입 선택",
+        "en":"Select type of song"
+    },
     diff: {
         random: {
             "jp":"?",

@@ -24,5 +24,7 @@ class PIUPattern(var ptid: Int,
 				 // 서열표 내 위치 (0: 이하, 1: 하, 2: 중, 3: 상, 4: 이상, 5: ?)
 				 var steptype: Int,
 				 // 스텝 형태 (0: 보통, 1: 하프, 2: 퍼포)
+				 var songtype: Int,
+				 // 곡 형태 (0: 아케이드, 1: 숏컷, 2: 풀송, 3: 리믹스)
 				 var removed: Int) {
 }
