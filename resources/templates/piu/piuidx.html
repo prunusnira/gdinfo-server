@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
 	<script src="/function/language.js"></script>
@@ -43,7 +43,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -57,210 +57,239 @@
 	</section>
     
     <section class="container">
-    	<div class="text-center pagetop">
-    		<h1>Pump It Up XX</h1>
-    		<h3><script>document.write(txtPIU.subtitle[lang]);</script></h3>
-    	</div>
-    </section>
-    
-    <section class="container">
-    	<div class="row">
-    		<div class="col-12" id="howto"></div>
-    	</div>
-    </section>
-    
-    <section class="container text-center">
-    	<div class="row">
-				<div class="col-12">
-					<h4><script>document.write(txtPIU.functitle[lang]);</script></h4>
-				</div>
-    		<div class="col-12">
-					<a href="#no_div" class="btn btn-primary" onclick="newUser()">
-						<script>document.write(txtPIU.newuser[lang]);</script>
-					</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="loadUser()">
-						<script>document.write(txtPIU.load[lang]);</script>
-					</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="saveUser()">
-						<script>document.write(txtPIU.save[lang]);</script>
-					</a>
-    		</div>
-				<div class="col-12" id="seldiffSingletitle">
-					<h4><script>document.write(txtPIU.single[lang]);</script></h4>
-				</div>
-    		<div class="col-12" id="seldiffSingle">
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '13')">S13</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '14')">S14</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '15')">S15</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '16')">S16</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '17')">S17</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '18')">S18</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '19')">S19</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '20')">S20</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '21')">S21</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '22')">S22</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '23')">S23</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '24')">S24 over</a>
-    		</div>
-				<div class="col-12" id="seldiffDoubletitle">
-					<h4><script>document.write(txtPIU.double[lang]);</script></h4>
-				</div>
-    		<div class="col-12" id="seldiffDouble">
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '13')">D13</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '14')">D14</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '15')">D15</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '16')">D16</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '17')">D17</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '18')">D18</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '19')">D19</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '20')">D20</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '21')">D21</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '22')">D22</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '23')">D23</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '24')">D24</a>
-    			<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '25')">D25 over</a>
-    		</div>
-    	</div>
-    </section>
-    
-    <section class="container piu-namebg" id="userinfo">
-    	<div class="row">
-    		<div class="col-6 text-right">
-    			User Name
-    		</div>
-    		<div class="col-6 text-left" id="username">
-    		</div>
-    	</div>
-    	
-    	<div class="row">
-    		<div class="col-6 text-right">
-    			PIU XX Level
-    		</div>
-    		<div class="col-6 text-left" id="userlv">
-    		</div>
-    	</div>
-    	
-    	<div class="row">
-    		<div class="col-12 text-center">
-					<a href="#no_div" class="btn btn-primary" onclick="editUser()">
-						<script>document.write(txtPIU.edit[lang]);</script>
-					</a>
-					<a href="#no_div" class="btn btn-primary" onclick="updatePatternMultiple()">
-						<script>document.write(txtPIU.updatecheckedbtn[lang]);</script>
-					</a>
-					<a href="#no_div" class="btn btn-primary" onclick="hideCheckbox()">
-						<script>document.write(txtPIU.hidechkbox[lang]);</script>
-					</a>
-					<a href="#no_div" class="btn btn-primary" onclick="hideRank()">
-						<script>document.write(txtPIU.hiderank[lang]);</script>
-					</a>
-    		</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-12 text-center">
-					<h4>
-						<script>document.write(txtPIU.songtype[lang]);</script>
-					</h4>
-				</div>
-				<div class="col-12 text-center">
-					<input id="musarcade" type="checkbox" value="musarcade" onclick="handleMusicType(this, 0)" checked/>
-					<label for="musarcade">Arcade</label>
-					<input id="musshort" type="checkbox" value="musshort" onclick="handleMusicType(this, 1)" checked/>
-					<label for="musshort">Shortcut</label>
-					<input id="musfull" type="checkbox" value="musfull" onclick="handleMusicType(this, 2)" checked/>
-					<label for="musfull">Fullsong</label>
-					<input id="musremix" type="checkbox" value="musremix" onclick="handleMusicType(this, 3)" checked/>
-					<label for="musremix">Remix</label>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Pump It Up XX</h3>
+						<p><script>document.write(txtPIU.subtitle[lang]);</script></p>
+					</div>
+					<div class="card-body">
+						<div class="col-12" id="howto"></div>
+					</div>
 				</div>
 			</div>
-    </section>
-    
-    <section class="container text-center" id="targetTable">
+		</div>
+
     	<div class="row">
-    		<div class="col-12">
-    			<h3>Pump It Up XX</h3>
-    		</div>
-    		<div class="col-12">
-    			<h4>
-						<span id="type"></span> Lv.<span id="lv"></span> Clear Table
-					</h4>
-    		</div>
-				<div class="col-12" id="username2"></div>
-				<div class="col-12" id="ranks"></div>
-    	</div>
-    	
-			<div class="row div-lineadd" id="divOver" style="background-color: #8a0273">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catOver"></div>
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtPIU.functitle[lang]);</script></h3>
 					</div>
-					<div class="row" id="lvOver"></div>
-				</div>
-    	</div>
-    	
-			<div class="row div-lineadd" id="divHigh" style="background-color: #790202">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catHigh"></div>
+					<div class="card-body text-center btn-group">
+						<a href="#no_div" class="btn btn-primary" onclick="newUser()">
+							<script>document.write(txtPIU.newuser[lang]);</script>
+						</a>
+						<a href="#no_div" class="btn btn-primary" onclick="loadUser()">
+							<script>document.write(txtPIU.load[lang]);</script>
+						</a>
+						<a href="#no_div" class="btn btn-primary" onclick="saveUser()">
+							<script>document.write(txtPIU.save[lang]);</script>
+						</a>
 					</div>
-					<div class="row" id="lvHigh"></div>
 				</div>
 			</div>
-			
-			<div class="row div-lineadd" id="divNH" style="background-color: #8a5301">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catNH"></div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header" id="seldiffSingletitle">
+						<h3><script>document.write(txtPIU.single[lang]);</script></h3>
 					</div>
-					<div class="row" id="lvNH"></div>
-				</div>
-    	</div>
-    	
-    	<div class="row div-lineadd" id="divNormal" style="background-color: #8a8a01">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catNormal"></div>
+					<div class="card-body text-center" id="seldiffSingle">
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '13')">S13</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '14')">S14</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '15')">S15</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '16')">S16</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '17')">S17</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '18')">S18</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '19')">S19</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '20')">S20</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '21')">S21</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '22')">S22</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '23')">S23</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('s', '24')">S24 over</a>
 					</div>
-					<div class="row" id="lvNormal"></div>
 				</div>
 			</div>
-			
-			<div class="row div-lineadd" id="divNE" style="background-color: #028502">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catNE"></div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header" id="seldiffDoubletitle">
+						<h3><script>document.write(txtPIU.double[lang]);</script></h3>
 					</div>
-					<div class="row" id="lvNE"></div>
-				</div>
-    	</div>
-    	
-    	<div class="row div-lineadd" id="divEasy" style="background-color: #009494">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catEasy"></div>
+					<div class="card-body text-center" id="seldiffDouble">
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '13')">D13</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '14')">D14</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '15')">D15</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '16')">D16</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '17')">D17</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '18')">D18</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '19')">D19</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '20')">D20</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '21')">D21</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '22')">D22</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '23')">D23</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '24')">D24</a>
+						<a href="#no_div" class="btn btn-primary" onclick="getPatterns('d', '25')">D25 over</a>
 					</div>
-					<div class="row" id="lvEasy"></div>
 				</div>
-    	</div>
-    	
-    	<div class="row div-lineadd" id="divBelow" style="background-color: #00007e">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catBelow"></div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card" id="userinfo">
+					<div class="card-header">
+						<h3>User Info and Options</h3>
 					</div>
-					<div class="row" id="lvBelow"></div>
-				</div>
-    	</div>
-    	
-    	<div class="row" id="divRandom" style="background-color: #43008f">
-				<div class="col-12">
-					<div class="row">
-						<div class="col-12 piu-left" id="catRandom"></div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-6 text-right">
+								User Name
+							</div>
+							<div class="col-6 text-left" id="username">
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-6 text-right">
+								PIU XX Level
+							</div>
+							<div class="col-6 text-left" id="userlv">
+							</div>
+						</div>
+
+						<div class="row text-center">
+							<div class="col-12 text-center">
+								<a href="#no_div" class="btn btn-primary" onclick="editUser()">
+									<script>document.write(txtPIU.edit[lang]);</script>
+								</a>
+								<a href="#no_div" class="btn btn-primary" onclick="updatePatternMultiple()">
+									<script>document.write(txtPIU.updatecheckedbtn[lang]);</script>
+								</a>
+								<a href="#no_div" class="btn btn-primary" onclick="hideCheckbox()">
+									<script>document.write(txtPIU.hidechkbox[lang]);</script>
+								</a>
+								<a href="#no_div" class="btn btn-primary" onclick="hideRank()">
+									<script>document.write(txtPIU.hiderank[lang]);</script>
+								</a>
+							</div>
+						</div>
 					</div>
-					<div class="row" id="lvRandom"></div>
 				</div>
-    	</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtPIU.songtype[lang]);</script></h3>
+					</div>
+					<div class="card-body text-center">
+						<input id="musarcade" type="checkbox" value="musarcade" onclick="handleMusicType(this, 0)" checked/>
+						<label for="musarcade">Arcade</label>
+						<input id="musshort" type="checkbox" value="musshort" onclick="handleMusicType(this, 1)" checked/>
+						<label for="musshort">Shortcut</label>
+						<input id="musfull" type="checkbox" value="musfull" onclick="handleMusicType(this, 2)" checked/>
+						<label for="musfull">Fullsong</label>
+						<input id="musremix" type="checkbox" value="musremix" onclick="handleMusicType(this, 3)" checked/>
+						<label for="musremix">Remix</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card" id="targetTable">
+					<div class="card-header text-center">
+						<div class="col-12">
+							<h3>Pump It Up XX</h3>
+							<h4><span id="type"></span> Lv.<span id="lv"></span> Clear Table</h4>
+						</div>
+						<div class="col-12" id="username2"></div>
+						<div class="col-12" id="ranks"></div>
+					</div>
+					<div class="card-body">
+						<div class="row div-lineadd" id="divOver" style="background-color: #8a0273">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catOver"></div>
+								</div>
+								<div class="row" id="lvOver"></div>
+							</div>
+						</div>
+					
+						<div class="row div-lineadd" id="divHigh" style="background-color: #790202">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catHigh"></div>
+								</div>
+								<div class="row" id="lvHigh"></div>
+							</div>
+						</div>
+						
+						<div class="row div-lineadd" id="divNH" style="background-color: #8a5301">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catNH"></div>
+								</div>
+								<div class="row" id="lvNH"></div>
+							</div>
+						</div>
+						
+						<div class="row div-lineadd" id="divNormal" style="background-color: #8a8a01">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catNormal"></div>
+								</div>
+								<div class="row" id="lvNormal"></div>
+							</div>
+						</div>
+							
+						<div class="row div-lineadd" id="divNE" style="background-color: #028502">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catNE"></div>
+								</div>
+								<div class="row" id="lvNE"></div>
+							</div>
+						</div>
+						
+						<div class="row div-lineadd" id="divEasy" style="background-color: #009494">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catEasy"></div>
+								</div>
+								<div class="row" id="lvEasy"></div>
+							</div>
+						</div>
+						
+						<div class="row div-lineadd" id="divBelow" style="background-color: #00007e">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catBelow"></div>
+								</div>
+								<div class="row" id="lvBelow"></div>
+							</div>
+						</div>
+						
+						<div class="row" id="divRandom" style="background-color: #43008f">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12 piu-left" id="catRandom"></div>
+								</div>
+								<div class="row" id="lvRandom"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </section>
     
     <div id="newuserDialog" title="Edit profile" style="overflow:auto;"></div>
@@ -284,22 +313,6 @@
 		<form action='/logout' id='logout' method='post'>
 		</form>
 	</div>
-	<script>
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
-	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>
 	<script src="/function/menu.js"></script>

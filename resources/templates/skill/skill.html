@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -46,7 +46,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -59,37 +59,43 @@
 
 	<section class="container">
 	  	<div class="row">
-		  	<div class="col-12 text-center">
-				<h2>Skill Table</h2>
-			</div>
-	   	</div>
-		<div class="row" id='scrshotdiv'>
-			<div class='col-12 text-center'>
-				<h4>Screenshot</h4>
-			</div>
-			<div class="col-12">
-				<div style='width:100%;' class="btn-group btn-group-justified" role="group">
-					<a style="width:100%;" class="btn btn-warning" href="#no_div" v-bind:onclick="scrpage">
-						{{ scrpagetxt }}
-					</a>
-					<span id='gtype' th:attr='data-gtype=${gtype}'></span>
-					<a style="width:100%;" class="btn btn-warning" href="#no_div" th:onclick="|scrShot('#scrTable', '${id}_'+document.getElementById('gtype').dataset.gtype+'_all_${page}_'+getTimeScr()+'.jpg')|">
-						{{ scrcurtxt }}
-					</a>
+		  	<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Skill Table</h3>
+					</div>
+					<div class="card-body" id="scrshotdiv">
+						<span id='gtype' th:attr='data-gtype=${gtype}'></span>
+						<div class='col-12 text-center'>
+							<h4>Screenshot</h4>
+						</div>
+						<div class="col-12">
+							<div style='width:100%;' class="btn-group btn-group-justified" role="group">
+								<a style="width:100%;" class="btn btn-warning" href="#no_div" v-bind:onclick="scrpage">
+									{{ scrpagetxt }}
+								</a>
+								<a style="width:100%;" class="btn btn-warning" href="#no_div" th:onclick="|scrShot('#scrTable', '${id}_'+document.getElementById('gtype').dataset.gtype+'_all_${page}_'+getTimeScr()+'.jpg')|">
+									{{ scrcurtxt }}
+								</a>
+							</div>
+						</div>
+						<th:block th:if="${self}==true">
+							<div class="col-12">
+								<a href="#no_div" class="btn btn-primary" style="width:100%" th:onclick="|createSnapshot(${id}, document.getElementById('gtype').dataset.gtype)|">
+									{{ snapshot }}
+								</a>
+							</div>
+						</th:block>
+						<div class="col-12" id="rivalSelector">
+							<span style="font-size:120%">
+								<script>document.write(txtSkill.rival.select[lang]);</script>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-12" id="rivalSelector">
-				<span style="font-size:120%">
-					<script>document.write(txtSkill.rival.select[lang]);</script>
-				</span>
-			</div>
-		</div>
-  	</section>
-  	
-  	<section class="container" id='scrTable'>
-		<div class="card">
+	   	</div>
+		<div class="card" id='scrTable'>
 			<div class="card-header">
 				<div class="row" id="targetInfo">
 					<div class="col-12 text-center">
@@ -602,7 +608,8 @@
 		data: {
 			scrpage: 'checkScr()',
 			scrpagetxt: txtSkill.scrshotp[lang],
-			scrcurtxt: txtSkill.scrshot[lang]
+			scrcurtxt: txtSkill.scrshot[lang],
+			snapshot: txtSkill.snapshot.button[lang]
 		}
 	});
 
@@ -614,6 +621,13 @@
 			var urlbase = window.location.href.split('/skill/')[1];
 			window.location.href = '/skillscr/'+urlbase;
 		}
+	}
+
+	function createSnapshot(uid, gtype) {
+		$.ajax("/d/skill/snapshot/create/"+uid+"/"+gtype)
+		.done(function(data) {
+			alert(txtSkill.snapshot.created[lang]);
+		});
 	}
 
 	var vmSkill = new Vue({
@@ -711,7 +725,10 @@
 				
 				$("#nameTop").append(towertitlesp);
 				$("#nameTop").append("<a class='innerhref' href='/profile/"+json.user.id+"'>"+json.user.name+"</a>");
-				$("#timeTop").append(new Date(json.user.updatetime));
+
+				var updtime = new Date(json.user.updatetime);
+				$("#timeTop").append(updtime.getFullYear() + "/" + (updtime.getMonth()+1) + "/" + updtime.getDate() +
+										" " + updtime.getHours() + ":" + updtime.getMinutes());
 				
 				if(json.skill.length == 0 && json.hskill.length == 0 && json.oskill.length == 0) {
 					$("#skillEmpty").append("<h3>"+txtSkill.tablehead.empty[lang]+"</h3>");
@@ -1138,21 +1155,6 @@
 		var urlb = '/'+order+extvar;
 
 		$("#pager").append(createPager(cpage, pages, urla, urlb));
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	$(function() {

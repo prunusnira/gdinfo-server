@@ -170,7 +170,9 @@ function getSkillGraph(wsize, div, skill) {
 	
 	var text = r.text(rad, rad, skill).attr({
 		'font-size' : rad*0.4,
-		'font-weight' : 'bold'
+		'font-weight' : 'bold',
+		'stroke':'white',
+		'stroke-width':rad*0.01
 	});
 }
 
@@ -180,6 +182,7 @@ function getRecordGraph(wsize, div, date, skill, width, height) {
 	var maxval = 10000;
 	
 	var size = skill.length;
+	var idxarr = new Array();
 	
 	// 상한선-하한선 정하기
 	for(var i = 0; i < size; i++) {
@@ -194,53 +197,60 @@ function getRecordGraph(wsize, div, date, skill, width, height) {
 		else if(maxval < sval) {
 			maxval = sval + 100;
 		}
+
+		idxarr.push(i);
 	}
-	
-	// skill value check
-	var onebarwidth = (width - 10) / size;
-	var barheight = maxval - minval;
-	
-	var showtext = r.text(0, 30, "")
-		.attr({'fill':'black', 'text-anchor':'start', 'font-size':25,
-			'stroke':'black'});
+
+	var option = {
+		axis: '0 0 1 1',
+		axisxstep: 1,
+		axisystep: 4
+	}
+
+	var graph = r.linechart(
+		0, 0, width, height,
+		idxarr, skill, option
+	);
+
+	var showtext = r.text(0, 30, "");
 	showtext.hide();
-	
-	var mousework = function(i, data, date) {
-		// x 시작 = i * onebarwidth
-		// y 시작 = skill[i] 만큼 역으로 계산하여 시작 위치를 구해야 함, 그런데 비율임을 생각해야 함
-		var sval = parseFloat(skill[i]);
-		var cdate = date[i];
-		var x = i * onebarwidth;
-		var y = (sval - minval) / barheight;
-		
-		var bar = r.rect(x, height * (1 - y), onebarwidth, height * y)
-				.attr({
-					"fill":"60-#fff47c-#ffd37c",
-					"stroke":"#000000",
-					"stroke-width":"0.5px"
-					});
-		
-		bar.mouseover(
-			function(e) {
-				showtext.attr({
-					"text":cdate+" / "+sval,
-					"fill":"#000000",
-					"font-anchor":"start",
-					"font":"15px 'Noto Sans KR'"
-				});
-				showtext.show();
-				showtext.toFront();
-			}
-		);
-		
-		bar.mouseout(
-			function(e) {
-				showtext.hide();
-			}
-		);
-	}
-	
-	for(var i = 0; i < size; i++) {
-		mousework(i, skill, date);
-	}
+
+	graph.hover(
+		function(e) {
+			showtext.attr({
+				"text":date[this.axis]+" / "+this.value,
+				"fill":"#ffffff",
+				"text-anchor":"start",
+				"font":"15px 'Noto Sans KR'",
+				"stroke":"#000000",
+				"stroke-width":"0.5"
+			});
+			showtext.show();
+			showtext.toFront();
+		},
+		function(e) {
+			showtext.hide();
+		}
+	);
+
+	/*graph.mouseover(
+		function(e) {
+			showtext.attr({
+				"text":date[Math.round(e.x/(width/skill.length-1))]+" / "+skill[Math.round(e.x/(width/skill.length-1))],
+				"fill":"#ffffff",
+				"text-anchor":"start",
+				"font":"15px 'Noto Sans KR'",
+				"stroke":"#000000",
+				"stroke-width":"0.5"
+			});
+			showtext.show();
+			showtext.toFront();
+		}
+	);
+
+	graph.mouseout(
+		function(e) {
+			showtext.hide();
+		}
+	);*/
 }

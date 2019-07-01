@@ -273,15 +273,23 @@ var text = {
 					"Twitter @gitadorainfo"
 		},
 		e500: {
-			"jp":"先にログインをお願いします。<br/>" +
-					"もしログインしてからもこのページが見える場合、開発者に連絡お願いします<br/><br/>" +
-					"Twitter @gitadorainfo",
-			"ko":"로그인을 먼저 수행해주세요<br/>" +
+			"jp":"このページが表示されるのは２つの理由があります。<br/><br/>"+
+					"1. 先にログインをお願いします。<br/>"+
+					"もしログインしてからもこのページが見える場合、開発者に連絡お願いします<br/><br/>"+
+					"2. アカウント主さんだけ接続できるページの可能性があります。<br/>"+
+					"この場合は本人しかページの列欄が可能となります。<br/><br/>"+
+					"お問い合わせ：Twitter @gitadorainfo",
+			"ko":"이 페이지가 나오는 원인은 2가지가 있습니다.<br/><br/>"+
+					"1. 로그인을 먼저 수행해주세요<br/>" +
 					"만약 로그인 후에도 이 페이지가 계속 나타난다면 개발자에게 문의를 주세요<br/><br/>" +
-					"Twitter @gitadorainfo",
-			"en":"Please sign in first.<br/>" +
+					"2. 관련 계정 주인만 접근할 수 있는 페이지 일 수 있습니다<br/>" +
+					"이 경우에는 해당 기능과 관련된 계정주 본인만 접근할 수 있습니다<br/><br/>"+
+					"문의처: Twitter @gitadorainfo",
+			"en":"There are 2 reasons for you to see this page<br/><br/>"+
+					"1. Please sign in first.<br/>" +
 					"If you get this message even if you are signed in, please contact developer<br/><br/>" +
-					"Twitter @gitadorainfo"
+					"2. This page would be only accessible by account owner<br/><br/>"+
+					"Contact: Twitter @gitadorainfo"
 		}
 	},
 	noie: {

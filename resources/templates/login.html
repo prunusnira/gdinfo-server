@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="favicon.ico">
 
 <script src="function/language.js"></script>
@@ -39,21 +39,25 @@
 
 <body>
 	<section class="container">
-		<div class="pagetop text-center">
-			<h2>Login</h2>
-			<span>
-				<script>document.write(text.login.google[lang]);</script>
-			</span>
-		</div>
-	</section>
-	
-	<section class="container">
-		<div class="row text-center">
+		<div class="row">
 			<div class="col-12">
-				<div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
+				<div class="card">
+					<div class="card-header">
+						<h3>Login</h3>
+					</div>
+					<div class="card-body">
+						<div class="col-12">
+							<span>
+								<script>document.write(text.login.google[lang]);</script>
+							</span>
+						</div>
+						<div class="col-12">
+							<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		
 		<div style='display: none'>
 			<form action='/loginseq' id='register' method='post'>
 				<input type='text' id='token' name='token' />
@@ -69,17 +73,9 @@
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/sha.js"></script>
     <script src="/function/overall.js"></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
 	<script th:inline="javascript">
-		// signin
-		function gsignLoad() {
-			gapi.load('auth2', function() {
-				gapi.auth2.init();
-			});
-		}
-
 		function onSignIn(googleUser) {
-			gsignLoad();
 			var token = googleUser.getBasicProfile().getEmail().split("@")[0];
 			var shaObj = new jsSHA("SHA-256", "TEXT");
 			shaObj.update(token);
@@ -93,14 +89,6 @@
 				document.write(xhr.responseText);
 			};
 			xhr.send('token=' + hash);
-		}
-
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function() {
-				console.log('User signed out.');
-			});
-			$("#logout").submit();
 		}
 	</script>
 	<div th:insert="header :: header"></div>

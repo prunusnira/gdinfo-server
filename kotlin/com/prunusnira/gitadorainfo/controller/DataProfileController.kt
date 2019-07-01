@@ -303,9 +303,11 @@ class DataProfileController {
 	@RequestMapping("/d/profile/countupdate/{id}")
 	@ResponseBody
 	fun updateTotalCount(@PathVariable("id") id: Int): String {
-		val gfc = skillService.getPlayCountGF(id)
-		val dfc = skillService.getPlayCountDM(id)
-		userService.updatePlayCount(gfc, dfc, id)
+		var gfc:Int = skillService.getPlayCountGF(id)
+		var dfc:Int = skillService.getPlayCountDM(id)
+		userService.updatePlayCount("gf", gfc, id)
+		userService.updatePlayCount("dm", dfc, id)
+		userService.updatePlayCount("all", gfc+dfc, id)
 		
 		return "ok";
 	}

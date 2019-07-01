@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -43,7 +43,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -55,104 +55,107 @@
   	</section>
   	
   	<section class="container">
-	  	<div class="pagetop text-center">
-	   		<h2>Skill
-	    		<script>document.write(txtSkill.scrtitle[lang]);</script>
-			</h2>
-			<script>document.write(txtSkill.scrdesc[lang]);</script>
-	   	</div>
-  	</section>
-  	
-  	<section class="container">
-  		<div class="row">
-		  	<div class='col-12 btn-group btn-group-justified' id='prevlink'>
-				<a v-bind:href='prev' class='btn btn-primary' style='width:100%;'>
-					<script>document.write(txtSkill.scrback[lang]);</script>
-				</a>
-				<a style="width:100%;" class="btn btn-warning" href="#no_div" onclick="scrShotM()">
-					<script>document.write(txtSkill.scrshot[lang]);</script>
-				</a>
-			</div>
-		</div>
-  	</section>
-  	
-  	<section class="container" id='scrTable'>
-		<div class="card">
-			<div class="card-header">
-				<div class="row" id="targetInfo">
-					<div class="col-12 text-center">
-							<h4><b>GITADORA
-								<th:block th:switch="${ptype}">
-									<span th:case="3">Tri-Boost Re:EVOLVE Top 100</span>
-									<span th:case="4">Tri-Boost Top 100</span>
-									<span th:case="5">Tri-Boost Re:EVOLVE</span>
-									<span th:case="6">Tri-Boost</span>
-									<span th:case="7">Matixx Top 100</span>
-									<span th:case="8">Matixx</span>
-									<span th:case="*">EXCHAIN</span>
-								</th:block><br/>
-								<span th:if="${gtype}=='gf'">GuitarFreaks</span>
-								<span th:if="${gtype}=='dm'">DrumMania</span>
-								<span th:if="${ptype}!=1000">Skill by <span id="nameTop"></span></span>
-								<span th:unless="${ptype}!=1000">ALL EXCELLENT Skill</span>
-							</b></h4>
-						<b>Made by GITADORA.info</b>
+	  	<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Skill <script>document.write(txtSkill.scrtitle[lang]);</script></h3>
 					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<div class="card-title">
-					<div class="col-12">
-						<div class="row blackandwhite text-center skillupper" id="statusBar">
-							<div class='col-4'>
-								{{ statLeftTitle }}<br/><span style="color:white" class='skill' v-html="statLeft"></span>
-							</div>
-							<div class='col-4'>
-								{{ statMidTitle }}<br/>{{ statMid }}
-							</div>
-							<div class='col-4'>
-								{{ statRightTitle }}<br/>{{ statRight }}
-							</div>
+					<div class="card-body">
+						<div class="col-12">
+							<script>document.write(txtSkill.scrdesc[lang]);</script>
 						</div>
-					</div>
-				</div>
-				<div class="card-text">
-					<div class="row" id="targetTable">
-						<div class="col-12" id="fullTable">
-							<div class='row'>
-								<skill-table v-for="skill in skillList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
-							</div>
-						</div>
-						<div class="col-12 scrhalf" id='halfTableLeft'>
-							<div class='row'>
-								<div class='col-12 text-center'>
-									<h4><b><span th:if="${gtype} == 'gf'">GF </span><span th:if="${gtype} == 'dm'">DM </span>HOT SKILLS by <span id="nameTop1"></span></b></h4>
-									Made by GITADORA.Info
-								</div>
-							</div>
-							<div class='row'>
-								<skill-table v-for="skill in hotList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
-							</div>
-						</div>
-						<div class="col-12 scrhalf" id='halfTableRight'>
-							<div class='row'>
-								<div class='col-12 text-center'>
-									<h4><b><span th:if="${gtype} == 'gf'">GF </span><span th:if="${gtype} == 'dm'">DM </span>OTHER SKILLS by <span id="nameTop2"></span></b></h4>
-									Made by GITADORA.Info
-								</div>
-							</div>
-							<div class='row'>
-								<skill-table v-for="skill in otherList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
-							</div>
+						<div class="col-12 btn-group" id="prevlink">
+							<a v-bind:href='prev' class='btn btn-primary' style='width:100%;'>
+								<script>document.write(txtSkill.scrback[lang]);</script>
+							</a>
+							<a style="width:100%;" class="btn btn-warning" href="#no_div" onclick="scrShotM()">
+								<script>document.write(txtSkill.scrshot[lang]);</script>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-  	</section>
-  	
-  	<section class="container">
-  		<div id="skillEmpty" style="width:100%; text-align:center;"></div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card" id='scrTable'>
+					<div class="card-header">
+						<div class="row" id="targetInfo">
+							<div class="col-12 text-center">
+								<h4><b>GITADORA
+									<th:block th:switch="${ptype}">
+										<span th:case="3">Tri-Boost Re:EVOLVE Top 100</span>
+										<span th:case="4">Tri-Boost Top 100</span>
+										<span th:case="5">Tri-Boost Re:EVOLVE</span>
+										<span th:case="6">Tri-Boost</span>
+										<span th:case="7">Matixx Top 100</span>
+										<span th:case="8">Matixx</span>
+										<span th:case="*">EXCHAIN</span>
+									</th:block><br/>
+									<span th:if="${gtype}=='gf'">GuitarFreaks</span>
+									<span th:if="${gtype}=='dm'">DrumMania</span>
+									<span th:if="${ptype}!=1000">Skill by <span id="nameTop"></span></span>
+									<span th:unless="${ptype}!=1000">ALL EXCELLENT Skill</span>
+								</b></h4>
+								<b>Made by GITADORA.info</b>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="card-title">
+							<div class="col-12">
+								<div class="row blackandwhite text-center skillupper" id="statusBar">
+									<div class='col-4'>
+										{{ statLeftTitle }}<br/><span style="color:white" class='skill' v-html="statLeft"></span>
+									</div>
+									<div class='col-4'>
+										{{ statMidTitle }}<br/>{{ statMid }}
+									</div>
+									<div class='col-4'>
+										{{ statRightTitle }}<br/>{{ statRight }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-text">
+							<div class="row" id="targetTable">
+								<div class="col-12" id="fullTable">
+									<div class='row'>
+										<skill-table v-for="skill in skillList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
+									</div>
+								</div>
+								<div class="col-12 scrhalf" id='halfTableLeft'>
+									<div class='row'>
+										<div class='col-12 text-center'>
+											<h4><b><span th:if="${gtype} == 'gf'">GF </span><span th:if="${gtype} == 'dm'">DM </span>HOT SKILLS by <span id="nameTop1"></span></b></h4>
+											Made by GITADORA.Info
+										</div>
+									</div>
+									<div class='row'>
+										<skill-table v-for="skill in hotList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
+									</div>
+								</div>
+								<div class="col-12 scrhalf" id='halfTableRight'>
+									<div class='row'>
+										<div class='col-12 text-center'>
+											<h4><b><span th:if="${gtype} == 'gf'">GF </span><span th:if="${gtype} == 'dm'">DM </span>OTHER SKILLS by <span id="nameTop2"></span></b></h4>
+											Made by GITADORA.Info
+										</div>
+									</div>
+									<div class='row'>
+										<skill-table v-for="skill in otherList" v-bind:skill="skill" v-bind:key="skill.num"></skill-table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="skillEmpty" class="col-12 text-center"></div>
+		</div> 
 		<div class='row text-center'>
 			<div class="col-12" id="pager"></div>
 		</div>
@@ -645,21 +648,6 @@
 		else {
 			scrShot('#scrTable', id+'_'+gtype+'_all_'+page+'_'+getTimeScr()+'.jpg');
 		}
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	</script>
 	<div th:insert="header :: header"></div>

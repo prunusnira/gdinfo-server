@@ -333,9 +333,11 @@ class UpdateController {
 		}
 		IPLogger.writeLog(req,  logger, userService, "Skill upload complete-"+profile.id)
 		
-		val gfc = skillService.getPlayCountGF(profile.id)
-		val dfc = skillService.getPlayCountDM(profile.id)
-		userService.updatePlayCount(gfc, dfc, profile.id)
+		var gfc:Int = skillService.getPlayCountGF(profile.id)
+		var dfc:Int = skillService.getPlayCountDM(profile.id)
+		userService.updatePlayCount("gf", gfc, profile.id)
+		userService.updatePlayCount("dm", dfc, profile.id)
+		userService.updatePlayCount("all", gfc+dfc, profile.id)
 		IPLogger.writeLog(req,  logger, userService, "Play count updated-"+profile.id)
 		return "200"
 	}

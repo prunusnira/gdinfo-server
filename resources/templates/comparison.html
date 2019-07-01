@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="/favicon.ico">
 
 <script src="/function/language.js"></script>
@@ -49,7 +49,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -57,323 +57,344 @@
 
 <body>
 	<section class="container">
-		<div class="pagetop text-center">Comparison</div>
-	</section>
-	
-	<section class="container">
-		<div class="row" id="toplink"></div>
 		<div class="row">
 			<div class="col-12">
-				<span id='gtype' th:attr='data-gtype=${gtype}'></span>
-				<a style="width: 100%;" class="btn btn-warning" href="#"
-					onclick="scrShot('#targetTable', 'versus_'+document.getElementById('gtype').dataset.gtype+'.png')">
-					<script>document.write(txtComp.scrshot[lang]);</script>
-				</a>
+				<div class="card">
+					<div class="card-header">
+						<h3>Comparison</h3>
+					</div>
+					<div class="card-body">
+						<div class="row btn-group" id="toplink"></div>
+						<div class="row">
+							<div class="col-12">
+								<span id='gtype' th:attr='data-gtype=${gtype}'></span>
+								<a style="width: 100%;" class="btn btn-warning" href="#"
+									onclick="scrShot('#targetTable', 'versus_'+document.getElementById('gtype').dataset.gtype+'.png')">
+									<script>document.write(txtComp.scrshot[lang]);</script>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</section>
-	
-	<section class="container">
-		<div id="targetTable" style="padding: 20px;">
-			<div class="row">
-				<h1>
-					<script>document.write(txtComp.title[lang]);</script>
-				</h1>
-				<p id="topvs" style="font-size: 150%;"></p>
-			</div>
-			<div class='row text-center' style="font-face: bold;">
-				<div class='col-5'>
-					<div class='row'>
-						<div class='col-6'>My GF</div>
-						<div class='col-6'>My DM</div>
-					</div>
-				</div>
-				<div class='col-2'></div>
-				<div class='col-5'>
-					<div class='row'>
-						<div class='col-6'>Opponent GF</div>
-						<div class='col-6'>Opponent DM</div>
-					</div>
-				</div>
-			</div>
-			<div id="topskill" class='row text-center blackandwhite'
-				style="font-size: 120%;"></div>
-			<div class="row">
-				<h2>
-					<script>document.write(txtComp.status[lang]);</script>
-				</h2>
-			</div>
-			<div class="row text-center" style="text-align: center; font-size: 120%;">
-				<div class="col-4 table-cell-profile">
-					<script>document.write(txtComp.comp.win[lang]);</script>
-				</div>
-				<div class="col-4 table-cell-profile">
-					<script>document.write(txtComp.comp.lose[lang]);</script>
-				</div>
-				<div class="col-4">
-					<script>document.write(txtComp.comp.draw[lang]);</script>
-				</div>
-			</div>
-			<div class="row text-center" style="font-size: 120%;">
-				<div class="col-4 table-cell-profile" id="wlwin"></div>
-				<div class="col-4 table-cell-profile" id="wllose"></div>
-				<div class="col-4 table-cell-profile" id="wldraw"></div>
-			</div>
-		</div>
-	</section>
-	
-	<section class="container">
-		<!-- Filter and Orders -->
-		<div id='filters' class='filters'>
-			<div id='filterShowHide' class='filter-front'>
-				<a href='#' onclick='showfilter(1)'>
-					<h3 style="font-size: 200%">Filter Show</h3>
-					<script>document.write(text.other.filter[lang])</script>
-				</a>
-			</div>
-			<form id='filterform'>
-				<div id='filter' style="display: none;">
-					<div class='filter-front'>Level</div>
-					<div class='filter-back div-table'>
-						<div class='div-table-row'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='1'>1.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='2'>1.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='4'>2.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='8'>2.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='16'>3.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='32'>3.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='64'>4.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='128'>4.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='256'>5.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='512'>5.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='1024'>6.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='2048'>6.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='4096'>7.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='8192'>7.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='16384'>8.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='32768'>8.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='65536'>9.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='131072'>9.5~</label>
-							</div>
-						</div>
-					</div>
-					<div class='filter-rank'>
-						<div class='filter-front'>My Rank</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='128'>Excellent</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='64'>SS</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='32'>S</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='16'>A</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='8'>B</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='4'>C</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='2'>Failed</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='rank[]' value='1'>Not Played</label>
-							</div>
-						</div>
-					</div>
-					<div class='filter-ver'>
-						<div class='filter-front'>Version</div>
-						<div class='div-table-row filter-back' id='verfilter'></div>
-					</div>
-					<div class='filter-hot'>
-						<div class='filter-front'>Hot/Other</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='o'>Other</label>
-							</div>
-						</div>
-					</div>
-					<div class='filter-rival'>
-						<div class='filter-front'>Win/Lose Status</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<input type='checkbox' name='rival[]' value='1'>Win
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<input type='checkbox' name='rival[]' value='2'>Lose
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<input type='checkbox' name='rival[]' value='4'>Draw
-							</div>
-						</div>
-					</div>
-					<div class='order'>
-						<div class='filter-front'>Order</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='titleasc'>Title
-									▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='titledesc'>Title ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verasc'>Version
-									▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verdesc'>Version
-									▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='mrateasc'>My
-									Rate ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='mratedesc'>My Rate ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='rrateasc'>Comparer
-									Rate ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='rratedesc'>Comparer Rate ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='mskillasc'>My Skill ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='mskilldesc'>My Skill ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='rskillasc'>Comparer Skill ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='rskilldesc'>Comparer Skill ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='skilldiffasc'>Skill Difference (Using Abs) ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='skilldiffdesc'>Skill Difference (Using Abs) ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='skilldiffnoabsasc'>Skill Difference ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='skilldiffnoabsdesc'>Skill Difference ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='ratediffasc'>Rate Difference (Using Abs) ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='ratediffdesc'>Rate Difference (Using Abs) ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='ratediffnoabsasc'>Rate Difference ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order'
-									value='ratediffnoabsdesc'>Rate Difference ▼</label>
-							</div>
-						</div>
-					</div>
-					<div class='filter-apply'>
-						<div class='filter-front'>Apply</div>
-						<div class='div-table-cell filter-obj' id="filterbtn">
-							<span id="gtype" th:attr="data-gtype=${gtype}"></span>
-							<span id="myid" th:attr="data-myid=${id}"></span>
-							<span id="comid" th:attr="data-comid=${rival}"></span>
-							<button class='btn btn-primary'
-								th:onclick="|applyfilterR('comparison',
-								document.getElementById('gtype').dataset.gtype,
-								'skilldiffdesc',
-								document.getElementById('myid').dataset.myid)|"
-								type='button'>Apply</button>
-						</div>
-						<div class='div-table-cell filter-obj'>
-							<button class='btn btn-default' onclick='filterReset()'
-								type='button'>Reset</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</section>
-	
-	<section class="container">
-		<div class="row text-center">
-			<h2><script>document.write(txtComp.compTitle[lang]);</script></h2>
-		</div>
-		<div id="compTable"></div>
-		<div id="pager" class="row"></div>
 
-		<!-- add rows with jsp -->
-
-		<th:if test="${comparison.size() == 0}">
-			<div style="width: 100%; text-align: center;">
-				<h3>
-					<script>document.write(txtComp.table.empty[lang]);</script>
-				</h3>
+		<div class="row" id="targetTable">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtComp.title[lang]);</script></h3>
+						<p id="topvs" style="font-size: 150%;"></p>
+					</div>
+					<div class="card-body">
+						<div class='row text-center' style="font-face: bold;">
+							<div class='col-5'>
+								<div class='row'>
+									<div class='col-6'>My GF</div>
+									<div class='col-6'>My DM</div>
+								</div>
+							</div>
+							<div class='col-2'></div>
+							<div class='col-5'>
+								<div class='row'>
+									<div class='col-6'>Opponent GF</div>
+									<div class='col-6'>Opponent DM</div>
+								</div>
+							</div>
+						</div>
+						<div id="topskill" class='row text-center blackandwhite' style="font-size: 120%;"></div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtComp.status[lang]);</script></h3>
+					</div>
+					<div class="card-body">
+						<div class="row text-center" style="text-align: center; font-size: 120%;">
+							<div class="col-4 table-cell-profile">
+								<script>document.write(txtComp.comp.win[lang]);</script>
+							</div>
+							<div class="col-4 table-cell-profile">
+								<script>document.write(txtComp.comp.lose[lang]);</script>
+							</div>
+							<div class="col-4">
+								<script>document.write(txtComp.comp.draw[lang]);</script>
+							</div>
+						</div>
+						<div class="row text-center" style="font-size: 120%;">
+							<div class="col-4 table-cell-profile" id="wlwin"></div>
+							<div class="col-4 table-cell-profile" id="wllose"></div>
+							<div class="col-4 table-cell-profile" id="wldraw"></div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</th:if>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Option Table</h3>
+					</div>
+					<div class="card-body">
+						<!-- Filter and Orders -->
+						<div id='filters' class='filters'>
+							<div id='filterShowHide' class='filter-front'>
+								<a href='#' onclick='showfilter(1)'>
+									<h3 style="font-size: 200%">Filter Show</h3>
+									<script>document.write(text.other.filter[lang])</script>
+								</a>
+							</div>
+							<form id='filterform'>
+								<div id='filter' style="display: none;">
+									<div class='filter-front'>Level</div>
+									<div class='filter-back div-table'>
+										<div class='div-table-row'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='1'>1.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='2'>1.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='4'>2.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='8'>2.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='16'>3.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='32'>3.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='64'>4.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='128'>4.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='256'>5.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='512'>5.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='1024'>6.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='2048'>6.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='4096'>7.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='8192'>7.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='16384'>8.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='32768'>8.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='65536'>9.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='131072'>9.5~</label>
+											</div>
+										</div>
+									</div>
+									<div class='filter-rank'>
+										<div class='filter-front'>My Rank</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='128'>Excellent</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='64'>SS</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='32'>S</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='16'>A</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='8'>B</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='4'>C</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='2'>Failed</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='rank[]' value='1'>Not Played</label>
+											</div>
+										</div>
+									</div>
+									<div class='filter-ver'>
+										<div class='filter-front'>Version</div>
+										<div class='div-table-row filter-back' id='verfilter'></div>
+									</div>
+									<div class='filter-hot'>
+										<div class='filter-front'>Hot/Other</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='o'>Other</label>
+											</div>
+										</div>
+									</div>
+									<div class='filter-rival'>
+										<div class='filter-front'>Win/Lose Status</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<input type='checkbox' name='rival[]' value='1'>Win
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<input type='checkbox' name='rival[]' value='2'>Lose
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<input type='checkbox' name='rival[]' value='4'>Draw
+											</div>
+										</div>
+									</div>
+									<div class='order'>
+										<div class='filter-front'>Order</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='titleasc'>Title
+													▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='titledesc'>Title ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verasc'>Version
+													▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verdesc'>Version
+													▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='mrateasc'>My
+													Rate ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='mratedesc'>My Rate ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='rrateasc'>Comparer
+													Rate ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='rratedesc'>Comparer Rate ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='mskillasc'>My Skill ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='mskilldesc'>My Skill ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='rskillasc'>Comparer Skill ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='rskilldesc'>Comparer Skill ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='skilldiffasc'>Skill Difference (Using Abs) ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='skilldiffdesc'>Skill Difference (Using Abs) ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='skilldiffnoabsasc'>Skill Difference ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='skilldiffnoabsdesc'>Skill Difference ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='ratediffasc'>Rate Difference (Using Abs) ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='ratediffdesc'>Rate Difference (Using Abs) ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='ratediffnoabsasc'>Rate Difference ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order'
+													value='ratediffnoabsdesc'>Rate Difference ▼</label>
+											</div>
+										</div>
+									</div>
+									<div class='filter-apply'>
+										<div class='filter-front'>Apply</div>
+										<div class='div-table-cell filter-obj' id="filterbtn">
+											<span id="gtype" th:attr="data-gtype=${gtype}"></span>
+											<span id="myid" th:attr="data-myid=${id}"></span>
+											<span id="comid" th:attr="data-comid=${rival}"></span>
+											<button class='btn btn-primary'
+												th:onclick="|applyfilterR('comparison',
+												document.getElementById('gtype').dataset.gtype,
+												'skilldiffdesc',
+												document.getElementById('myid').dataset.myid)|"
+												type='button'>Apply</button>
+										</div>
+										<div class='div-table-cell filter-obj'>
+											<button class='btn btn-default' onclick='filterReset()'
+												type='button'>Reset</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- filter end -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtComp.compTitle[lang]);</script></h3>
+					</div>
+					<div class="card-body">
+						<div id="compTable"></div>
+						<div id="pager" class="row"></div>
+						<th:if test="${comparison.size() == 0}">
+							<div class="text-center">
+								<h3><script>document.write(txtComp.table.empty[lang]);</script></h3>
+							</div>
+						</th:if>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<!-- Bootstrap core JavaScript
@@ -612,30 +633,11 @@
 		$("#topskill").append(topskill);
 		
 		$("#toplink").append(
-			"<div class='col-6'>"+
-				"<a style='width:100%' class='btn btn-primary'"+
-					"href='/comparison/"+rivalUser.id+"/gf/1'>GF</a>"+
-			"</div>"+
-			"<div class='col-6'>"+
-				"<a style='width:100%' class='btn btn-primary'"+
-					"href='/comparison/"+rivalUser.id+"/dm/1'>DM</a>"+
-			"</div>"
+			"<a style='width:100%' class='btn btn-primary'"+
+				"href='/comparison/"+rivalUser.id+"/gf/1'>GF</a>"+
+			"<a style='width:100%' class='btn btn-primary'"+
+				"href='/comparison/"+rivalUser.id+"/dm/1'>DM</a>"
 		);
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	function getTime() {

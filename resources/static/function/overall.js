@@ -32,13 +32,13 @@ function changeSearchType(type) {
         break;
     }
 
-    $("#header-dropdown-search").hide();
+    $("#search-dropdown").hide();
 }
 
 function search() {
     var inpval = $("input[name='val']").val();
-    
     location.href="/search/"+searchtype+"/"+inpval+"/1";
+    return false;
 }
 
 function themeChange(type) {
@@ -101,6 +101,22 @@ else {
     overall.type = "text/css";
     overall.rel = "stylesheet";
     $("head").append(overall.outerHTML);
+}
+
+// sign out
+function gsignLoad() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log('User signed out.');
+    });
+    $("#logout").submit();
+    auth2.disconnect();
 }
 
 // Google Analytics

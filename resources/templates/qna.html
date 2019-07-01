@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="/favicon.ico">
 <script src="/function/language.js"></script>
 <title>GITADORA Info</title>
@@ -107,22 +107,6 @@
 	<div style='display: none'>
 		<form action='/logout' id='logout' method='post'></form>
 	</div>
-	<script>
-		//signout
-		function gsignLoad() {
-			gapi.load('auth2', function() {
-				gapi.auth2.init();
-			});
-		}
-
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function() {
-				console.log('User signed out.');
-			});
-			$("#logout").submit();
-		}
-	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>
 	<script src="/function/menu.js"></script>

@@ -10,17 +10,17 @@
  *****************************************************/
 var txtPtdetail = {
     title: {
-        "jp":"パターン別ランキング",
+        "jp":"譜面別ランキング",
         "ko":"패턴별 랭킹",
         "en":"Pattern ranking"
     },
     desc: {
-        "jp":"現在の曲のパターンランキングです",
+        "jp":"現在の曲の譜面ランキングです",
         "ko":"각 패턴의 정보를 저장한 유저들의 랭킹을 확인할 수 있습니다",
         "en":"Here's user ranking on this pattern"
     },
     pattern: {
-        "jp":"パターン情報",
+        "jp":"譜面情報",
         "ko":"패턴 정보",
         "en":"About this pattern"
     },
@@ -31,7 +31,7 @@ var txtPtdetail = {
     },
     table: {
         ptinfo: {
-            "jp":"パターン情報",
+            "jp":"譜面情報",
             "ko":"패턴 정보",
             "en":"Pattern info"
         },

@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="favicon.ico">
 
 <script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -49,34 +49,39 @@
 
 <body>
 	<section class="container">
-		<div class="text-center">
-    		<h2>Terms and Conditions</h2>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Terms and Conditions</h3>
+					</div>
+					<div class="card-body">
+						<div>
+							<h4><script>document.write(txtTerms.title[lang]);</script></h4>
+						</div>
+						
+						<div>
+							<h4><script>document.write(txtTerms.s1t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s1c[lang]);</script></span>
+						</div>
+						
+						<div>
+							<h4><script>document.write(txtTerms.s2t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s2c[lang]);</script></span>
+						</div>
+						
+						<div>
+							<h4><script>document.write(txtTerms.s3t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s3c[lang]);</script></span>
+							<h4><script>document.write(txtTerms.s4t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s4c[lang]);</script></span>
+							<h4><script>document.write(txtTerms.s5t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s5c[lang]);</script></span>
+						</div>
+					</div>
+				</div>
+			</div>
     	</div>
-	</section>
-	
-	<section class="container">
-		<div>
-			<h3><script>document.write(txtTerms.title[lang]);</script></h3>
-		</div>
-		
-		<div>
-			<h3><script>document.write(txtTerms.s1t[lang]);</script></h3>
-			<span><script>document.write(txtTerms.s1c[lang]);</script></span>
-		</div>
-		
-		<div>
-			<h3><script>document.write(txtTerms.s2t[lang]);</script></h3>
-			<span><script>document.write(txtTerms.s2c[lang]);</script></span>
-		</div>
-		
-		<div>
-			<h3><script>document.write(txtTerms.s3t[lang]);</script></h3>
-			<span><script>document.write(txtTerms.s3c[lang]);</script></span>
-			<h3><script>document.write(txtTerms.s4t[lang]);</script></h3>
-			<span><script>document.write(txtTerms.s4c[lang]);</script></span>
-			<h3><script>document.write(txtTerms.s5t[lang]);</script></h3>
-			<span><script>document.write(txtTerms.s5c[lang]);</script></span>
-		</div>
 	</section>
 
 	<!-- Bootstrap core JavaScript
@@ -86,23 +91,10 @@
 	<script src="/js/vue.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
     <script src="/function/overall.js"></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
 	<div style='display: none'>
 		<form action='/logout' id='logout' method='post'></form>
 	</div>
-	<script>
-		//signout
-		function signOut() {
-			gapi.load('auth2', function() {
-				gapi.auth2.init();
-			});
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function() {
-				console.log('User signed out.');
-			});
-			$("#logout").submit();
-		}
-	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>
 	<script src="/function/menu.js"></script>

@@ -232,7 +232,11 @@ class PageController {
 	: String {
 		val session = req.session
 		val token = session.getAttribute("token")
-		if(token != null) model.addAttribute("token", token as String)
+		var loginid = 0
+		if(token != null) {
+			model.addAttribute("token", token as String)
+			loginid = userService.getUserByToken(token).id
+		}
 		model.addAttribute("id", userid)
 		model.addAttribute("order", order)
 		model.addAttribute("gtype", gtype)
@@ -243,6 +247,9 @@ class PageController {
 		if(ver != null) model.addAttribute("ver", ver)
 		if(hot != null) model.addAttribute("hot", hot)
 		if(rival != null) model.addAttribute("rival", rival)
+
+		// 동일 유저 유무 확인
+		if(loginid == userid) model.addAttribute("self", true)
 		IPLogger.writeLog(req, logger, userService, "Skill")
 		return "skill/skill"
 	}
@@ -276,6 +283,54 @@ class PageController {
 		if(rival != null) model.addAttribute("rival", rival)
 		IPLogger.writeLog(req, logger, userService, "Skill Screenshot")
 		return "skill/skillscr"
+	}
+
+	@RequestMapping(value=["/snapshot"])
+	fun mySnapshotList(req: HttpServletRequest, model: Model): String {
+		val session = req.session
+		val token = session.getAttribute("token")
+		if(token != null) {
+			val profile = userService.getUserByToken(token as String)
+			val uid = profile.id
+			IPLogger.writeLog(req, logger, userService, "My Snapshot List"+uid)
+			return "redirect:/skill/snapshot/list/"+uid
+		}
+		else return "error/500"
+	}
+
+	@RequestMapping(value=["/skill/snapshot/list/{uid}"])
+	fun snapshotList(req: HttpServletRequest, model: Model,
+				@PathVariable("uid") uid: Int): String {
+		var movable = false
+		val session = req.session
+		val token = session.getAttribute("token")
+		if(token != null) {
+			val profile = userService.getUserByToken(token as String)
+			val id = profile.id
+			if(id == uid) {
+				model.addAttribute("uid", uid)
+				IPLogger.writeLog(req, logger, userService, "Snapshot List")
+				movable = true
+			}
+		}
+		if(movable) return "skill/snapshot"
+		else return "error/500"
+	}
+
+	@RequestMapping(value=["/skill/snapshot/view/{ptype}/{uid}/{date}/{gtype}"])
+	fun snapshotView(req: HttpServletRequest, model: Model,
+				@PathVariable("ptype") ptype: String,
+				@PathVariable("uid") uid: Int,
+				@PathVariable("date") date: String,
+				@PathVariable("gtype") gtype: String): String {
+		model.addAttribute("uid", uid)
+		model.addAttribute("date", date)
+		model.addAttribute("gtype", gtype)
+		IPLogger.writeLog(req, logger, userService, "Snapshot View")
+		System.out.println(ptype)
+		if(ptype.equals("nr")) return "skill/snapnr"
+		else if(ptype.equals("sh")) return "skill/snapsh"
+		else return "error/404"
 	}
 	
 	@RequestMapping(value=["/register"])

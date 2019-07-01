@@ -17,7 +17,7 @@ function showfilter(type) {
 		$('#filter').show();
 		$('#filterShowHide').html("<a href='#' onclick='showfilter(0)'>"+
 							"<div>"+
-								"<h3>Filter Hide</h3>"+
+								"<h3>Hide Option Table</h3>"+
 								text.other.filter[lang]+
 							"</div>"+
 						"</a>");
@@ -26,7 +26,7 @@ function showfilter(type) {
 		$('#filter').hide();
 		$('#filterShowHide').html("<a href='#' onclick='showfilter(1)'>"+
 							"<div>"+
-								"<h3>Filter Show</h3>"+
+								"<h3>Show Option Table</h3>"+
 								text.other.filter[lang]+
 							"</div>"+
 						"</a>");

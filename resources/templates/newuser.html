@@ -39,28 +39,53 @@
 
 <body>
 	<section class="container">
-		<h2 class="text-center">Sign up</h2>
-		<h3><script>document.write(txtNewuser.title[lang]);</script></h3>
-		<span><script>document.write(txtNewuser.desc[lang]);</script></span>
-		<h3><script>document.write(txtTerms.s1t[lang]);</script></h3>
-		<span><script>document.write(txtTerms.s1c[lang]);</script></span>
-		<h3><script>document.write(txtTerms.s2t[lang]);</script></h3>
-		<span><script>document.write(txtTerms.s2c[lang]);</script></span>
-		<h3><script>document.write(txtTerms.s3t[lang]);</script></h3>
-		<span><script>document.write(txtTerms.s3c[lang]);</script></span>
-		<h3><script>document.write(txtTerms.s4t[lang]);</script></h3>
-		<span><script>document.write(txtTerms.s4c[lang]);</script></span>
-		<h3><script>document.write(txtTerms.s5t[lang]);</script></h3>
-		<span><script>document.write(txtTerms.s5c[lang]);</script></span>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Sign Up</h3>
+					</div>
+					<div class="card-body">
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtNewuser.title[lang]);</script></h4>
+							<span><script>document.write(txtNewuser.desc[lang]);</script></span>
+						</div>
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtTerms.s1t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s1c[lang]);</script></span>
+						</div>
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtTerms.s2t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s2c[lang]);</script></span>
+						</div>
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtTerms.s3t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s3c[lang]);</script></span>
+						</div>
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtTerms.s4t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s4c[lang]);</script></span>
+						</div>
+						<div class="col-12" style="padding:5px;">
+							<h4><script>document.write(txtTerms.s5t[lang]);</script></h4>
+							<span><script>document.write(txtTerms.s5c[lang]);</script></span>
+						</div>
+						<div class="col-12 btn-group">
+							<a class="btn btn-primary" href="/newuser">
+								<script>document.write(txtNewuser.btnsign[lang]);</script>
+							</a>
+							<a class="btn btn-primary" href="/dropuser">
+								<script>document.write(txtNewuser.btndecline[lang]);</script>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	
 	<section class="container">
-		<a class="btn btn-primary" href="/newuser">
-			<script>document.write(txtNewuser.btnsign[lang]);</script>
-		</a>
-		<a class="btn btn-primary" href="/dropuser">
-			<script>document.write(txtNewuser.btndecline[lang]);</script>
-		</a>
+		
 	</section>
 
 	<!-- Bootstrap core JavaScript

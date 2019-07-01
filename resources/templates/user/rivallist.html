@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -43,7 +43,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -55,21 +55,29 @@
   	</section>
   	
   	<section class="container">
-  		<div class="pagetop text-center">
-    		<h2>Rival List</h2>
-    	</div>
-  		<div class='row' id='rivalist'>
-			<div class='col-sm-6 col-12'>
-				<h3><b>GuitarFreaks Rivals</b></h3>
-				<div id="gf">
-					<rival-row v-for="rv in grivalist" v-bind:rv="rv"></rival-row>
-				</div>
-			</div>
-			
-			<div class='col-sm-6 col-12'>
-				<h3><b>DrumMania Rivals</b></h3>
-				<div id="dm">
-					<rival-row v-for="rv in drivalist" v-bind:rv="rv"></rival-row>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Rival List</h3>
+					</div>
+					<div class="card-body" id="rivalist">
+						<div class="row">
+							<div class='col-sm-6 col-12'>
+								<h3><b>GuitarFreaks Rivals</b></h3>
+								<div id="gf">
+									<rival-row v-for="rv in grivalist" v-bind:rv="rv"></rival-row>
+								</div>
+							</div>
+							
+							<div class='col-sm-6 col-12'>
+								<h3><b>DrumMania Rivals</b></h3>
+								<div id="dm">
+									<rival-row v-for="rv in drivalist" v-bind:rv="rv"></rival-row>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -181,21 +189,6 @@
 		obj.removetxt = txtRivalList.remove[lang];
 
 		return obj;
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	</script>
 	<div th:insert="header :: header"></div>

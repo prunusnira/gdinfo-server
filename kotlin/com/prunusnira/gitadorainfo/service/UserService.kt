@@ -58,8 +58,8 @@ class UserService {
 		profileMapper.updateComment(comment, userid)
 	}
 	
-	fun updatePlayCount(gf: Int, dm: Int, userid: Int) {
-		profileMapper.updatePlayCount(gf, dm, userid)
+	fun updatePlayCount(type: String, count: Int, userid: Int) {
+		profileMapper.updatePlayCount(type, count, userid)
 	}
 	
 	fun getUserByToken(token: String): User {
@@ -190,8 +190,13 @@ class UserService {
 	}
 	
 	fun getSkillRecord(userid: Int): ArrayList<SkillRecord> {
+		// Real server
 		val dir = File("/data/userdata/")
 		val recfile = File("/data/userdata/"+userid+".dat")
+		// Local test
+	//	val dir = File("F:/programming/web/gdinfo/userdata/")
+	//	val recfile = File("F:/programming/web/gdinfo/userdata/"+userid+".dat")
+		
 		val content = ArrayList<SkillRecord>()
 		dir.mkdirs()
 		if(recfile.exists()) {

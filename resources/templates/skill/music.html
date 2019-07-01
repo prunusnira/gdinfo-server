@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
 	<script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -54,55 +54,63 @@
   	
   	<section class="container">
   		<div class="row">
-		  	<div class="col-12 text-center">
-    			<h2>Music</h2>
+		  	<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Music</h3>
+					</div>
+					<div class="card-body">
+						<div class="div-table">
+							<div class="div-table-row" id="musicinfo">
+								<div class="div-table-cell">
+									<img v-bind:src="musicimg" onerror="this.src='/img/music/empty.jpg'" class='img-fluid' style='max-width:85px;' />
+								</div>
+								<div class="div-table-cell">
+									<span style="font-size:150%">{{ musicname }}</span><br/>
+									<span style="font-size:120%">{{ composer }}</span><br/>
+									<span>{{ version }}</span>
+								</div>
+							</div>
+							<div class="div-table-row">
+								<div class="div-table-cell">
+									<span>Player</span>
+								</div>
+								<div class="div-table-cell" id="userinfo">
+									<span><a id="player" class='innerhref' v-bind:href="proflink">{{ player }}</a></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
     	</div>
-
-  		<div class="div-table">
-			<div class="div-table-row" id="musicinfo">
-				<div class="div-table-cell">
-					<img v-bind:src="musicimg" onerror="this.src='/img/music/empty.jpg'" class='img-fluid' style='max-width:85px;' />
+  		<div class="row" id="record">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Guitar</h3>
+					</div>
+					<div class="card-body">
+						<music-row v-for="music in glist" v-bind:music="music"></music-row>
+					</div>
 				</div>
-				<div class="div-table-cell">
-					<span style="font-size:150%">{{ musicname }}</span><br/>
-					<span style="font-size:120%">{{ composer }}</span><br/>
-					<span>{{ version }}</span>
+				<div class="card">
+					<div class="card-header">
+						<h3>Bass</h3>
+					</div>
+					<div class="card-body">
+						<music-row v-for="music in blist" v-bind:music="music"></music-row>
+					</div>
 				</div>
-			</div>
-			<div class="div-table-row">
-				<div class="div-table-cell">
-					<span>Player</span>
-				</div>
-				<div class="div-table-cell" id="userinfo">
-					<span><a id="player" class='innerhref' v-bind:href="proflink">{{ player }}</a></span>
-				</div>
-			</div>
-		</div>
-  	</section>
-  	
-  	<section class="container">
-  		<div id="record">
-			<div class='row text-center'>
-				<div class='col-12'>
-					<h4>Guitar</h4>
+				<div class="card">
+					<div class="card-header">
+						<h3>Drum</h3>
+					</div>
+					<div class="card-body">
+						<music-row v-for="music in dlist" v-bind:music="music"></music-row>
+					</div>
 				</div>
 			</div>
-			<music-row v-for="music in glist" v-bind:music="music"></music-row>
-			<hr />
-			<div class='row text-center'>
-				<div class='col-12'>
-					<h4>Bass</h4>
-				</div>
-			</div>
-			<music-row v-for="music in blist" v-bind:music="music"></music-row>
-			<hr />
-			<div class='row text-center'>
-				<div class='col-12'>
-					<h4>Drum</h4>
-				</div>
-			</div>
-			<music-row v-for="music in dlist" v-bind:music="music"></music-row>
 		</div>
   	</section>
 
@@ -418,21 +426,6 @@
 	function removeLoading() {
 		if(musicload && infoload && userload)
 			$("#loading").hide();
-	}
-
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	</script>
 	<div th:insert="header :: header"></div>

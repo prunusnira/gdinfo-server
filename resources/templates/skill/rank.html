@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -44,7 +44,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -57,30 +57,31 @@
   	
   	<section class="container">
   		<div class="row">
-		  	<div class="col-12 text-center">
-				<h2>Skill Ranking</h2>
-				<span><script>document.write(txtSrank.desc[lang]);</script></span>
+		  	<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Skill Ranking</h3>
+					</div>
+					<div class="card-body text-center">
+						<div class="col-12">
+							<span><script>document.write(txtSrank.desc[lang]);</script></span>
+						</div>
+						<div class="col-12 btn-group">
+							<a style="width:100%" class='btn btn-primary' href='/rank/gf/1'>GF Rank</a>
+							<a style="width:100%" class='btn btn-primary' href='/rank/dm/1'>DM Rank</a>
+							<a style="width:100%" class='btn btn-primary' href='/rank/all/1'>Total Rank</a>
+						</div>
+					</div>
+				</div>
 			</div>
     	</div>
 		<div class="row">
-			<div class="col-12 text-center">
-				<div style="width:100%" class="btn-group btn-group-justified" role="group">
-					<a style="width:100%" class='btn btn-primary' href='/rank/gf/1'>GF Rank</a>
-					<a style="width:100%" class='btn btn-primary' href='/rank/dm/1'>DM Rank</a>
-					<a style="width:100%" class='btn btn-primary' href='/rank/all/1'>Total Rank</a>
-				</div>
-			</div>
-		</div>
-	</section>
-	
-	<section class="container">
-		<div class="row">
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header text-center">
-						<h4 th:if="${gtype}=='gf'">GuitarFreaks</h4>
-						<h4 th:if="${gtype}=='dm'">DrumMania</h4>
-						<h4 th:if="${gtype}=='all'">GF + DM</h4>
+					<div class="card-header">
+						<h3 th:if="${gtype}=='gf'">GuitarFreaks</h3>
+						<h3 th:if="${gtype}=='dm'">DrumMania</h3>
+						<h3 th:if="${gtype}=='all'">GF + DM</h3>
 					</div>
 					<div class="card-body">
 						<div class="card-text">
@@ -227,21 +228,6 @@
 			updateColor();
 		}
 	});
-
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
 	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>

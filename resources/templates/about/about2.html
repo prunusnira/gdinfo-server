@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="/favicon.ico">
 
 <script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -49,112 +49,120 @@
 
 <body>
 	<section class="container">
-		<div class="pagetop text-center">
-			<div class="row">
-				<div class="col-12">
-					<h1>How to use</h1>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>How to use</h3>
+					</div>
+					<div class="card-body">
+						<div class="col-12 text-center">
+							<span>
+								<script>document.write(txtAbout2.desc[lang]);</script>
+							</span><br/>
+							<span class="btn-group">
+								<a class="btn btn-primary" href="/about0">
+									<script>document.write(txtAbout2.update_au[lang]);</script>
+								</a>
+								<a class="btn btn-primary" href="/about1">
+									<script>document.write(txtAbout2.update_man[lang]);</script>
+								</a>
+								<a class="btn btn-primary" href="/about2">
+									<script>document.write(txtAbout2.filter_rival[lang]);</script>
+								</a>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
-    		<div class="row">
-				<div class="col-12">
-					<span style="font-size:75%"><script>document.write(txtAbout2.desc[lang]);</script></span><br/>
-					<span>
-						<a class="btn btn-primary" href="/about0">
-			    			<script>document.write(txtAbout2.update_au[lang]);</script>
-			    		</a>
-			    		<a class="btn btn-primary" href="/about1">
-			    			<script>document.write(txtAbout2.update_man[lang]);</script>
-			    		</a>
-			    		<a class="btn btn-primary" href="/about2">
-			    			<script>document.write(txtAbout2.filter_rival[lang]);</script>
-			    		</a>
-					</span>
-				</div>
-			</div>
-    	</div>
-	</section>
-	
-	<section class="container">
+		</div>
 		<div class='row'>
 	    	<div class="col-12">
-				<h2>1. 
-					<script>
-						document.write(txtAbout2.ftitle[lang]);
-					</script>
-				</h2>
-				<div id="filterimg1"></div><br/><br/>
-				<span>
-					<script>
-						document.write(txtAbout2.fd1[lang]);
-					</script>
-				</span><br/><br/>
-				<div id="filterimg2"></div><br/><br/>
-				<span>
-					<script>
-						document.write(txtAbout2.fd2[lang]);
-					</script>
-				</span>
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							<script>document.write(txtAbout2.ftitle[lang]);</script>
+						</h3>
+					</div>
+					<div class="card-body">
+						<div class="col-12 about-part">
+							<div id="filterimg1" class="about-part"></div>
+							<span>
+								<script>document.write(txtAbout2.fd1[lang]);</script>
+							</span><br/><br/>
+							<div id="filterimg2"></div><br/><br/>
+							<span>
+								<script>
+									document.write(txtAbout2.fd2[lang]);
+								</script>
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-12">
-				&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
-			</div>
-			<div class="col-12">
-				<h2>2. 
-					<script>
-						document.write(txtAbout2.rtitle[lang]);
-					</script>
-				</h2>
-				<h3>(1) 
-					<script>
-						document.write(txtAbout2.rd1.title[lang]);
-					</script>
-				</h3>
-				<span>
-					<script>
-						document.write(txtAbout2.rd1.s1[lang]);
-					</script>
-				</span>
-				<span>
-					<script>
-						document.write(txtAbout2.rd1.s2[lang]);
-					</script>
-				</span>
-				<div id="rivadd1"></div><br/><br/>
-				<span>
-					<script>
-						document.write(txtAbout2.rd1.s3[lang]);
-					</script>
-				</span>
-				<div id="rivadd2"></div><br/><br/>
-				<span>
-					<script>
-						document.write(txtAbout2.rd1.s4[lang]);
-					</script>
-				</span>
-				<div id="rivadd3"></div><br/><br/>
-				<span>
-					<script>
-						document.write(txtAbout2.rd1.s5[lang]);
-					</script>
-				</span>
-				<div id="rivlist"></div><br/><br/>
-				<h3>(2) 
-					<script>
-						document.write(txtAbout2.rd2.title[lang]);
-					</script>
-				</h3>
-				<span>
-					<script>
-						document.write(txtAbout2.rd2.s1[lang]);
-					</script>
-				</span>
-				<span>
-					<script>
-						document.write(txtAbout2.rd2.s2[lang]);
-					</script>
-				</span>
-				<div id="rivsel"></div><br/><br/>
-				<div id="rivresult"></div>
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							<script>document.write(txtAbout2.rtitle[lang]);</script>
+						</h3>
+					</div>
+					<div class="card-body">
+						<h3>(1) 
+							<script>
+								document.write(txtAbout2.rd1.title[lang]);
+							</script>
+						</h3>
+						<span>
+							<script>
+								document.write(txtAbout2.rd1.s1[lang]);
+							</script>
+						</span>
+						<span>
+							<script>
+								document.write(txtAbout2.rd1.s2[lang]);
+							</script>
+						</span>
+						<div id="rivadd1"></div><br/><br/>
+						<span>
+							<script>
+								document.write(txtAbout2.rd1.s3[lang]);
+							</script>
+						</span>
+						<div id="rivadd2"></div><br/><br/>
+						<span>
+							<script>
+								document.write(txtAbout2.rd1.s4[lang]);
+							</script>
+						</span>
+						<div id="rivadd3"></div><br/><br/>
+						<span>
+							<script>
+								document.write(txtAbout2.rd1.s5[lang]);
+							</script>
+						</span>
+						<div id="rivlist"></div><br/><br/>
+						<h3>(2) 
+							<script>
+								document.write(txtAbout2.rd2.title[lang]);
+							</script>
+						</h3>
+						<span>
+							<script>
+								document.write(txtAbout2.rd2.s1[lang]);
+							</script>
+						</span>
+						<span>
+							<script>
+								document.write(txtAbout2.rd2.s2[lang]);
+							</script>
+						</span>
+						<div id="rivsel"></div><br/><br/>
+						<div id="rivresult"></div>
+					</div>
+				</div>
 			</div>
 	    </div>
 	</section>
@@ -179,20 +187,6 @@
 		$temp.remove();
 	}
 	
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
-	
 	function divSwapPC() {
 		$("#howtomobile").hide();
 		$("#howtopc").show();
@@ -204,40 +198,24 @@
 	}
 	
 	if(lang == "ko") {
-		$("#filterimg1").append('<img class="carousel-img" '+
-				'src="/img/about2/filter1k.jpg" />');
-		$("#filterimg2").append('<img class="carousel-img" '+
-				'src="/img/about2/filter2k.jpg" />');
-		$("#rivadd1").append('<img class="carousel-img" '+
-				'src="/img/about3/add1k.jpg" />');
-		$("#rivadd2").append('<img class="carousel-img" '+
-				'src="/img/about3/add2k.jpg" />');
-		$("#rivadd3").append('<img class="carousel-img" '+
-				'src="/img/about3/add3k.jpg" />');
-		$("#rivlist").append('<img class="carousel-img" '+
-				'src="/img/about3/listk.jpg" />');
-		$("#rivsel").append('<img class="carousel-img" '+
-				'src="/img/about3/selk.jpg" />');
-		$("#rivresult").append('<img class="carousel-img" '+
-				'src="/img/about3/resultk.jpg" />');
+		$("#filterimg1").append("<img style='max-width:100%;' src='/img/about2/filter1k.jpg' />");
+		$("#filterimg2").append("<img style='max-width:100%;' src='/img/about2/filter2k.jpg' />");
+		$("#rivadd1").append("<img style='max-width:100%;' src='/img/about3/add1k.jpg' />");
+		$("#rivadd2").append("<img style='max-width:100%;' src='/img/about3/add2k.jpg' />");
+		$("#rivadd3").append("<img style='max-width:100%;' src='/img/about3/add3k.jpg' />");
+		$("#rivlist").append("<img style='max-width:100%;' src='/img/about3/listk.jpg' />");
+		$("#rivsel").append("<img style='max-width:100%;' src='/img/about3/selk.jpg' />");
+		$("#rivresult").append("<img style='max-width:100%;' src='/img/about3/resultk.jpg' />");
 	}
 	else if(lang == "jp"){
-		$("#filterimg1").append('<img class="carousel-img" '+
-				'src="/img/about2/filter1j.png" />');
-		$("#filterimg1").append('<img class="carousel-img" '+
-				'src="/img/about2/filter2j.png" />');
-		$("#rivadd1").append('<img class="carousel-img" '+
-				'src="/img/about3/add1j.jpg" />');
-		$("#rivadd2").append('<img class="carousel-img" '+
-				'src="/img/about3/add2j.jpg" />');
-		$("#rivadd3").append('<img class="carousel-img" '+
-				'src="/img/about3/add3j.jpg" />');
-		$("#rivlist").append('<img class="carousel-img" '+
-				'src="/img/about3/listj.jpg" />');
-		$("#rivsel").append('<img class="carousel-img" '+
-				'src="/img/about3/selj.jpg" />');
-		$("#rivresult").append('<img class="carousel-img" '+
-				'src="/img/about3/resultj.jpg" />');
+		$("#filterimg1").append("<img style='max-width:100%;' src='/img/about2/filter1j.png' />");
+		$("#filterimg1").append("<img style='max-width:100%;' src='/img/about2/filter2j.png' />");
+		$("#rivadd1").append("<img style='max-width:100%;' src='/img/about3/add1j.jpg' />");
+		$("#rivadd2").append("<img style='max-width:100%;' src='/img/about3/add2j.jpg' />");
+		$("#rivadd3").append("<img style='max-width:100%;' src='/img/about3/add3j.jpg' />");
+		$("#rivlist").append("<img style='max-width:100%;' src='/img/about3/listj.jpg' />");
+		$("#rivsel").append("<img style='max-width:100%;' src='/img/about3/selj.jpg' />");
+		$("#rivresult").append("<img style='max-width:100%;' src='/img/about3/resultj.jpg' />");
 	}
 	</script>
 	<div th:insert="header :: header"></div>

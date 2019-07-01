@@ -471,6 +471,7 @@ function SkillCrawler() {
 		$("#current").text("[Simple update] Uploading data");
 		upload(JSON.stringify(jsonRoot), 'simple');
 		
+		jsonRoot = new Object();
 		crawlProfile();
 	}
 
@@ -611,6 +612,8 @@ function SkillCrawler() {
 			
 			console.log("Update complete");
 			$("#current").text("Update complete");
+
+			jsonRoot = new Object();
 			crawlProfile();
 		}
 	}
@@ -646,6 +649,8 @@ function SkillCrawler() {
 			
 			console.log("Update complete");
 			$("#current").text("Update complete");
+
+			jsonRoot = new Object();
 			crawlProfile();
 		}
 	}

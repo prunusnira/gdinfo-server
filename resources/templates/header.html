@@ -10,318 +10,171 @@
  *****************************************************/ -->
  <!-- header tetxt load -->
 <header th:fragment="header">
-    <!-- PC용 -->
-    <div id="sideMenu" class="sidenav">
-        <!--<a href="#no_div" class="closebtn" onclick="closeNav()">&times;</a>-->
-        <a id="sideopen" href="#no_div" onclick="openNav()">
-            <img id="navopen" class="navicon" src="/img/header/next.png"/>
+    <nav class='navbar navbar-dark bg-dark fixed-top'>
+        <a class="navbar-brand" href="/index">
+            <img style="max-height: 32px;" src="/img/index/logoidx.png"/>
         </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarExp"
+        aria-controls="navbarExp" aria-expanded="false" aria-label="Toggle Menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <a class="navhomeicon" href="/index">
-            <img style="width: 100%; max-width: 150px;" src="/img/index/logoidx.png"/>
-        </a>
-
-        <!-- 로그인 -->
-        <a th:if="${token} == null" class="nav-link" href="/login">
-            <img class="navicon" src="/img/header/login.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.login[lang]);</script>
-            </span>
-        </a>
-
-        <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
-            <img class="navicon" src="/img/header/logout.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.logout[lang]);</script>
-            </span>
-        </a>
-
-        <!-- 사용설명 -->
-        <a href="#no_div" onclick="openDropdown('howto')">
-            <img class="navicon" src="/img/header/howto.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.howtouse.title[lang]);</script>▼
-            </span>
-        </a>
-        <!-- 하단에 추가 div로 설명서 선택할 수 있게 만들기 -->
-        <div class="header-dropdown" id="header-dropdown-howto">
-            <a href="/about0">
-                <script>document.write(txtHeader.howtouse.update_au[lang]);</script>
-            </a>
-            <a href="/about1">
-                <script>document.write(txtHeader.howtouse.update_man[lang]);</script>
-            </a>
-            <a href="/about2">
-                <script>document.write(txtHeader.howtouse.filter_rival[lang]);</script>
-            </a>
-        </div>
-
-        <!-- 프로필 -->
-        <a href="#no_div" onclick="openDropdown('profile')">
-            <img class="navicon" src="/img/header/mydata.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.mymenu.title[lang]);</script>▼
-            </span>
-        </a>
-        <!-- 프로필 메뉴 선택 -->
-        <div class="header-dropdown" id="header-dropdown-profile">
-            <a href="/profile">
-                <script>document.write(txtHeader.mymenu.profile[lang]);</script>
-            </a>
-            <a href="/myskill/gf">
-                <script>document.write(txtHeader.mymenu.gfskill[lang]);</script>
-            </a>
-            <a href="/myskill/dm">
-                <script>document.write(txtHeader.mymenu.dmskill[lang]);</script>
-            </a>
-            <a href="/mybest">
-                <script>document.write(txtHeader.mymenu.best[lang]);</script>
-            </a>
-            <a href="/rivallist">
-                <script>document.write(txtHeader.mymenu.rivallist[lang]);</script>
-            </a>
-        </div>
-
-        <!-- 스킬 메뉴 -->
-        <a href="#no_div" onclick="openDropdown('skill')">
-            <img class="navicon" src="/img/header/skill.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.skill.title[lang]);</script>▼
-            </span>
-        </a>
-        <div class="header-dropdown" id="header-dropdown-skill">
-            <a href="/rank/gf/1">
-                <script>document.write(txtHeader.skill.rank[lang]);</script>
-            </a>
-            <a href="/exc/gf">
-                <script>document.write(txtHeader.skill.exc[lang]);</script>
-            </a>
-            <a href="/cntrank/1">
-                <script>document.write(txtHeader.etc.countrank[lang]);</script>
-            </a>
-            <a href="/register">
-                <script>document.write(txtHeader.skill.register[lang]);</script>
-            </a>
-        </div>
-
-        <!-- 패턴 메뉴 -->
-        <a href="#no_div" onclick="openDropdown('pattern')">
-            <img class="navicon" src="/img/header/pattern.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.pattern.title[lang]);</script>▼
-            </span>
-        </a>
-        <div class="header-dropdown" id="header-dropdown-pattern">
-            <a href="/ptrank/00/titleasc/1?hot=h">
-                <script>document.write(txtHeader.pattern.ptlist[lang]);</script>
-            </a>
-            <a href="/notplayed">
-                <script>document.write(txtHeader.mymenu.notplayed[lang]);</script>
-            </a>
-            <a href="/cleartable">
-                <script>document.write(txtHeader.mymenu.cleartable[lang]);</script>
-            </a>
-        </div>
-
-        <!-- 기타도라의 탑 -->
-        <a href="/tower/index">
-            <img class="navicon" src="/img/header/tower.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.tower.title[lang]);</script>
-            </span>
-        </a>
-
-        <!-- PIU -->
-        <a href="/piu">
-            <img class="navicon" src="/img/header/piu.png"/>
-            <span class="navlefttxt">
-                <script>document.write(txtHeader.piu.title[lang]);</script>
-            </span>
-        </a>
-    </div>
-
-    <!-- 모바일용 -->
-    <div id="sideMenu2" class="sidenav2">
-        <!-- 상단 아이콘 -->
-        <div id="navtop" class="row">
-            <div class="col-12">
-                <a href="/index">
-                    <img class="navicon" src="/img/header/home.png"/>
-                </a>
-        
+        <div class="collapse navbar-collapse" id="navbarExp">
+            <ul class="navbar-nav mr-auto">
                 <!-- 로그인 -->
-                <a href="#no_div">
-                    <img th:if="${token} == null" id="m-nav-login" class="navicon"
-                    onclick="openDropdown2('login')"
-                    src="/img/header/login.png"/>
+                <li class="nav-item">
+                    <a th:if="${token} == null" class="nav-link" href="/login">
+                        <img class="navicon" src="/img/header/login.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.login[lang]);</script>
+                        </span>
+                    </a>
+            
+                    <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
+                        <img class="navicon" src="/img/header/logout.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.logout[lang]);</script>
+                        </span>
+                    </a>
+                </li>
 
-                    <img th:unless="${token} == null" id="m-nav-logout" class="navicon"
-                    onclick="openDropdown2('login')"
-                    src="/img/header/logout.png"/>
-                </a>
-        
                 <!-- 사용설명 -->
-                <a href="#no_div">
-                    <img id="m-nav-howto" class="navicon"
-                    onclick="openDropdown2('howto')"
-                    src="/img/header/howto.png"/>
-                </a>
-        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#no_div" id="dropdownHowto" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                        <img class="navicon" src="/img/header/howto.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.howtouse.title[lang]);</script>
+                        </span>
+                    </a>
+                    <!-- 하단에 추가 div로 설명서 선택할 수 있게 만들기 -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownHowto">
+                        <a class="dropdown-item" href="/about0">
+                            <script>document.write(txtHeader.howtouse.update_au[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/about1">
+                            <script>document.write(txtHeader.howtouse.update_man[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/about2">
+                            <script>document.write(txtHeader.howtouse.filter_rival[lang]);</script>
+                        </a>
+                    </div>
+                </li>
+
                 <!-- 프로필 -->
-                <a href="#no_div">
-                    <img id="m-nav-mydata" class="navicon"
-                    onclick="openDropdown2('profile')"
-                    src="/img/header/mydata.png"/>
-                </a>
-        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#no_div" id="dropdownProfile" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                        <img class="navicon" src="/img/header/mydata.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.mymenu.title[lang]);</script>
+                        </span>
+                    </a>
+                    <!-- 프로필 메뉴 선택 -->
+                    <div class="dropdown-menu" aria-labelledby="dropdownProfile">
+                        <a class="dropdown-item" href="/profile">
+                            <script>document.write(txtHeader.mymenu.profile[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/myskill/gf">
+                            <script>document.write(txtHeader.mymenu.gfskill[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/myskill/dm">
+                            <script>document.write(txtHeader.mymenu.dmskill[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/mybest">
+                            <script>document.write(txtHeader.mymenu.best[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/rivallist">
+                            <script>document.write(txtHeader.mymenu.rivallist[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/snapshot">
+                            <script>document.write(txtHeader.mymenu.snapshot[lang]);</script>
+                        </a>
+                    </div>
+                </li>
+
                 <!-- 스킬 메뉴 -->
-                <a href="#no_div">
-                    <img id="m-nav-skill" class="navicon"
-                    onclick="openDropdown2('skill')"
-                    src="/img/header/skill.png"/>
-                </a>
-        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#no_div" id="dropdownSkill" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                        <img class="navicon" src="/img/header/skill.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.skill.title[lang]);</script>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownSkill">
+                        <a class="dropdown-item" href="/rank/gf/1">
+                            <script>document.write(txtHeader.skill.rank[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/exc/gf">
+                            <script>document.write(txtHeader.skill.exc[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/cntrank/1">
+                            <script>document.write(txtHeader.etc.countrank[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/register">
+                            <script>document.write(txtHeader.skill.register[lang]);</script>
+                        </a>
+                    </div>
+                </li>
+            
                 <!-- 패턴 메뉴 -->
-                <a href="#no_div">
-                    <img id="m-nav-pattern" class="navicon"
-                    onclick="openDropdown2('pattern')"
-                    src="/img/header/pattern.png"/>
-                </a>
-        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#no_div" id="dropdownPtn" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                        <img class="navicon" src="/img/header/pattern.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.pattern.title[lang]);</script>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownPtn">
+                        <a class="dropdown-item" href="/ptrank/00/titleasc/1?hot=h">
+                            <script>document.write(txtHeader.pattern.ptlist[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/notplayed">
+                            <script>document.write(txtHeader.mymenu.notplayed[lang]);</script>
+                        </a>
+                        <a class="dropdown-item" href="/cleartable">
+                            <script>document.write(txtHeader.mymenu.cleartable[lang]);</script>
+                        </a>
+                    </div>
+                </li>
+
                 <!-- 기타도라의 탑 -->
-                <a href="#no_div">
-                    <img id="m-nav-tower" class="navicon"
-                    onclick="openDropdown2('tower')"
-                    src="/img/header/tower.png"/>
-                </a>
-        
+                <li class="nav-item">
+                    <a href="/tower/index" class="nav-link">
+                        <img class="navicon" src="/img/header/tower.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.tower.title[lang]);</script>
+                        </span>
+                    </a>
+                </li>
+            
                 <!-- PIU -->
-                <a href="#no_div">
-                    <img id="m-nav-piu" class="navicon"
-                    onclick="openDropdown2('piu')"
-                    src="/img/header/piu.png"/>
+                <li class="nav-item">
+                    <a href="/piu" class="nav-link">
+                        <img class="navicon" src="/img/header/piu.png"/>
+                        <span class="navlefttxt">
+                            <script>document.write(txtHeader.piu.title[lang]);</script>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-md-0">
+                <a class="btn btn-primary" href="#no_div" id="searchToggle" onclick="searchDropdown()">
+                    Player
                 </a>
+                <input class="form-control" id="searchinp" name="val" type="search" placeholder="Select type, Input and Press Enter" aria-label="Search" style="width:80%" />
+            </form>
+            <div class="form-group">
+                <div class="search-dropdown btn-group" id="search-dropdown">
+                    <a class="btn btn-primary" onclick="changeSearchType('name')" href="#no_div">Player</a>
+                    <a class="btn btn-primary" onclick="changeSearchType('gskill')" href="#no_div">G-Skill</a>
+                    <a class="btn btn-primary" onclick="changeSearchType('dskill')" href="#no_div">D-Skill</a>
+                    <a class="btn btn-primary" onclick="changeSearchType('music')" href="#no_div">Music</a>
+                </div>
             </div>
         </div>
-
-        <!-- 하단 메뉴 표시 -->
-        <div id="navsub">
-            <!-- Login -->
-            <div class="header-dropdown2" id="navsub-login">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span th:if="${token} == null" id="m-nav-login-txt" class="navtext">
-                    <script>document.write(txtHeader.login[lang]);</script>
-                </span>
-                <span th:unless="${token} == null" id="m-nav-logout-txt" class="navtext">
-                    <script>document.write(txtHeader.logout[lang]);</script>
-                </span>
-
-                <a th:if="${token} == null" class="nav-link" href="/login">
-                    <script>document.write(txtHeader.login[lang]);</script>
-                </a>
-                <a th:unless="${token} == null" class="nav-link" href="#no_div" onclick="signOut()">
-                    <script>document.write(txtHeader.logout[lang]);</script>
-                </a>
-            </div>
-
-            <!-- Howto -->
-            <div class="header-dropdown2" id="navsub-howto">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-howto-txt" class="navtext">
-                    <script>document.write(txtHeader.howtouse.title[lang]);</script>
-                </span>
-                <a href="/about0">
-                    <script>document.write(txtHeader.howtouse.update_au[lang]);</script>
-                </a>
-                <a href="/about1">
-                    <script>document.write(txtHeader.howtouse.update_man[lang]);</script>
-                </a>
-                <a href="/about2">
-                    <script>document.write(txtHeader.howtouse.filter_rival[lang]);</script>
-                </a>
-            </div>
-
-            <!-- Profile -->
-            <div class="header-dropdown2" id="navsub-profile">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-mydata-txt" class="navtext">
-                    <script>document.write(txtHeader.mymenu.title[lang]);</script>
-                </span>
-                <a href="/profile">
-                    <script>document.write(txtHeader.mymenu.profile[lang]);</script>
-                </a>
-                <a href="/myskill/gf">
-                    <script>document.write(txtHeader.mymenu.gfskill[lang]);</script>
-                </a>
-                <a href="/myskill/dm">
-                    <script>document.write(txtHeader.mymenu.dmskill[lang]);</script>
-                </a>
-                <a href="/mybest">
-                    <script>document.write(txtHeader.mymenu.best[lang]);</script>
-                </a>
-                <a href="/rivallist">
-                    <script>document.write(txtHeader.mymenu.rivallist[lang]);</script>
-                </a>
-            </div>
-
-            <!-- Skill -->
-            <div class="header-dropdown2" id="navsub-skill">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-skill-txt" class="navtext">
-                    <script>document.write(txtHeader.skill.title[lang]);</script>
-                </span>
-                <a href="/rank/gf/1">
-                    <script>document.write(txtHeader.skill.rank[lang]);</script>
-                </a>
-                <a href="/exc/gf">
-                    <script>document.write(txtHeader.skill.exc[lang]);</script>
-                </a>
-                <a href="/cntrank/1">
-                    <script>document.write(txtHeader.etc.countrank[lang]);</script>
-                </a>
-                <a href="/register">
-                    <script>document.write(txtHeader.skill.register[lang]);</script>
-                </a>
-            </div>
-
-            <!-- Pattern -->
-            <div class="header-dropdown2" id="navsub-pattern">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-pattern-txt" class="navtext">
-                    <script>document.write(txtHeader.pattern.title[lang]);</script>
-                </span>
-                <a href="/ptrank/00/titleasc/1?hot=h">
-                    <script>document.write(txtHeader.pattern.ptlist[lang]);</script>
-                </a>
-                <a href="/notplayed">
-                    <script>document.write(txtHeader.mymenu.notplayed[lang]);</script>
-                </a>
-                <a href="/cleartable">
-                    <script>document.write(txtHeader.mymenu.cleartable[lang]);</script>
-                </a>
-            </div>
-
-            <!-- Tower -->
-            <div class="header-dropdown2" id="navsub-tower">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-tower-txt" class="navtext">
-                    <script>document.write(txtHeader.tower.title[lang]);</script>
-                </span>
-                <a href="/tower/index">
-                    <script>document.write(txtHeader.tower.title[lang]);</script>
-                </a>
-            </div>
-
-            <!-- piu -->
-            <div class="header-dropdown2" id="navsub-piu">
-                <a href="#no_div" onclick="closeSub()"><img class="navicon" src="/img/header/prev.png"/></a>
-                <span id="m-nav-piu-txt" class="navtext">
-                    <script>document.write(txtHeader.piu.title[lang]);</script>
-                </span>
-                <a href="/piu">
-                    <script>document.write(txtHeader.piu.title[lang]);</script>
-                </a>
-            </div>
-        </div>
-    </div>
+    </nav>
 </header>

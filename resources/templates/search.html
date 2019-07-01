@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -45,7 +45,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -57,41 +57,44 @@
   	</section>
   	
   	<section class="container">
-  		<div class="pagetop text-center">
-    		<h1>Search</h1>
-    		<span style="font-size:75%">
-				<script>document.write(txtSearch.desc[lang]);</script>
-			</span>
-	    </div>
-		</section>
-  	
-  	<section class="container">
-		<div class='row'>
-			<div class='col-12' id='user-result'>
-				<user-table v-for="rec in userlist" v-bind:rec="rec"></user-table>
-			</div>
-		</div>
-		<div class='row'>
-			<div class='col-12' id='music-result' style='display:none'>
-				<div class='div-table'>
-					<div class='div-table-header'>
-						<div class='div-table-cell'></div>
-						<div class='div-table-cell'></div>
-						<div class='div-table-cell'>Guitar</div>
-						<div class='div-table-cell'>Bass</div>
-						<div class='div-table-cell'>Drum</div>
-						<div class='div-table-cell'></div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Search</h3>
+						<span><script>document.write(txtSearch.desc[lang]);</script></span>
 					</div>
-					<music-table v-for="m in musiclist" v-bind:m="m"></music-table>
+					<div class="card-body">
+						<div class='row'>
+							<div class='col-12' id='user-result'>
+								<user-table v-for="rec in userlist" v-bind:rec="rec"></user-table>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='col-12' id='music-result' style='display:none'>
+								<div class='div-table'>
+									<div class='div-table-header'>
+										<div class='div-table-cell'></div>
+										<div class='div-table-cell'></div>
+										<div class='div-table-cell'>Guitar</div>
+										<div class='div-table-cell'>Bass</div>
+										<div class='div-table-cell'>Drum</div>
+										<div class='div-table-cell'></div>
+									</div>
+									<music-table v-for="m in musiclist" v-bind:m="m"></music-table>
+								</div>
+							</div>
+						</div>
+						
+						<div id='empty' style="width:100%; text-align:center;">
+							<h3><script>document.write(txtSearch.table.empty[lang]);</script></h3>
+						</div>
+						<div class='row text-center' id="pager"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div id='empty' style="width:100%; text-align:center;">
-			<h3><script>document.write(txtSearch.table.empty[lang]);</script></h3>
-		</div>
-		<div class='row text-center' id="pager"></div>
-  	</section>
+	</section>
   	
     <!-- Bootstrap core JavaScript
     ================================================== -->

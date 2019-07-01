@@ -23,7 +23,7 @@ body {
 	color: black;
 	min-height:100%;
 	position:relative;
-	padding-bottom: 65px;
+	padding-bottom: 50px;
 }
 
 span {
@@ -239,4 +239,8 @@ section {
 
 .scrhalf {
 	background-color: white;
+}
+
+.card {
+	border: none;
 }

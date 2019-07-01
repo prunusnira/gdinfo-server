@@ -37,6 +37,10 @@ class CustomMvcConfig:WebMvcConfigurer, WebMvcRegistrations {
     		.addResourceHandler("/img/piumusic/**")
 	    	.addResourceLocations("file:///data/img/piumusic/"); // for real server
 			//.addResourceLocations("file:///F:/programming/web/gdinfo/img/piumusic/"); // for local test
+		registry
+			.addResourceHandler("/file/snapshot/**")
+			.addResourceLocations("file:///data/snapshot/"); // for real server
+			// .addResourceLocations("file:///F:/programming/web/gdinfo/data/snapshot/"); // for local test
 	}
 	
 	override fun addCorsMappings(registry: CorsRegistry) {

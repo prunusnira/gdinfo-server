@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -43,7 +43,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -52,147 +52,160 @@
   <body>
   	<section class="container" id="loading">
   		<h1>LOADING... Please wait</h1>
-  	</section>
-  	
-  	<section class="container">
-  		<div class="pagetop text-center">
-    		<h2>Pattern Ranking</h2>
-			<span><script>document.write(txtPtrank.desc[lang]);</script></span>
-    	</div>
-  	</section>
-  	
+	</section>
+	
   	<c:set var="index" value="1" />
   	
-    <section class="container">
-    	<!-- Filter and Orders -->
-		<div id='filters' class='filters'>
-			<div id='filterShowHide' class='filter-front'>
-				<a href='#' onclick='showfilter(1)'>
-					<h3>Filter Show</h3>
-					<script>document.write(text.other.filter[lang])</script>
-				</a>
-			</div>
-			<form id='filterform'>
-				<div id='filter' style="display:none;">
-					<div class='filter-ver'>
-						<div class='filter-front'>Version</div>
-						<div class='div-table-row filter-back' id='verfilter'></div>
+  	<section class="container">
+  		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Pattern Ranking</h3>
 					</div>
-					<div class='filter-hot'>
-						<div class='filter-front'>Hot/Other</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='o'>Other</label>
-							</div>
-						</div>
-					</div>
-					<div class='order'>
-						<div class='filter-front'>Order</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='titleasc'>Title ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='titledesc'>Title ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verasc'>Version ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verdesc'>Version ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gbscasc'>BSC-G ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gbscdesc'>BSC-G ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gadvasc'>ADV-G ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gadvdesc'>ADV-G ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gextasc'>EXT-G ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gextdesc'>EXT-G ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gmasasc'>MAS-G ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='gmasdesc'>MAS-G ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bbscasc'>BSC-B ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bbscdesc'>BSC-B ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='badvasc'>ADV-B ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='badvdesc'>ADV-B ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bextasc'>EXT-B ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bextdesc'>EXT-B ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bmasasc'>MAS-B ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='bmasdesc'>MAS-B ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dbscasc'>BSC-D ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dbscdesc'>BSC-D ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dadvasc'>ADV-D ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dadvdesc'>ADV-D ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dextasc'>EXT-D ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dextdesc'>EXT-D ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dmasasc'>MAS-D ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='dmasdesc'>MAS-D ▼</label>
-							</div>
-						</div>
-					</div>
-					<div style="text-align:center;">
-						<div class='div-table-cell filter-obj'>
-							<input class='btn btn-primary' onclick="applyfilterP('ptrank')" type='button' value='Apply'>
-						</div>
-						<div class='div-table-cell filter-obj'>
-							<input class='btn btn-default' onclick='filterReset()' type='button' value='Reset'>
-						</div>
+					<div class="card-body">
+						<span><script>document.write(txtPtrank.desc[lang]);</script></span>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-		<!-- filter end -->
-    </section>
-    
-    <section class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Search Options</h3>
+					</div>
+					<div class="card-body">
+						<!-- Filter and Orders -->
+						<div id='filters' class='filters'>
+							<div id='filterShowHide' class='filter-front'>
+								<a href='#' onclick='showfilter(1)'>
+									<h3>Show Option Table</h3>
+									<script>document.write(text.other.filter[lang])</script>
+								</a>
+							</div>
+							<form id='filterform'>
+								<div id='filter' style="display:none;">
+									<div class='filter-ver'>
+										<div class='filter-front'>Version</div>
+										<div class='div-table-row filter-back' id='verfilter'></div>
+									</div>
+									<div class='filter-hot'>
+										<div class='filter-front'>Hot/Other</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='o'>Other</label>
+											</div>
+										</div>
+									</div>
+									<div class='order'>
+										<div class='filter-front'>Order</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='titleasc'>Title ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='titledesc'>Title ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verasc'>Version ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verdesc'>Version ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gbscasc'>BSC-G ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gbscdesc'>BSC-G ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gadvasc'>ADV-G ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gadvdesc'>ADV-G ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gextasc'>EXT-G ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gextdesc'>EXT-G ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gmasasc'>MAS-G ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='gmasdesc'>MAS-G ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bbscasc'>BSC-B ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bbscdesc'>BSC-B ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='badvasc'>ADV-B ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='badvdesc'>ADV-B ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bextasc'>EXT-B ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bextdesc'>EXT-B ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bmasasc'>MAS-B ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='bmasdesc'>MAS-B ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dbscasc'>BSC-D ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dbscdesc'>BSC-D ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dadvasc'>ADV-D ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dadvdesc'>ADV-D ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dextasc'>EXT-D ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dextdesc'>EXT-D ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dmasasc'>MAS-D ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='dmasdesc'>MAS-D ▼</label>
+											</div>
+										</div>
+									</div>
+									<div style="text-align:center;">
+										<div class='div-table-cell filter-obj'>
+											<input class='btn btn-primary' onclick="applyfilterP('ptrank')" type='button' value='Apply'>
+										</div>
+										<div class='div-table-cell filter-obj'>
+											<input class='btn btn-default' onclick='filterReset()' type='button' value='Reset'>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- filter end -->
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
@@ -487,21 +500,6 @@
 			url += "?hot="+hot;
 		}
 		return url;
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	$('.dskill').each(function() {

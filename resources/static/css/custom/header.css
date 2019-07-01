@@ -9,157 +9,24 @@
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/
 
-@media screen and (min-width: 992px) {
-    .sidenav2 {
-        display: none;
-    }
-
-    .sidenav {
-        display: block;
-        height: 100%;
-        width: 300px;
-        position: fixed;
-        z-index: 1000;
-        top: 0;
-        left: 0;
-        background-color: #111;
-        overflow-x: hidden;
-        padding-top: 60px;
-        transition: 0.5s;
-    }
-
-    .sidenav a {
-        padding: 8px 8px 8px 32px;
-        display: block;
-        transition: 0.3s;
-        text-decoration: none;
-    }
-
-    .sidenav a > span {
-        font-size: 15px;
-        color: #818181;
-    }
-
-    .sidenav a:hover {
-        color: #ffffff;
-    }
-
-    .sidenav .navicon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .sidenav .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-    }
-
-    .header-dropdown {
-        width: 100%;
-        background-color: #f1f1f1;
-        display: none;
-    }
-
-    .header-dropdown a {
-        color: black;
-        font-size: 11px;
-    }
-
-    .header-dropdown a:hover {
-        color: gray;
-    }
-
-    #main {
-        transition: margin-left .5s;
-        padding: 20px;
-    }
-
-    body {
-        padding-top: 0;
-        padding-left: 80px;
-        margin-bottom: 250px;
-    }
+body {
+    padding-top: 75px;
+    margin-bottom: 250px;
+}
+  
+.navbar {
+    margin-bottom: 20px;
 }
 
-@media screen and (max-width: 992px) {
-    .sidenav {
-        display: none;
-    }
+.navicon {
+    width: 32px;
+    height: 32px;
+    display: float;
+    margin-right: 10px;
+}
 
-    .sidenav2 {
-        display: block;
-        height: 50px;
-        width: 100%;
-        position: fixed;
-        z-index: 1000;
-        top: 0;
-        left: 0;
-        background-color: #111;
-        overflow-x: hidden;
-        transition: 0.5s;
-        text-align: center;
-    }
-
-    .sidenav2 a {
-        padding: 5px 5px 5px 5px;
-        text-decoration: none;
-        font-size: 15px;
-        color: #818181;
-        display: inline-block;
-        transition: 0.3s;
-    }
-
-    .sidenav2 a:hover span {
-        color: #818181;
-    }
-
-    .sidenav2 .navtext {
-        color: #2745cc;
-        font-size: 15px;
-    }
-
-    .sidenav2 a:hover span {
-        color: #818181;
-    }
-
-    .sidenav2 .navicon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .sidenav2 #navsub {
-        width: 100%;
-        height: 0;
-        text-align: center;
-    }
-
-    .header-dropdown2 {
-        background-color: #f1f1f1;
-        height: auto;
-    }
-
-    .header-dropdown2 a {
-        color: black;
-        font-size: 11px;
-    }
-
-    .header-dropdown2 a:hover {
-        color: gray;
-    }
-
-    #main {
-        transition: margin-left .5s;
-        padding: 20px;
-    }
-
-    body {
-        padding-top: 75px;
-        padding-left: 0;
-        margin-bottom: 250px;
-    }
+.search-dropdown {
+	display: none;
 }
 
 /* 플로팅 메뉴 아이콘 */

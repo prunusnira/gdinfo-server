@@ -23,7 +23,7 @@ body {
 	color: white;
 	min-height:100%;
 	position:relative;
-	padding-bottom: 65px;
+	padding-bottom: 50px;
 }
 
 span {
@@ -60,9 +60,8 @@ a:hover {
 }
 
 section {
-	background-color: #3f3f3f;
+	background-color: black;
 	padding:20px;
-	box-shadow: 10px 10px 10px rgb(31, 29, 29);
 }
 
 /* 세로 가운데 정렬 */
@@ -225,7 +224,7 @@ section {
 }
 
 .card-header {
-	background-color: black;
+	background-color: rgb(37, 37, 37);
 }
 
 .card-body {
@@ -234,4 +233,8 @@ section {
 
 .scrhalf {
 	background-color: rgb(65, 65, 65);
+}
+
+.card {
+	border: none;
 }

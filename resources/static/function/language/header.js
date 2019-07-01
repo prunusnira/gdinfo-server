@@ -33,7 +33,7 @@ var txtHeader = {
     },
     mymenu: {
         title: {
-            "jp":"自分のギタドラ",
+            "jp":"Myギタドラ",
             "ko":"내 기타도라",
             "en":"My GITADORA"
         },
@@ -58,7 +58,7 @@ var txtHeader = {
             "en":"Most played"
         },
         notplayed: {
-            "jp":"未プレーパターン",
+            "jp":"未プレイ譜面",
             "ko":"미 플레이 패턴",
             "en":"Patterns not played"
         },
@@ -71,6 +71,11 @@ var txtHeader = {
             "jp":"ライバルリスト",
             "ko":"라이벌 리스트",
             "en":"Rival list"
+        },
+        snapshot: {
+            "jp":"スキル表保管箱",
+            "ko":"스킬표 보관함",
+            "en":"Skill Table Snapshot"
         }
     },
     skill: {
@@ -97,12 +102,12 @@ var txtHeader = {
     },
     pattern: {
         title: {
-            "jp":"パターン",
+            "jp":"譜面",
             "ko":"패턴",
             "en":"Pattern"
         },
         ptlist: {
-            "jp":"パターンリスト",
+            "jp":"譜面リスト",
             "ko":"패턴목록",
             "en":"Pattern List"
         }
@@ -114,6 +119,13 @@ var txtHeader = {
             "en":"Tower of GITADORA"
         }
     },
+    piu: {
+        title: {
+            "jp":"PIU管理ツール",
+            "ko":"PIU 기록관리툴",
+            "en":"PIU status tool"
+        }
+    },
     etc: {
         title: {
             "jp":"その他",
@@ -121,7 +133,7 @@ var txtHeader = {
             "en":"Others"
         },
         countrank: {
-            "jp":"プレーカウントランキング",
+            "jp":"プレイカウントランキング",
             "ko":"플레이 카운트 랭킹",
             "en":"Play count ranking"
         }

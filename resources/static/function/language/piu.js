@@ -14,7 +14,7 @@ var txtPIU = {
         "1. Android, PCで使えます (ファイル保存問題)<br/>"+
         "2. <b><font color='red'>必ずGoogle Chrome系のブラウザを使用 (モバイル環境も)</font></b><br/>"+
         "3. 「新規作成」や「ファイル読み」でユーザー情報を読み出す<br/>"+
-        "4. 難易度を選択してパターンを選び、ランク情報を設定<br/>"+
+        "4. 難易度を選択して譜面を選び、ランク情報を設定<br/>"+
         "5. 「ファイル保存」でCSVファイルをダウンロード",
         "ko":"How to use:<br/>"+
         "1. Android, PC에서만 사용 가능 (파일 다운로드 문제)<br/>"+
@@ -123,18 +123,18 @@ var txtPIU = {
         "en":"Cancel"
     },
     updatealldiv: {
-        "jp":"選択された全パターンを更新",
+        "jp":"選択された全譜面を更新",
         "ko":"선택된 모든 패턴 갱신",
         "en":"Update all selected patterns"
     },
     updatecheckedbtn: {
-        "jp":"チェックしたパターンを更新",
+        "jp":"チェックした譜面を更新",
         "ko":"체크한 패턴 일괄 갱신",
         "en":"Update Checked Patterns"
     },
     updatedivtitle: {
-        "jp":"パターンランク更新",
-        "ko":"패턴 랭크 업데이트",
+        "jp":"譜面ランク更新",
+        "ko":"패턴 랭크 갱신",
         "en":"Update pattern rank"
     },
     selectrank: {

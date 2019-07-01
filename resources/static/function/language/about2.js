@@ -35,7 +35,7 @@ var txtAbout2 = {
         "en":"How to use filter"
     },
     fd1: {
-        "jp":"フィルターは下記の画面のどうりスキルやパターンなどのページから確認できます",
+        "jp":"フィルターは下記の画面のどうりスキルや譜面などのページから確認できます",
         "ko":"스킬, 패턴 랭킹 등 일부 페이지에는 아래의 이미지와 같은 필터라고 불리는 것이 있습니다",
         "en":"In some pages like skill or pattern, you can see filter which looks like image below"
     },

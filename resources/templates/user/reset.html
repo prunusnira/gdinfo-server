@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -44,43 +44,50 @@
   	</section>
   	
   	<section class="container">
-  		<div class="pagetop text-center">
-    		<h3>Data Reset</h3>
-    	</div>
-  		<div class="row">
-			<div class="col-12">
-				<h1><script>document.write(txtReset.title[lang]);</script></h1>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-12">
-				<p><script>document.write(txtReset.desc1[lang]);</script></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<h3><script>document.write(txtReset.desc2t[lang]);</script></h3>
-			</div>
-			<div class="col-12">
-				<p><script>document.write(txtReset.desc2s[lang]);</script></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<p><script>document.write(txtReset.desc3[lang]);</script></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<p><script>document.write(txtReset.desc4[lang]);</script></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-6">
-				<a class="btn btn-warning" href="#no_div" onclick="resetData()" style="width:100%">YES</a>
-			</div>
-			<div class="col-6">
-				<a class="btn btn-primary" href="/index" style="width:100%">NO</a>
+				<div class="card">
+					<div class="card-header">
+						<h3>Data Reset</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header">
+										<h3><script>document.write(txtReset.title[lang]);</script></h3>
+									</div>
+									<div class="card-body">
+										<p><script>document.write(txtReset.desc1[lang]);</script></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+									<div class="card-header">
+										<h3><script>document.write(txtReset.desc2t[lang]);</script></h3>
+									</div>
+									<div class="card-body">
+										<p><script>document.write(txtReset.desc2s[lang]);</script></p>
+										<p><script>document.write(txtReset.desc3[lang]);</script></p>
+										<p><script>document.write(txtReset.desc4[lang]);</script></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-6">
+								<a class="btn btn-warning" href="#no_div" onclick="resetData()" style="width:100%">YES</a>
+							</div>
+							<div class="col-6">
+								<a class="btn btn-primary" href="/index" style="width:100%">NO</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
   	</section>
@@ -100,20 +107,6 @@
 	</div>
 	<script th:inline="javascript">
 	var id = /*[[${id}]]*/0;
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
 	
 	$(function() {
 		$("#loading").hide();

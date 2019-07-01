@@ -34,8 +34,11 @@ interface ProfileMapper {
 	fun updateComment(@Param("comment") comment: String,
 					  @Param("userid") userid: Int)
 	
-	fun updatePlayCount(@Param("gf") gf: Int,
-						@Param("dm") dm: Int,
+	fun updatePlayCount(@Param("type") type: String,
+						@Param("count") count: Int,
+						@Param("userid") userid: Int)
+
+	fun updatePlayCountDM(@Param("count") count: Int,
 						@Param("userid") userid: Int)
 	
 	fun updateManualSkill(@Param("userid") userid: Int,

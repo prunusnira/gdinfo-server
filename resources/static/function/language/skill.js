@@ -108,7 +108,7 @@ var txtSkill = {
             "en":"Rate desc"
         },
         playdesc: {
-            "jp":"プレーカウント降順",
+            "jp":"プレイカウント降順",
             "ko":"플레이 카운트 내림차순",
             "en":"Play count desc"
         }
@@ -171,5 +171,17 @@ var txtSkill = {
         "jp":"以前ページ",
         "ko":"이전 페이지",
         "en":"Go Back"
+    },
+    snapshot: {
+        button: {
+            "jp":"データ保存",
+            "ko":"데이터 보존하기",
+            "en":"Create a new snapshot"
+        },
+        created: {
+            "jp":"スキル表が保存されました",
+            "ko":"스킬표가 저장되었습니다",
+            "en":"Table saved"
+        }
     }
 };

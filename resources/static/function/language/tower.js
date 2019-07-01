@@ -16,7 +16,7 @@ var txtTower = {
             "en":"Select tower"
         },
         howto: {
-            "jp":"塔のパターンを更新する方法",
+            "jp":"塔の譜面データの更新方法",
             "ko":"타워 패턴을 업데이트 하는 방법",
             "en":"How to update tower patterns"
         },
@@ -73,7 +73,7 @@ var txtTower = {
             "en":"All "
         },
         require2: {
-            "jp":"パターンの中で",
+            "jp":"譜面の中で",
             "ko":"패턴 중 ",
             "en":" patterns, "
         },
@@ -85,7 +85,7 @@ var txtTower = {
     },
     howto: {
         step1: {
-            "jp":"1. ゲームの中やGITADORAのホームページから更新したいパターンを「お気に入り」フォルダーに登録します。",
+            "jp":"1. ゲームの中やGITADORAのホームページから更新する譜面を「お気に入り」に登録します。",
             "ko":"1. 인 게임 혹은 홈페이지에서 갱신할 패턴들을 '즐겨찾기' 폴더에 등록합니다",
             "en":"1. Add patterns you cleared into 'Favorite' folder from in-game or homepage."
         },

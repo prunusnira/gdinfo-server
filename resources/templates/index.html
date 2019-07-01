@@ -15,10 +15,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
+<meta name="description" content="GITADORA Info">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="/favicon.ico">
 <script src="/function/language.js"></script>
 <script src="/function/language/index.js"></script>
@@ -42,7 +42,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -50,37 +50,19 @@
 
 <body>
 	<section class="container">
-		<div class="row" id="main">
-			<div class="col-12 text-center" id="intro">
-				<img style="width: 50%; max-width: 350px;" src="/img/index/logoidx.png"/><br/>
-				<span><script>document.write(txtIndex.intro[lang]);</script></span>
-			</div>
-		</div>
-		<div class="row" style='padding-left: 20px; padding-right:20px; font-size: 80%;'>
+		<div class="row">
 			<div class="col-12">
-				<div id="self" class='card text-center' style='display:none; padding:0px; '>
-					<div class='card-header' style="padding:0px;">
-						<span><b><script>document.write(txtIndex.self.title[lang]);</script></b></span>
+				<div id="self" class='card' style='font-size:90%;'>
+					<div class='card-header'>
+						<h3><script>document.write(txtIndex.self.title[lang]);</script></h3>
 					</div>
-					<div class='card-body' style="padding:0px;" id="selfBody">
-						<div class='card-title'>
-							<span id="selftitle">{{ selfTitle }}</span>
-						</div>
-						<div class='card-text'>
-							<span id='towertitleself' v-html="selfTowerTitle"></span>
-							<span style='font-size:125%' id="selfname">{{ selfName }}</span><br/>
-							<span><b>GF</b> {{ selfGskill }}</span>
-							<span><b>DM</b> {{ selfDskill }}</span>
-						</div>
+					<div class='card-body text-center' id="selfBody" v-html="selfInfo">
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	
-	<section class="container">
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-12">
 				<div class="card" style="font-size:90%;">
 					<div class="card-header">
 						<h3><script>document.write(txtIndex.recent[lang]);</script></h3>
@@ -99,7 +81,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
+		</div>
+		<div class="row">
+			<div class="col-12">
 				<div class="card" style="font-size:90%;">
 					<div class="card-header">
 						<h3><script>document.write(txtIndex.notice[lang]);</script></h3>
@@ -221,47 +205,42 @@
     var vmSelf = new Vue({
         el:'#selfBody',
         data: {
-            selfName: '',
-            selfPfLink: '',
-            selfTitle: '',
-            selfTowerTitle: '',
-            selfGskill: 0,
-            selfDskill: 0
+			selfInfo: ''
         },
         created: function() {
             var self = this;
             if(token != null) {
                 $.ajax("/d/getuser/"+token)
                 .done(function(data) {
-                    var json = JSON.parse(data);
-                    self.selfName = json.mydata.name;
-                    self.selfPfLink = "/profile/"+json.mydata.id;
-                    self.selfTitle = json.mydata.title;
-                    self.selfGskill = json.mydata.gskill;
-                    self.selfDskill = json.mydata.dskill;
-                    if(json.mydata.titletower != "") {
-                        self.selfTowerTitle = "<img class='towertitle35' src='/img/title/"+json.mydata.titletower+".png' />";
+					var json = JSON.parse(data);
+					
+					self.selfInfo =
+						"<div class='card-text'>"+
+							"<span id='selftitle'>"+
+								"("+json.mydata.title+")"+
+							"</span><br/>"+
+							"<span id='towertitleself'>";
+					if(json.mydata.titletower != "") {
+                        self.selfInfo += "<img class='towertitle35' src='/img/title/"+json.mydata.titletower+".png' />";
                     }
-                    $("#self").show();
-                });
-            }
+			self.selfInfo += "</span>"+
+							"<span style='font-size:125%' id='selfname'>"+
+								json.mydata.name+
+							"</span><br/>"+
+							"<span><b>GF</b>"+
+								json.mydata.gskill+
+							"</span>&nbsp;&nbsp;&nbsp;"+
+							"<span><b>DM</b>"+
+								json.mydata.dskill+
+							"</span>"+
+						"</div>";
+				});
+			}
+			else {
+				self.selfInfo = txtIndex.self.loginFirst[lang];
+			}
         }
     });
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
 	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>

@@ -10,29 +10,29 @@
  *****************************************************/
 var txtMyb = {
     desc: {
-        "jp":"マイベストを正確に表示するためには<font color='red'>全パターン</font>のデータが必要となります",
+        "jp":"マイベストを正確に表示するためには<font color='red'>全譜面</font>のデータが必要となります",
         "ko":"마이베스트 리스트를 정확히 표시하려면 <font color='red'>모든 패턴</font>의 데이터가 필요합니다",
         "en":"You need to update <font color='red'>all pattern data</font> to show exact my best list"
     },
     button: {
         music: {
-            "jp":"曲のプレー数",
+            "jp":"曲プレイ数",
             "ko":"노래 플레이 수",
             "en":"For songs"
         },
         pt: {
-            "jp":"パターン別のプレー数",
-            "ko":"패턴별 플레이 수",
+            "jp":"譜面プレイ数",
+            "ko":"패턴 플레이 수",
             "en":"For patterns"
         },
         gf: {
-            "jp":"パターン別のプレー数(GFのみ)",
-            "ko":"패턴별 플레이 수 (기타)",
+            "jp":"譜面プレイ数(GFのみ)",
+            "ko":"패턴 플레이 수 (기타)",
             "en":"For patterns (GF)"
         },
         dm: {
-            "jp":"パターン別のプレー数(DMのみ)",
-            "ko":"패턴별 플레이 수 (드럼)",
+            "jp":"譜面プレイ数(DMのみ)",
+            "ko":"패턴 플레이 수 (드럼)",
             "en":"For patterns (DM)"
         },
         scrshot: {

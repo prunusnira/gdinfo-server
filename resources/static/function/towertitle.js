@@ -31,52 +31,52 @@ function getFloorTitle(tower, floor, rate, allfloors) {
 	switch(allfloors) {
 	case 4:
 		switch(floor) {
-		case 0: titlelist.push(titleshort+'amatuer'); if(rate == 100) { titlelist.push(titleshort+'amatuer_g'); } break;
-		case 1: titlelist.push(titleshort+'adv'); if(rate == 100) { titlelist.push(titleshort+'adv_g'); } break;
-		case 2: titlelist.push(titleshort+'pro'); if(rate == 100) { titlelist.push(titleshort+'pro_g'); } break;
-		case 3: titlelist.push(titleshort+'master'); if(rate == 100) { titlelist.push(titleshort+'master_g'); } break;
+		case 0: titlelist.push(titleshort+'lv1'); if(rate == 100) { titlelist.push(titleshort+'lv1g'); } break;
+		case 1: titlelist.push(titleshort+'lv2'); if(rate == 100) { titlelist.push(titleshort+'lv2g'); } break;
+		case 2: titlelist.push(titleshort+'lv3'); if(rate == 100) { titlelist.push(titleshort+'lv3g'); } break;
+		case 3: titlelist.push(titleshort+'lvm'); if(rate == 100) { titlelist.push(titleshort+'lvmg'); } break;
 		}
 		break;
 	case 5:
 		switch(floor) {
-		case 0: titlelist.push(titleshort+'starter'); if(rate == 100) { titlelist.push(titleshort+'starter_g'); } break;
-		case 1: titlelist.push(titleshort+'amatuer'); if(rate == 100) { titlelist.push(titleshort+'amatuer_g'); } break;
-		case 2: titlelist.push(titleshort+'adv'); if(rate == 100) { titlelist.push(titleshort+'adv_g'); } break;
-		case 3: titlelist.push(titleshort+'pro'); if(rate == 100) { titlelist.push(titleshort+'pro_g'); } break;
-		case 4: titlelist.push(titleshort+'master'); if(rate == 100) { titlelist.push(titleshort+'master_g'); } break;
+		case 0: titlelist.push(titleshort+'lv1'); if(rate == 100) { titlelist.push(titleshort+'lv1g'); } break;
+		case 1: titlelist.push(titleshort+'lv2'); if(rate == 100) { titlelist.push(titleshort+'lv2g'); } break;
+		case 2: titlelist.push(titleshort+'lv3'); if(rate == 100) { titlelist.push(titleshort+'lv3g'); } break;
+		case 3: titlelist.push(titleshort+'lv4'); if(rate == 100) { titlelist.push(titleshort+'lv4g'); } break;
+		case 4: titlelist.push(titleshort+'lvm'); if(rate == 100) { titlelist.push(titleshort+'lvmg'); } break;
 		}
 		break;
 	case 6:
 		switch(floor) {
-		case 0: titlelist.push(titleshort+'newbie'); if(rate == 100) { titlelist.push(titleshort+'newbie_g'); } break;
-		case 1: titlelist.push(titleshort+'starter'); if(rate == 100) { titlelist.push(titleshort+'starter_g'); } break;
-		case 2: titlelist.push(titleshort+'amatuer'); if(rate == 100) { titlelist.push(titleshort+'amatuer_g'); } break;
-		case 3: titlelist.push(titleshort+'adv'); if(rate == 100) { titlelist.push(titleshort+'adv_g'); } break;
-		case 4: titlelist.push(titleshort+'pro'); if(rate == 100) { titlelist.push(titleshort+'pro_g'); } break;
-		case 5: titlelist.push(titleshort+'master'); if(rate == 100) { titlelist.push(titleshort+'master_g'); } break;
+		case 0: titlelist.push(titleshort+'lv1'); if(rate == 100) { titlelist.push(titleshort+'lv1g'); } break;
+		case 1: titlelist.push(titleshort+'lv2'); if(rate == 100) { titlelist.push(titleshort+'lv2g'); } break;
+		case 2: titlelist.push(titleshort+'lv3'); if(rate == 100) { titlelist.push(titleshort+'lv3g'); } break;
+		case 3: titlelist.push(titleshort+'lv4'); if(rate == 100) { titlelist.push(titleshort+'lv4g'); } break;
+		case 4: titlelist.push(titleshort+'lv5'); if(rate == 100) { titlelist.push(titleshort+'lv5g'); } break;
+		case 5: titlelist.push(titleshort+'lvm'); if(rate == 100) { titlelist.push(titleshort+'lvmg'); } break;
 		}
 		break;
 	case 7:
 		switch(floor) {
-		case 0: titlelist.push(titleshort+'newbie'); if(rate == 100) { titlelist.push(titleshort+'newbie_g'); } break;
-		case 1: titlelist.push(titleshort+'starter'); if(rate == 100) { titlelist.push(titleshort+'starter_g'); } break;
-		case 2:
-		case 3: titlelist.push(titleshort+'amatuer'); if(rate == 100) { titlelist.push(titleshort+'amatuer_g'); } break;
-		case 4: titlelist.push(titleshort+'adv'); if(rate == 100) { titlelist.push(titleshort+'adv_g'); } break;
-		case 5: titlelist.push(titleshort+'pro'); if(rate == 100) { titlelist.push(titleshort+'pro_g'); } break;
-		case 6: titlelist.push(titleshort+'master'); if(rate == 100) { titlelist.push(titleshort+'master_g'); } break;
+		case 0: titlelist.push(titleshort+'lv1'); if(rate == 100) { titlelist.push(titleshort+'lv1g'); } break;
+		case 1: titlelist.push(titleshort+'lv2'); if(rate == 100) { titlelist.push(titleshort+'lv2g'); } break;
+		case 2: titlelist.push(titleshort+'lv3'); if(rate == 100) { titlelist.push(titleshort+'lv3g'); } break;
+		case 3: titlelist.push(titleshort+'lv4'); if(rate == 100) { titlelist.push(titleshort+'lv4g'); } break;
+		case 4: titlelist.push(titleshort+'lv5'); if(rate == 100) { titlelist.push(titleshort+'lv5g'); } break;
+		case 5: titlelist.push(titleshort+'lv6'); if(rate == 100) { titlelist.push(titleshort+'lv6g'); } break;
+		case 6: titlelist.push(titleshort+'lvm'); if(rate == 100) { titlelist.push(titleshort+'lvmg'); } break;
 		}
 		break;
 	case 8:
 		switch(floor) {
-		case 0: titlelist.push(titleshort+'newbie'); if(rate == 100) { titlelist.push(titleshort+'newbie_g'); } break;
-		case 1: titlelist.push(titleshort+'starter'); if(rate == 100) { titlelist.push(titleshort+'starter_g'); } break;
-		case 2:
-		case 3: titlelist.push(titleshort+'amatuer'); if(rate == 100) { titlelist.push(titleshort+'amatuer_g'); } break;
-		case 4:
-		case 5: titlelist.push(titleshort+'adv'); if(rate == 100) { titlelist.push(titleshort+'adv_g'); } break;
-		case 6: titlelist.push(titleshort+'pro'); if(rate == 100) { titlelist.push(titleshort+'pro_g'); } break;
-		case 7: titlelist.push(titleshort+'master'); if(rate == 100) { titlelist.push(titleshort+'master_g'); } break;
+		case 0: titlelist.push(titleshort+'lv1'); if(rate == 100) { titlelist.push(titleshort+'lv1g'); } break;
+		case 1: titlelist.push(titleshort+'lv2'); if(rate == 100) { titlelist.push(titleshort+'lv2g'); } break;
+		case 2: titlelist.push(titleshort+'lv3'); if(rate == 100) { titlelist.push(titleshort+'lv3g'); } break;
+		case 3: titlelist.push(titleshort+'lv4'); if(rate == 100) { titlelist.push(titleshort+'lv4g'); } break;
+		case 4: titlelist.push(titleshort+'lv5'); if(rate == 100) { titlelist.push(titleshort+'lv5g'); } break;
+		case 5: titlelist.push(titleshort+'lv6'); if(rate == 100) { titlelist.push(titleshort+'lv6g'); } break;
+		case 6: titlelist.push(titleshort+'lv7'); if(rate == 100) { titlelist.push(titleshort+'lv7g'); } break;
+		case 7: titlelist.push(titleshort+'lvm'); if(rate == 100) { titlelist.push(titleshort+'lvmg'); } break;
 		}
 		break;
 	}

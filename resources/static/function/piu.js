@@ -283,7 +283,7 @@ function updateTable(data) {
 					if(current.steptype == 1)
 						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/half.png'/>";
 					else if(current.steptype == 2)
-						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/pref.png'/>";
+						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/perf.png'/>";
 					data += "</div>" +
 							"<div class='rank' id='cs"+current.ptid+"'>"+
 								"<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_np.png'/>"+
@@ -635,7 +635,7 @@ function updateTableOver(data) {
 					if(current.steptype == 1)
 						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/half.png'/>";
 					else if(current.steptype == 2)
-						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/pref.png'/>";
+						data += "<img style='width:40%; position: absolute; left:0px;' src='/img/piu/perf.png'/>";
 					data += "</div>" +
 							"<div class='rank' id='cs"+current.ptid+"'>"+
 								"<img style='width:60%; position: absolute; right:0px;' src='/img/piu/grade_np.png'/>"+

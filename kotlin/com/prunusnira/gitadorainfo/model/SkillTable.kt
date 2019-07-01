@@ -33,4 +33,12 @@ class SkillTable(var musicid: Int,
 		: this(musicid, mname, ishot, patterncode.toInt(), "EXC", 10000, 0 ,0 ,0,
 		version, 1, 1, level, "Y",
 		"1111111111111111111111111111111111111111111111111111111111111111")
+	constructor(musicid: Int, mname: String, ishot: String,
+				patterncode: Int, rank: String, rate: Int,
+				ratemx: Int, ratetbre: Int, ratetb: Int,
+				version: Int, combo: Int, playtime: Int,
+				level: Long, checkfc: String, meter: String)
+		: this(musicid, mname, ishot, patterncode, rank, rate,
+			ratemx, ratetbre, ratetb, version, combo, playtime,
+			level.toInt(), checkfc, meter)
 }

@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -54,66 +54,72 @@
 	
 	<section class="container">
 		<div class="row">
-			<div class='col-12 text-center'>
-    			<h2>Clear Status Table</h2>
+			<div class='col-12'>
+				<div class="card">
+					<div class="card-header">
+						<h3>Clear Status Table</h3>
+					</div>
+					<div id="profile" class="card-body text-center">
+						<a v-bind:href="profilelink" class='innerhref' style='font-size:130%'>
+							<span v-html="towertitle"></span>
+							{{ username }} ⓟ
+						</a>
+					</div>
+				</div>
 			</div>
     	</div>
-		<div class='row text-center'>
-			<div class='col-12 text-center' id="profile">
-				<a v-bind:href="profilelink" class='innerhref' style='font-size:130%'>
-				<span v-html="towertitle"></span>
-				{{ username }} ⓟ
-				</a>
-			</div>
-		</div>
-	</section>
-	
-	<section class="container">
 		<!-- Rank table for GF -->
 		<div class="row">
 			<div class="col-12">
-				<h3>GuitarFreaks</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="div-table" id="gcleartable">
-				<div class="div-table-header">
-					<div class="div-table-cell">Rank</div>
-					<div class="div-table-cell">EXC</div>
-					<div class="div-table-cell">SS</div>
-					<div class="div-table-cell">S</div>
-					<div class="div-table-cell">A</div>
-					<div class="div-table-cell">B</div>
-					<div class="div-table-cell">C</div>
-					<div class="div-table-cell">Failed</div>
-					<div class="div-table-cell">NoPlay</div>
-					<div class="div-table-cell">Total</div>
+				<div class="card">
+					<div class="card-header">
+						<h3>GuitarFreaks</h3>
+					</div>
+					<div class="card-body">
+						<div class="div-table" id="gcleartable">
+							<div class="div-table-header">
+								<div class="div-table-cell">Rank</div>
+								<div class="div-table-cell">EXC</div>
+								<div class="div-table-cell">SS</div>
+								<div class="div-table-cell">S</div>
+								<div class="div-table-cell">A</div>
+								<div class="div-table-cell">B</div>
+								<div class="div-table-cell">C</div>
+								<div class="div-table-cell">Failed</div>
+								<div class="div-table-cell">NoPlay</div>
+								<div class="div-table-cell">Total</div>
+							</div>
+							<clear-row v-for="clear in clearlist" v-bind:clear="clear"></clear-row>
+						</div>
+					</div>
 				</div>
-				<clear-row v-for="clear in clearlist" v-bind:clear="clear"></clear-row>
 			</div>
 		</div>
-		
 		<!-- Rank table for DM -->
 		<div class="row">
 			<div class="col-12">
-				<h3>DrumMania</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="div-table" id="dcleartable">
-				<div class="div-table-header">
-					<div class="div-table-cell">Rank</div>
-					<div class="div-table-cell">EXC</div>
-					<div class="div-table-cell">SS</div>
-					<div class="div-table-cell">S</div>
-					<div class="div-table-cell">A</div>
-					<div class="div-table-cell">B</div>
-					<div class="div-table-cell">C</div>
-					<div class="div-table-cell">Failed</div>
-					<div class="div-table-cell">NoPlay</div>
-					<div class="div-table-cell">Total</div>
+				<div class="card">
+					<div class="card-header">
+						<h3>DrumMania</h3>
+					</div>
+					<div class="card-body">
+						<div class="div-table" id="dcleartable">
+							<div class="div-table-header">
+								<div class="div-table-cell">Rank</div>
+								<div class="div-table-cell">EXC</div>
+								<div class="div-table-cell">SS</div>
+								<div class="div-table-cell">S</div>
+								<div class="div-table-cell">A</div>
+								<div class="div-table-cell">B</div>
+								<div class="div-table-cell">C</div>
+								<div class="div-table-cell">Failed</div>
+								<div class="div-table-cell">NoPlay</div>
+								<div class="div-table-cell">Total</div>
+							</div>
+							<clear-row v-for="clear in clearlist" v-bind:clear="clear"></clear-row>
+						</div>
+					</div>
 				</div>
-				<clear-row v-for="clear in clearlist" v-bind:clear="clear"></clear-row>
 			</div>
 		</div>
 	</section>
@@ -345,21 +351,6 @@
 	function removeLoad() {
 		if(gfload && dmload && statload)
 			$("#loading").hide();
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	</script>
 	<div th:insert="header :: header"></div>

@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -43,7 +43,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -55,163 +55,195 @@
   	</section>
   	
   	<section class="container">
-  		<div class="pagetop text-center">
-    		<h2>Patterns not played</h2>
-			<span th:if="${gtype=='gf'}">GuitarFreaks</span>
-			<span th:if="${gtype=='dm'}">DrumMania</span>
-			<br/>
-			<span>
-				<script>document.write(txtNp.desc[lang]);</script>
-			</span>
-    	</div>
-  	</section>
-  	
-  	<section class="container">
-  		<!-- Filter and Orders -->
-		<div id='filters' class='filters'>
-			<div id='filterShowHide' class='filter-front'>
-				<a href='#no_div' onclick='showfilter(1)'>
-					<div>
-						<h3>Filter Show</h3>
-						<script>document.write(text.other.filter[lang])</script>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Patterns not played</h3>
 					</div>
-				</a>
+					<div class="card-body">
+						<span>
+							<script>document.write(txtNp.desc[lang]);</script>
+						</span>
+					</div>
+				</div>
 			</div>
-			<form id='filterform'>
-				<div id='filter' style="display:none;">
-					<div class='filter-front'>Level</div>
-					<div class='filter-back div-table'>
-						<div class='div-table-row'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='1'>1.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='2'>1.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='4'>2.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='8'>2.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='16'>3.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='32'>3.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='64'>4.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='128'>4.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='256'>5.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='512'>5.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='1024'>6.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='2048'>6.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='4096'>7.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='8192'>7.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='16384'>8.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='32768'>8.5~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='65536'>9.0~</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='lv[]' value='131072'>9.5~</label>
-							</div>
-						</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Option Table</h3>
 					</div>
-					<div class='filter-ver'>
-						<div class='filter-front'>Version</div>
-						<div class='div-table-row filter-back' id='verfilter'></div>
-					</div>
-					<div class='filter-hot'>
-						<div class='filter-front'>Hot/Other</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
+					<div class="card-body">
+						<!-- Filter and Orders -->
+						<div id='filters' class='filters'>
+							<div id='filterShowHide' class='filter-front'>
+								<a href='#no_div' onclick='showfilter(1)'>
+									<div>
+										<h3>Show Option Table</h3>
+										<script>document.write(text.other.filter[lang])</script>
+									</div>
+								</a>
 							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='checkbox' name='hot[]' value='o'>Other</label>
-							</div>
+							<form id='filterform'>
+								<div id='filter' style="display:none;">
+									<div class='filter-front'>Level</div>
+									<div class='filter-back div-table'>
+										<div class='div-table-row'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='1'>1.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='2'>1.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='4'>2.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='8'>2.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='16'>3.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='32'>3.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='64'>4.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='128'>4.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='256'>5.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='512'>5.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='1024'>6.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='2048'>6.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='4096'>7.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='8192'>7.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='16384'>8.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='32768'>8.5~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='65536'>9.0~</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='lv[]' value='131072'>9.5~</label>
+											</div>
+										</div>
+									</div>
+									<div class='filter-ver'>
+										<div class='filter-front'>Version</div>
+										<div class='div-table-row filter-back' id='verfilter'></div>
+									</div>
+									<div class='filter-hot'>
+										<div class='filter-front'>Hot/Other</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='h'>Hot</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='checkbox' name='hot[]' value='o'>Other</label>
+											</div>
+										</div>
+									</div>
+									<div class='order'>
+										<div class='filter-front'>Order</div>
+										<div class='div-table-row filter-back'>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='titleasc'>Title ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='titledesc'>Title ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verasc'>Version ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='verdesc'>Version ▼</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='lvasc'>Level ▲</label>
+											</div>
+											<div class='div-table-cell filter-obj'>
+												<label><input type='radio' name='order' value='lvdesc'>Level ▼</label>
+											</div>
+										</div>
+									</div>
+									<div class="text-center;">
+										<div class='div-table-cell filter-obj'>
+											<span id="gtype" th:attr="data-gtype=${gtype}"></span>
+											<input class='btn btn-primary' th:onclick="|applyfilterNP('notplayed/'+document.getElementById('gtype').dataset.gtype+'/${userid}/${vertype}/1')|" type='button' value='Apply'>
+										</div>
+										<div class='div-table-cell filter-obj'>
+											<input class='btn btn-primary' onclick='filterReset()' type='button' value='Reset'>
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
+						<!-- filter end -->
 					</div>
-					<div class='order'>
-						<div class='filter-front'>Order</div>
-						<div class='div-table-row filter-back'>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='titleasc'>Title ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='titledesc'>Title ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verasc'>Version ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='verdesc'>Version ▼</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='lvasc'>Level ▲</label>
-							</div>
-							<div class='div-table-cell filter-obj'>
-								<label><input type='radio' name='order' value='lvdesc'>Level ▼</label>
-							</div>
-						</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Select Type</h3>
 					</div>
-					<div class="text-center;">
-						<div class='div-table-cell filter-obj'>
-							<span id="gtype" th:attr="data-gtype=${gtype}"></span>
-							<input class='btn btn-primary' th:onclick="|applyfilterNP('notplayed/'+document.getElementById('gtype').dataset.gtype+'/${userid}/${vertype}/1')|" type='button' value='Apply'>
+					<div class="card-body">
+						<div class="col-12 btn-group btn-group-justified" role="group">
+							<a class="btn btn-primary" th:href="|/notplayed/gf/${userid}/0/1|" style="width:100%">GF <script>document.write(txtNp.all[lang]);</script></a>
+							<a class="btn btn-primary" th:href="|/notplayed/dm/${userid}/0/1|" style="width:100%">DM <script>document.write(txtNp.all[lang]);</script></a>
 						</div>
-						<div class='div-table-cell filter-obj'>
-							<input class='btn btn-primary' onclick='filterReset()' type='button' value='Reset'>
+						<div class="col-12 btn-group btn-group-justified" role="group">
+							<a class="btn btn-primary" th:href="|/notplayed/gf/${userid}/1/1|" style="width:100%">GF <script>document.write(txtNp.ver[lang]);</script></a>
+							<a class="btn btn-primary" th:href="|/notplayed/dm/${userid}/1/1|" style="width:100%">DM <script>document.write(txtNp.ver[lang]);</script></a>
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-		<!-- filter end -->
-  	</section>
-  	
-  	<section class="container">
+
   		<div class="row">
-			<div class="col-12 btn-group btn-group-justified" role="group">
-				<a class="btn btn-primary" th:href="|/notplayed/gf/${userid}/0/1|" style="width:100%">GF <script>document.write(txtNp.all[lang]);</script></a>
-				<a class="btn btn-primary" th:href="|/notplayed/dm/${userid}/0/1|" style="width:100%">DM <script>document.write(txtNp.all[lang]);</script></a>
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Non Play List</h3>
+						<span th:if="${gtype=='gf'}">GuitarFreaks</span>
+						<span th:if="${gtype=='dm'}">DrumMania</span>
+					</div>
+					<div class="card-body">
+						<div class='div-table' id="playlist">
+							<np-row v-for="np in nplist" v-bind:np="np"></np-row>
+						</div>
+						<div style='width:100%; text-align:center;'>
+							<h3 id="empty"></h3>
+						</div>
+						<div class='row text-center' id="pager"></div>
+					</div>
+				</div>
 			</div>
-			<div class="col-12 btn-group btn-group-justified" role="group">
-				<a class="btn btn-primary" th:href="|/notplayed/gf/${userid}/1/1|" style="width:100%">GF <script>document.write(txtNp.ver[lang]);</script></a>
-				<a class="btn btn-primary" th:href="|/notplayed/dm/${userid}/1/1|" style="width:100%">DM <script>document.write(txtNp.ver[lang]);</script></a>
-			</div>
 		</div>
-  	</section>
-  	
-  	<section class="container">
-		<div class='div-table' id="playlist">
-			<np-row v-for="np in nplist" v-bind:np="np"></np-row>
-		</div>
-		<div style='width:100%; text-align:center;'>
-			<h3 id="empty"></h3>
-		</div>
-		<div class='row text-center' id="pager"></div>
   	</section>
 
     <!-- Bootstrap core JavaScript
@@ -343,21 +375,6 @@
 			else extvar += "&hot="+hot;
 		}
 		return baseurl + extvar;
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	$(function() {

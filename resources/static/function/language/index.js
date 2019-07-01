@@ -9,14 +9,6 @@
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/
 var txtIndex = {
-    intro: {
-        "jp":"ギタドラインフォへようこそ。<br/>"+
-            "左上のメニューボタンを押してください。",
-        "ko":"기타도라인포에 오신것을 환영합니다.<br/>"+
-            "메뉴는 왼쪽 위의 버튼을 눌러주세요",
-        "en":"Welcome to GITADORA Info.<br/>"+
-            "Please touch upper left button to show menu."
-    },
     notice: {
         "jp":"バージョンアップによる機能の一時的な停止のご案内",
         "ko":"버전업에 따른 기능 일시 정지 안내",
@@ -37,6 +29,11 @@ var txtIndex = {
             "jp":"ログインユーザー",
             "ko":"로그인 유저",
             "en":"User Logined"
+        },
+        loginFirst: {
+            "jp":"<a href='/login'>ログイン</a>してください",
+            "ko":"<a href='/login'>로그인</a> 해주세요",
+            "en":"Please <a href='/login'>sign in</a> first"
         }
     },
     click: {

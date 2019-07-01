@@ -290,4 +290,38 @@ class DataSkillController {
 		}
 		return node.toString()
 	}
+
+	@RequestMapping(value=["/d/skill/snapshot/create/{uid}/{gtype}"],
+		produces=["text/plain;charset=UTF-8"])
+	@ResponseBody
+	fun createSnapshot(@PathVariable("uid") uid: Int,
+						@PathVariable("gtype") gtype: String): String {
+		var user = userService.getUserById(uid)
+		skillService.createSnapshot(uid, gtype, user.name)
+		return "/skill/snapshot/list/"+uid
+	}
+
+	@RequestMapping(value=["/d/skill/snapshot/list/{uid}"],
+		produces=["text/plain;charset=UTF-8"])
+	@ResponseBody
+	fun listSnapshot(@PathVariable("uid") uid: Int): String {
+		val mapper = ObjectMapper()
+		val node = mapper.createObjectNode()
+		var list = skillService.listSnapshot(uid)
+		try {
+			node.putPOJO("list", mapper.writeValueAsString(list))
+		} catch(e: JsonProcessingException) {
+			e.printStackTrace()
+		}
+		return node.toString()
+	}
+
+	@RequestMapping(value=["/d/skill/snapshot/load/{uid}/{date}/{gtype}"],
+		produces=["text/plain;charset=UTF-8"])
+	@ResponseBody
+	fun loadSnapshot(@PathVariable("uid") uid: Int,
+					@PathVariable("date") date: String,
+					@PathVariable("gtype") gtype: String): String {
+		return skillService.loadSnapshot(uid, date, gtype)
+	}
 }

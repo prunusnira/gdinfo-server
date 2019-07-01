@@ -60,9 +60,9 @@ interface SkillMapper {
 							@Param("p") patterncode: Int,
 							@Param("uid") userid: Int): Pattern
 	
-	fun getPlayCountGF(@Param("userid") userid: Int): Int
+	fun getPlayCountGF(@Param("userid") userid: Int): Int?
 	
-	fun getPlayCountDM(@Param("userid") userid: Int): Int
+	fun getPlayCountDM(@Param("userid") userid: Int): Int?
 	
 	fun getPatternCountGF(@Param("uid") uid: Int,
 						  @Param("rank") rank: String,

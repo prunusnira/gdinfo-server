@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -40,7 +40,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -216,7 +216,7 @@
                     for(var i = 0; i < floor.length; i++) {
                         var t = titlesp[floor[i].mid];
                         if(t != null) {
-                            if(t.type == 0) {
+                            if(t.type == 0 && t[floor[i].ptcode] != null) {
                                 var obj = {};
                                 obj.src = "/img/title/"+t[floor[i].ptcode].value+".png";
                                 obj.name = t[floor[i].ptcode][lang];
@@ -229,10 +229,12 @@
                                 self.titlelist.push(obj);
                             }
                             else if(t.type == 2) {
-                                var obj = {};
-                                obj.src = "/img/title/"+t[floor[i].ptcode].value+".png";
-                                obj.name = t[floor[i].ptcode][lang];
-                                self.titlelist.push(obj);
+                                if(t[floor[i].ptcode] != null) {
+                                    var obj = {};
+                                    obj.src = "/img/title/"+t[floor[i].ptcode].value+".png";
+                                    obj.name = t[floor[i].ptcode][lang];
+                                    self.titlelist.push(obj);
+                                }
                                 var obj2 = {};
                                 obj2.src = "/img/title/"+t.value+".png";
                                 obj2.name = t[lang];
@@ -248,21 +250,6 @@
 
         function checkLoading() {
             if(loadTitle && loadTower) $("#loading").hide();
-        }
-
-        //signout
-        function gsignLoad() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init();
-            });
-        }
-        
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function() {
-                console.log('User signed out.');
-            });
-            $("#logout").submit();
         }
         </script>
         <div th:insert="header :: header"></div>

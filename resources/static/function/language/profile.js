@@ -12,12 +12,12 @@ var txtProfile = {
     title: {
         "jp":"ユーザー情報",
         "ko":"유저 정보",
-        "en":"About this user"
+        "en":"User Info"
     },
     addr: {
-        "jp":"現在のユーザーさんのプロフィールアドレス (クリックしてコピー): ",
-        "ko":"이 사용자의 프로필 주소 (클릭 시 복사): ",
-        "en":"Address of this profile page (Click to copy): "
+        "jp":"プロフィールURL (クリックしてコピー): ",
+        "ko":"프로필 주소 (클릭 시 복사): ",
+        "en":"Profile address (Click to copy): "
     },
     userinfo: {
         title: {
@@ -70,9 +70,9 @@ var txtProfile = {
             "en":"Clear table"
         },
         mybest: {
-            "jp":"マイベスト",
-            "ko":"마이베스트",
-            "en":"My best"
+            "jp":"プレイ回数",
+            "ko":"플레이 횟수",
+            "en":"Play count"
         },
         compare: {
             "jp":"スキル比較",
@@ -132,7 +132,7 @@ var txtProfile = {
             "en":"EXC"
         },
         count: {
-            "jp":"プレー数",
+            "jp":"プレイ数",
             "ko":"플레이 수",
             "en":"Play count"
         },
@@ -142,11 +142,11 @@ var txtProfile = {
             "en":"Closed"
         },
         countdesc: {
-            "jp":"プレー数について" +
-                "* プレー数は今までプレーしたステージの数です(Stage Failedも含む)<br/>"+
+            "jp":"プレイ数について" +
+                "* プレイ数は今までプレイしたステージの数です(Stage Failedも含む)<br/>"+
                 "* 公開設定により他人に見せることができます(基本非公開)<br/>" +
                 "* 正確な計算のためには全曲のスキルデータが必要です<br/>" +
-                "スキルデータをアップデートするとプレー数も一緒にアップデートします",
+                "スキルデータをアップデートするとプレイ数も一緒にアップデートします",
             "ko":"플레이 수에 대하여<br/>" +
                 "* 플레이 수는 지금까지 플레이 한 총 스테이지 수 입니다(Stage Failed 포함).<br/>"+
                 "* 공개 설정에 따라 다른 사람에게 보입니다(기본 비공개).<br/>" +
@@ -159,7 +159,7 @@ var txtProfile = {
     },
     opencount: {
         current: {
-            "jp":"現在のプレーカウント設定 ",
+            "jp":"現在のプレイカウント設定 ",
             "ko":"현재의 플레이카운트 설정 ",
             "en":"Open status - play count"
         },

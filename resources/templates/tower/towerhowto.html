@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -53,36 +53,30 @@
   	</section>
   	
   	<section class="container">
-  		<div class="pagetop text-center">
-  			<div class="row">
-  				<div class="col-12">
-  					<h3>Tower of GITADORA</h3>
-  				</div>
-  			</div>
-    		<div class="row">
-  				<div class="col-12">
-		    		<span style="font-size:100%">
-						How to update
-					</span>
-				</div>
-			</div>
-		</div>
-  	</section>
-  	
-  	<section class="container">
   		<div class="row">
 			<div class="col-12">
-				<span><script>document.write(txtTower.howto.step1[lang]);</script></span>
-			</div>
-			<div class="col-12">
-				<img style="width:50%;" src="/img/tower/okiniiri.jpg" />
-			</div>
-			<div class="col-12">
-				<span><script>document.write(txtTower.howto.step2[lang]);</script></span>
-			</div>
-			<div class="col-12">
-				<img style="width:40%;" src="/img/tower/update.jpg" />
-				<img style="width:40%;" src="/img/tower/update2.jpg" />
+				<div class="card">
+					<div class="card-header">
+						<h3>Tower of GITADORA - How to Update</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 about-part">
+								<span><script>document.write(txtTower.howto.step1[lang]);</script></span>
+							</div>
+							<div class="col-12 about-part">
+								<img style="width:50%;" src="/img/tower/okiniiri.jpg" />
+							</div>
+							<div class="col-12 about-part">
+								<span><script>document.write(txtTower.howto.step2[lang]);</script></span>
+							</div>
+							<div class="col-12 about-part">
+								<img style="width:40%;" src="/img/tower/update.jpg" />
+								<img style="width:40%;" src="/img/tower/update2.jpg" />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
   	</section>
@@ -90,8 +84,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-		<script src="/js/jquery-3.3.1.min.js"></script>
-		<script src="/js/vue.min.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/vue.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/function/overall.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=gsignLoad" async defer></script>
@@ -99,22 +93,6 @@
 		<form action='/logout' id='logout' method='post'>
 		</form>
 	</div>
-	<script>
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
-	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>
 	<script src="/function/menu.js"></script>

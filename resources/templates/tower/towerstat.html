@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -41,7 +41,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -61,30 +61,46 @@
   	</section>
   	
   	<section class="container">
-  		<div class="row">
-  			<div class="col-12 text-center">
-  				<h2 id="towername"></h2>
-  			</div>
-  		</div>
-  		<div class="row">
-			<div class="col-12 text-center">
-    			<span id="towerdesc"></span><br/><br/>
-    			<span><script>document.write(txtTower.detail.desc[lang]);</script></span>
-    		</div>
-    	</div>
-    	<div class="row">
-    		<div class="col-12 text-center blackandwhite" id="allpassed">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 id="towername"></h3>
+					</div>
+					<div class="card-body text-center">
+						<div class="row">
+							<div class="col-12">
+								<span id="towerdesc"></span><br/><br/>
+								<span><script>document.write(txtTower.detail.desc[lang]);</script></span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-  	</section>
-  	
-  	<section class="container">
-  		<!-- 진행 상태 표기 -->
-  		<div class="row">
-  			<div class="col-12" id="towerlist">
-				<towerlist-row v-for="tl in towerlist" v-bind:tl="tl"></towerlist-row>  
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-sm-6">
+								<h3>Clear Status</h3>
+							</div>
+							<div class="col-sm-6 text-center" id="allpassed">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<!-- 진행 상태 표기 -->
+						<div class="row">
+							<div class="col-12" id="towerlist">
+								<towerlist-row v-for="tl in towerlist" v-bind:tl="tl"></towerlist-row>  
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-  		</div>
+		</div>
   	</section>
 
     <!-- Bootstrap core JavaScript
@@ -467,21 +483,6 @@
 			div.show();
 			$("#t"+i+"p").html("▲");
 		}
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	</script>
 	<div th:insert="header :: header"></div>

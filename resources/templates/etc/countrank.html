@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -42,7 +42,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -52,21 +52,35 @@
   	<section class="container" id="loading">
   		<h1>LOADING... Please wait</h1>
   	</section>
-  	
+  						
+	<c:set var="index" value="1" />
   	<section class="container">
-  		<div class="pagetop text-center">
-    		<h3>Playcount Ranking</h3>
-    		<span><script>document.write(txtCntrank.desc[lang]);</script></span>
-    	</div>
-  	</section>
-  	
-  	<c:set var="index" value="1" />
-  	
-  	<section class="container">
-		<div class='div-table' id="ranktable">
-			<cntrank-table v-for="cnt in cntlist" v-bind:cnt="cnt"></cntrank-table>
+  		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Playcount Ranking</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 text-center">
+								<span><script>document.write(txtCntrank.desc[lang]);</script></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-12" id="ranktable">
+								<cntrank-table v-for="cnt in cntlist" v-bind:cnt="cnt"></cntrank-table>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class='col-12 text-center' id="pager"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class='row text-center' id="pager"></div>
   	</section>
 
     <!-- Bootstrap core JavaScript
@@ -85,11 +99,11 @@
 	</div>
 
 	<template id='cntrank-template'>
-		<div class='div-table-row table-border-bottom'>
-			<div class='div-table-cell'>
+		<div class='row' style="padding-top:3px; padding-bottom:3px;">
+			<div class='col-1'>
 				{{ cnt.index }}
 			</div>
-			<div class='div-table-cell'>
+			<div class='col-11'>
 				<div class='row'>
 					<div class='col-12 col-md-5 text-left'>
 						<span id="towertitle" v-html="cnt.towertitle"></span>
@@ -97,11 +111,11 @@
 					</div>
 					<div class='col-12 col-md-7 text-right'>
 						<div class="row">
-							<div class="col-3">G {{ cnt.gfcnt }}</div>
+							<div class="col-3">G<br/>{{ cnt.gfcnt }}</div>
 							<div class="col-1">+</div>
-							<div class="col-3">D {{ cnt.dmcnt }}</div>
+							<div class="col-3">D<br/>{{ cnt.dmcnt }}</div>
 							<div class="col-1">=</div>
-							<div class="col-3">A {{ cnt.allcnt }}</div>
+							<div class="col-3">A<br/>{{ cnt.allcnt }}</div>
 						</div>
 					</div>
 				</div>
@@ -162,21 +176,6 @@
 			});
 		}
 	});
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
-	}
 	</script>
 	<div th:insert="header :: header"></div>
 	<div th:insert="footer :: footer"></div>

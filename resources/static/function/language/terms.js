@@ -66,7 +66,7 @@ var txtTerms = {
     s4c: {
         "jp":"サービス提供のため下記のデータを利用者から取得します<br/>" +
                 "1) Googleアカウントに登録されたe-mailアドレス<br/>" +
-                "2) eAmusementに登録されたGITADORAのプレーデータ",
+                "2) eAmusementに登録されたGITADORAのプレイデータ",
         "ko":"서비스 제공을 위해 사용자로부터 다음의 내용을 수집합니다.<br/>" +
                 "1) Google 계정에 등록한 이메일 주소<br/>" +
                 "2) eAmusement에 등록된 GITADORA 플레이 데이터",

@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="signin_client_id.apps.googleusercontent.com">
+      content="clientid.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -44,7 +44,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -107,23 +107,28 @@
 	</section>
     
     <section class="container">
-    	<div class="text-center">
-    		<h2>Profile</h2>
-    		<span>
-	    		<script>document.write(txtProfile.addr[lang]);</script><br/>
-		    	<a class="innerhref" href="#no_div" th:onclick="|copyToClipboard('http://gitadora.info/profile/${id}')|">http://gitadora.info/profile/[[${id}]]</a>
-	    	</span>
+    	<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Profile</h3>
+					</div>
+					<div class="card-body text-center">
+						<span>
+							<script>document.write(txtProfile.addr[lang]);</script><br/>
+							<a class="innerhref" href="#no_div" th:onclick="|copyToClipboard('https://gitadora.info/profile/${id}')|">https://gitadora.info/profile/[[${id}]]</a>
+						</span>
+					</div>
+				</div>
+			</div>
     	</div>
-    </section>
-    
-    <section class="container">
 		<div class="row">
 			<div class="col-12">
-				<div class="card text-center">
+				<div class="card">
 					<div class="card-header">
 						<h3><script>document.write(txtProfile.userinfo.title[lang]);</script></h3>
 					</div>
-					<div class="card-body" id="profilescr">
+					<div class="card-body text-center" id="profilescr">
 						<div class="row">
 							<div class="col-6">
 								<div class="row text-center">
@@ -147,29 +152,11 @@
 							<div class="col-6 text-center">DM</div>
 						</div>
 						<div class="row">
-							<div class="col-3 text-center">
+							<div class="col-6 text-center">
 								<div style="max-width: 500px;" id="gskillgraph"></div>
 							</div>
-							<div class="col-3 text-center">
-								<div class="vert-cent-o"><div class="vert-cent-m">
-									<div class="blackandwhite prof-oldver">
-										MX: <span class="dskill" id="gskillmx">{{ gskillmx }}</span><br/>
-										TBRE: <span class="dskill" id="gskilltbre">{{ gskilltbre }}</span><br/>
-										TB: <span class="dskill" id="gskilltb">{{ gskilltb }}</span><br/>
-									</div>
-								</div></div>
-							</div>
-							<div class="col-3" style="text-align:center">
+							<div class="col-6" style="text-align:center">
 								<div style="max-width: 500px;" id="dskillgraph"></div>
-							</div>
-							<div class="col-3 text-center">
-								<div class="vert-cent-o"><div class="vert-cent-m">
-									<div class="blackandwhite prof-oldver">
-										MX: <span class="dskill" id="dskillmx">{{ dskillmx }}</span><br/>
-										TBRE: <span class="dskill" id="dskilltbre">{{ dskilltbre }}</span><br/>
-										TB: <span class="dskill" id="dskilltb">{{ dskilltb }}</span><br/>
-									</div>
-								</div></div>
 							</div>
 						</div>
 						<div class="row">
@@ -182,67 +169,79 @@
 								</div>
 							</div>
 						</div>
+						<div class="row blackandwhite prof-oldver">
+							<div class="col-3 text-center">MX</div>
+							<div class="col-3 text-center dskill" id="gskillmx">{{ gskillmx }}</div>
+							<div class="col-3 text-center">MX</div>
+							<div class="col-3 text-center dskill" id="dskillmx">{{ dskillmx }}</div>
+						</div>
+						<div class="row blackandwhite prof-oldver">
+							<div class="col-3 text-center">TBRE</div>
+							<div class="col-3 text-center dskill" id="gskilltbre">{{ gskilltbre }}</div>
+							<div class="col-3 text-center">TBRE</div>
+							<div class="col-3 text-center dskill" id="dskilltbre">{{ dskilltbre }}</div>
+						</div>
+						<div class="row blackandwhite prof-oldver">
+							<div class="col-3 text-center">TB</div>
+							<div class="col-3 text-center dskill" id="gskilltb">{{ gskilltb }}</div>
+							<div class="col-3 text-center">TB</div>
+							<div class="col-3 text-center dskill" id="dskilltb">{{ dskilltb }}</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-    </section>
-    
-    <section class="container">
-    	<div class="row text-center" id="btnGroups" v-html="btnGroups"></div>
-    </section>
-    
-    <section class="container">
-    	<div id="targetTable">
-			<div class="row">
-				<div class="col-12">
-					<div class="card text-center">
-						<div class="card-header">
-							<h3>{{ tableHeader }}</h3>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-8">
-									<table class="table prof-table" style="width:100%;">
-										<tr>
-											<th>#</th>
-											<th>GuitarFreaks</th>
-											<th>DrumMania</th>
-										</tr>
-										<tr>
-											<th>{{ thSkill }}</th>
-											<td id="tableGskill">{{ tdGskill }}</td>
-											<td id="tableDskill">{{ tdDskill }}</td>
-										</tr>
-										<tr>
-											<th>{{ thClear }}</th>
-											<td id="tableGclear">{{ tdGclear }}</td>
-											<td id="tableDclear">{{ tdDclear }}</td>
-										</tr>
-										<tr>
-											<th>{{ thFc }}</th>
-											<td id="tableGfc">{{ tdGfc }}</td>
-											<td id="tableDfc">{{ tdDfc }}</td>
-										</tr>
-										<tr>
-											<th>{{ thExc }}</th>
-											<td id="tableGexc">{{ tdGexc }}</td>
-											<td id="tableDexc">{{ tdDexc }}</td>
-										</tr>
-										<tr>
-											<th id="tableAcnt">{{ thCount }}<br/>{{ thTotalCnt }}</th>
-											<td id="tableGcnt">{{ tdGcnt }}</td>
-											<td id="tableDcnt">{{ tdDcnt }}</td>
-										</tr>
-									</table>
-									<div class="row" id="countupdate" v-html="countupdate"></div>
-									<span class="prof-table" v-html='countdesc'></span><br/>
-									<div class="row" id="reset" v-html="reset"></div>
-								</div>
-								<div class='col-sm-4'>
-									<img style="width:100%;"
-											th:src="|/board/${id}.png|" onerror="this.src='/img/music/empty.jpg'" />
-								</div>
+
+		<div class="row text-center" id="btnGroups" v-html="btnGroups"></div>
+		
+		<div id="targetTable" class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>{{ tableHeader }}</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-8">
+								<table class="table prof-table text-center" style="width:100%;">
+									<tr>
+										<th>#</th>
+										<th>GuitarFreaks</th>
+										<th>DrumMania</th>
+									</tr>
+									<tr>
+										<th>{{ thSkill }}</th>
+										<td id="tableGskill">{{ tdGskill }}</td>
+										<td id="tableDskill">{{ tdDskill }}</td>
+									</tr>
+									<tr>
+										<th>{{ thClear }}</th>
+										<td id="tableGclear">{{ tdGclear }}</td>
+										<td id="tableDclear">{{ tdDclear }}</td>
+									</tr>
+									<tr>
+										<th>{{ thFc }}</th>
+										<td id="tableGfc">{{ tdGfc }}</td>
+										<td id="tableDfc">{{ tdDfc }}</td>
+									</tr>
+									<tr>
+										<th>{{ thExc }}</th>
+										<td id="tableGexc">{{ tdGexc }}</td>
+										<td id="tableDexc">{{ tdDexc }}</td>
+									</tr>
+									<tr>
+										<th id="tableAcnt">{{ thCount }}<br/>{{ thTotalCnt }}</th>
+										<td id="tableGcnt">{{ tdGcnt }}</td>
+										<td id="tableDcnt">{{ tdDcnt }}</td>
+									</tr>
+								</table>
+								<div class="row" id="countupdate" v-html="countupdate"></div>
+								<span class="prof-table" v-html='countdesc'></span><br/>
+								<div class="row" id="reset" v-html="reset"></div>
+							</div>
+							<div class='col-sm-4'>
+								<img style="width:100%;"
+										th:src="|/board/${id}.png|" onerror="this.src='/img/music/empty.jpg'" />
 							</div>
 						</div>
 					</div>
@@ -257,7 +256,9 @@
 	<script src="/js/jquery-3.3.1.min.js"></script>
 	<script src="/js/vue.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/raphael.min.js"></script>
+	<script src="/js/raphael.min.js"></script>
+	<script src="/js/g.raphael-min.js"></script>
+	<script src="/js/g.line-min.js"></script>
     <script src="/function/skillcolor.js"></script>
     <script src="/function/skillraphael.js"></script>
     <script src="/function/rivalmanage.js"></script>
@@ -618,21 +619,6 @@
 			loadGraph = true;
 			checkLoading();
 		});
-	}
-	
-	//signout
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	function copyToClipboard(element) {

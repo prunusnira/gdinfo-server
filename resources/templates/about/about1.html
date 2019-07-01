@@ -8,7 +8,7 @@
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/ -->
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="google-signin-client_id"
-	content="signin_client_id.apps.googleusercontent.com">
+	content="clientid.apps.googleusercontent.com">
 <link rel="icon" href="/favicon.ico">
 
 <script src="/function/language.js"></script>
@@ -42,7 +42,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
 		(adsbygoogle = window.adsbygoogle || []).push({
-			google_ad_client: "ca-pub-adsense_id",
+			google_ad_client: "ca-pub-adsenseid",
 			enable_page_level_ads: true
 		});
 	</script>
@@ -50,85 +50,68 @@
 
 <body onload="onLoadImage()">
 	<section class="container">
-		<div class="row text-center">
+		<div class="row">
 			<div class="col-12">
-				<h2>How to update</h2>
+				<div class="card">
+					<div class="card-header">
+						<h3>How to update</h3>
+					</div>
+					<div class="card-body text-center">
+						<span>
+							<script>document.write(txtAbout1.desc[lang]);</script>
+						</span><br/>
+						<span class="btn-group">
+							<a class="btn btn-primary" href="/about0">
+								<script>document.write(txtAbout1.update_au[lang]);</script>
+							</a>
+							<a class="btn btn-primary" href="/about1">
+								<script>document.write(txtAbout1.update_man[lang]);</script>
+							</a>
+							<a class="btn btn-primary" href="/about2">
+								<script>document.write(txtAbout1.filter_rival[lang]);</script>
+							</a>
+						</span>
+					</div>
+				</div>
 			</div>
-	   	</div>
-		<div class="row text-center">
+		</div>
+		<div class="row">
 			<div class="col-12">
-				<span><script>document.write(txtAbout1.desc[lang]);</script></span><br/>
-				<span>
-					<a class="btn btn-primary" href="/about0">
-						<script>document.write(txtAbout1.update_au[lang]);</script>
-					</a>
-					<a class="btn btn-primary" href="/about1">
-						<script>document.write(txtAbout1.update_man[lang]);</script>
-					</a>
-					<a class="btn btn-primary" href="/about2">
-						<script>document.write(txtAbout1.filter_rival[lang]);</script>
-					</a>
-				</span>
-			</div>
-	   	</div>
-	</section>
-	
-	<section class="container">
-		<div id="howtomanual">
-			<div class="row about-part">
-				<div class="col-12 text-center">
-					<h5><script>document.write(txtAbout1.title[lang]);</script></h5>
-				</div>
-				<div class="col-12 about-part">
-					<span>1.&nbsp;
-						<script>
-							document.write(txtAbout1.s1[lang]);
-						</script>
-					</span>
-				</div>
-			</div>
-
-			<div class="row about-part">
-				<div class="col-12">
-					<span>2.&nbsp;
-						<script>
-							document.write(txtAbout1.s2[lang]);
-						</script>
-					</span><br/>
-					<span id="img1"></span>
-				</div>
-			</div>
-
-			<div class="row about-part">
-				<div class="col-12">
-					<span>3.&nbsp;
-						<script>
-							document.write(txtAbout1.s3[lang]);
-						</script>
-					</span><br/>
-					<span id="img2"></span>
-				</div>
-			</div>
-
-			<div class="row about-part">
-				<div class="col-12">
-					<span>4.&nbsp;
-						<script>
-							document.write(txtAbout1.s4[lang]);
-						</script>
-					</span><br/>
-					<img style="max-width:100%;" src="/img/about0/4.png" />
-				</div>
-			</div>
-
-			<div class="row about-part">
-				<div class="col-12">
-					<span>5.&nbsp;
-						<script>
-							document.write(txtAbout1.s5[lang]);
-						</script>
-					</span><br/>
-					<img style="max-width:100%;" src="/img/about0/3.png" />
+				<div class="card">
+					<div class="card-header">
+						<h3><script>document.write(txtAbout1.title[lang]);</script></h3>
+					</div>
+					<div class="card-body">
+						<div class="col-12 about-part">
+							<span>1.&nbsp;
+								<script>document.write(txtAbout1.s1[lang]);</script>
+							</span>
+						</div>
+						<div class="col-12 about-part">
+							<span>2.&nbsp;
+								<script>document.write(txtAbout1.s2[lang]);</script>
+							</span><br/>
+							<span id="img1"></span>
+						</div>
+						<div class="col-12 about-part">
+							<span>3.&nbsp;
+								<script>document.write(txtAbout1.s3[lang]);</script>
+							</span><br/>
+							<span id="img2"></span>
+						</div>
+						<div class="col-12 about-part">
+							<span>4.&nbsp;
+								<script>document.write(txtAbout1.s4[lang]);</script>
+							</span><br/>
+							<img style="max-width:100%;" src="/img/about0/4.png" />
+						</div>
+						<div class="col-12 about-part">
+							<span>5.&nbsp;
+								<script>document.write(txtAbout1.s5[lang]);</script>
+							</span><br/>
+							<img style="max-width:100%;" src="/img/about0/3.png" />
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -163,20 +146,6 @@
 		$temp.val(element).select();
 		document.execCommand("copy");
 		$temp.remove();
-	}
-	
-	function gsignLoad() {
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
-	}
-	
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-		$("#logout").submit();
 	}
 	
 	function divSwapPC() {

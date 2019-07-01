@@ -22,6 +22,17 @@ import com.prunusnira.gitadorainfo.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray
+import java.util.Date
+import java.text.SimpleDateFormat
+import java.io.File
+import java.io.FileWriter
+import java.io.BufferedWriter
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.FileReader
+import java.io.BufferedReader
 
 @Service
 @Transactional
@@ -82,11 +93,15 @@ class SkillService {
 	}
 	
 	fun getPlayCountGF(userid: Int): Int {
-		return skillMapper.getPlayCountGF(userid)
+		var cnt = skillMapper.getPlayCountGF(userid)
+		if(cnt == null) return 0
+		else return cnt
 	}
 	
 	fun getPlayCountDM(userid: Int): Int {
-		return skillMapper.getPlayCountDM(userid)
+		var cnt = skillMapper.getPlayCountDM(userid)
+		if(cnt == null) return 0
+		else return cnt
 	}
 	
 	fun getPatternCount(type: Int, uid: Int): Map<String, ArrayList<Int>> {
@@ -242,5 +257,115 @@ class SkillService {
 		skillMap.put(2, other)
 		
 		return skillMap
+	}
+	
+	fun createSnapshot(uid:Int, gtype:String, uname: String) {
+		val hot = getSkillTarget(Const.INFOVER.CURRENT.value, uid, "h", gtype)
+		val oth = getSkillTarget(Const.INFOVER.CURRENT.value, uid, "o", gtype)
+		
+		val json = JSONObject()
+		
+		val jsonhot = JSONArray()
+		val jsonoth = JSONArray()
+		
+		for(i in 0..hot.size-1) {
+			val cur = hot[i]
+			val newobj = JSONObject()
+			newobj.put("mid", cur.musicid)
+			newobj.put("mname", cur.mname)
+			newobj.put("ptcode", cur.patterncode)
+			newobj.put("version", cur.version)
+			newobj.put("lv", cur.level)
+			newobj.put("rate", cur.rate)
+			newobj.put("skill", Math.floor((cur.rate*cur.level*20/10000).toDouble())/100)
+			newobj.put("rank", cur.rank)
+			newobj.put("fc", cur.checkfc)
+			newobj.put("meter", cur.meter)
+			jsonhot.add(newobj)
+		}
+		
+		for(i in 0..oth.size-1) {
+			val cur = oth[i]
+			val newobj = JSONObject()
+			newobj.put("mid", cur.musicid)
+			newobj.put("mname", cur.mname)
+			newobj.put("ptcode", cur.patterncode)
+			newobj.put("version", cur.version)
+			newobj.put("lv", cur.level)
+			newobj.put("rate", cur.rate)
+			newobj.put("skill", Math.floor((cur.rate*cur.level*20/10000).toDouble())/100)
+			newobj.put("rank", cur.rank)
+			newobj.put("fc", cur.checkfc)
+			newobj.put("meter", cur.meter)
+			jsonoth.add(newobj)
+		}
+		
+		val date = Date()
+		val df = SimpleDateFormat("yyyyMMdd")
+		json.put("uid", uid)
+		json.put("uname", uname)
+		json.put("date", df.format(date))
+		json.put("type", gtype)
+		json.put("hot", jsonhot)
+		json.put("oth", jsonoth)
+		
+		// 파일저장
+		val path = File("/data/snapshot/"+uid+"/")
+		val file = File("/data/snapshot/"+uid+"/"+df.format(date)+"_"+gtype+".json")
+	//	val path = File("f:/programming/web/gdinfo/snapshot/"+uid+"/")
+	//	val file = File("f:/programming/web/gdinfo/snapshot/"+uid+"/"+df.format(date)+"_"+gtype+".json")
+		
+		path.mkdirs()
+		if(file.exists()) file.delete()
+		file.createNewFile()
+		try {
+			val fw = FileWriter(file)
+			val bw = BufferedWriter(fw)
+			bw.write(json.toJSONString())
+			bw.close()
+			fw.close()
+		} catch(e: FileNotFoundException) {
+			e.printStackTrace()
+		} catch(e: IOException) {
+			e.printStackTrace()
+		}
+	}
+
+	fun listSnapshot(uid: Int): ArrayList<String> {
+		val path = File("/data/snapshot/"+uid+"/")
+	//	val path = File("f:/programming/web/gdinfo/snapshot/"+uid+"/")
+		val list = ArrayList<String>()
+
+		if(path.isDirectory()) {
+			list.addAll(path.list())
+		}
+		return list
+	}
+
+	fun loadSnapshot(uid: Int, date: String, gtype: String): String {
+		val file = File("/data/snapshot/"+uid+"/"+date+"_"+gtype+".json")
+	//	val file = File("f:/programming/web/gdinfo/snapshot/"+uid+"/"+date+"_"+gtype+".json")
+
+		var jsonstr: String = ""
+		if(file.exists()) {
+			try {
+				val fr = FileReader(file)
+				val br = BufferedReader(fr)
+				for(s in br.readLines()) {
+					jsonstr += s + '\n'
+				}
+				br.close()
+				fr.close()
+			} catch(e: FileNotFoundException) {
+				e.printStackTrace()
+			} catch(e: IOException) {
+				e.printStackTrace()
+			}
+		}
+		else {
+			jsonstr = ""
+		}
+
+		return jsonstr
 	}
 }
