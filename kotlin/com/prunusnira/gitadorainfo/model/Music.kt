@@ -15,6 +15,7 @@ import org.apache.ibatis.type.Alias
 @Alias("music")
 class Music(var id: Int,
 			var name: String,
+			var hurigana: String,
 			var composer: String,
 			var version: Int,
 			var gbsc: Int,

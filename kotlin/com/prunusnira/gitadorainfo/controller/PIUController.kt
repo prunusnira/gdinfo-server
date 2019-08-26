@@ -66,4 +66,13 @@ class PIUController {
 		}
 		return node.toString()
 	}
+	
+	
+	
+	
+	@RequestMapping(value=["/ads.txt"])
+	@ResponseBody
+	fun ads(): String {
+		return "google.com, pub-8353792856166353, DIRECT, f08c47fec0942fa0"
+	}
 }

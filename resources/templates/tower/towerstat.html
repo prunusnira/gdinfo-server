@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="google-signin-client_id"
-      content="clientid.apps.googleusercontent.com">
+      content="google-signin-id.apps.googleusercontent.com">
     <link rel="icon" href="/favicon.ico">
 
     <script src="/function/language.js"></script>
@@ -124,21 +124,25 @@
 	<template id='towerlist-template'>
 		<div class='row'>
 			<div class='col-12'>
-				<a class='innerhref' style='width:100%; height:auto' href='#no_div' v-bind:id='tl.topid' v-bind:onclick="tl.divopen">
-					<div class='row'>
-						<div class='col-2' v-bind:id='tl.btnid' style='font-size:125%'>{{ tl.opbtn }}</div>
-						<div class='col-5'>
-							Floor {{ tl.floor }}
-						</div>
-						<div class='col-2'>
-							<img style='width:50px' v-bind:src="tl.floorclear" />
-						</div>
-						<div class='col-3'>
-							{{ tl.titlechangable }}<br/>
-							<span v-html="tl.btnchangable"></span>
-						</div>
+				<div class='row'>
+					<div class='col-2' v-bind:id='tl.btnid' style='font-size:125%'>
+						<a class='innerhref' style='width:100%; height:auto' href='#no_div' v-bind:id='tl.topid' v-bind:onclick="tl.divopen">
+							{{ tl.opbtn }}
+						</a>
 					</div>
-				</a>
+					<div class='col-5'>
+						<a class='innerhref' style='width:100%; height:auto' href='#no_div' v-bind:id='tl.topid' v-bind:onclick="tl.divopen">
+							Floor {{ tl.floor }}
+						</a>
+					</div>
+					<div class='col-2'>
+						<img style='width:50px' v-bind:src="tl.floorclear" />
+					</div>
+					<div class='col-3'>
+						{{ tl.titlechangable }}<br/>
+						<span v-html="tl.btnchangable"></span>
+					</div>
+				</div>
 				<div style="display:none" v-bind:id='tl.floorid'>
 					<div class='row'>
 						<div class='col-12'>

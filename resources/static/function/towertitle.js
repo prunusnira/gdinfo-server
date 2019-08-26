@@ -22,6 +22,7 @@ function getFloorTitle(tower, floor, rate, allfloors) {
 	case "towerGfAlter": titleshort = "alter"; break;
 	case "towerGfMixed": titleshort = "mix"; break;
 	case "towerGfFc": titleshort = "gffc"; break;
+	case "towerTest": titleshort = "test"; break;
 	default: titleshort = ""; break;
 	}
 	
