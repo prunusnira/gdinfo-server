@@ -1,49 +1,31 @@
 GITADORA Info
 Copyright 2016 Tae Jun Kang (Twitter @prunusNira) and Jeong Woo Lee (Twitter @toycube_pf)
 
+Copyright 2017~ Tae Jun Kang (Twitter @prunusNira)
+
 USED LIBRARIES
 =============================
 
-Vue.js v2.5.13
-(c) 2014-2017 Evan You
-Released under the MIT License.
-
-jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license (MIT)
-
-jQuery Cookie Plugin v1.4.1
-https://github.com/carhartl/jquery-cookie
-Copyright 2013 Klaus Hartl
-Released under the MIT license
-
-jQuery UI - v1.12.1 - 2016-09-14
-Copyright jQuery Foundation and other contributors; Licensed MIT
+ReactJS
+Copyright © 2019 Facebook Inc.
 
 Bootstrap v4.1.3 (http://getbootstrap.com)
 Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+Licensed under MIT License (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+
+reactstrap
+Licensed under MIT License (https://github.com/reactstrap/reactstrap/blob/master/LICENSE)
 
 C3.js MIT License © Masayuki Tanaka 2014 (Referenced from Bootstrap)
 D3.js Copyright 2010-2017 Mike Bostock (Referenced from Bootstrap)
 
-FileSaver.js
-A saveAs() FileSaver implementation.
-1.3.2
-2016-06-16 18:25:19
-By Eli Grey, http://eligrey.com
-License: MIT
-See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+html2canvas <http://html2canvas.hertzen.com>
+Created by Niklas von Hertzen. Licensed under the MIT License.
 
-html2canvas 0.5.0-beta3 <http://html2canvas.hertzen.com>
-Copyright (c) 2016 Niklas von Hertzen
+js-sha256
+Chen, Yi-Cyuan (emn178@gmail.com)
+The project is released under the MIT license.
 
-A JavaScript implementation of the SHA family of hashes, as
-defined in FIPS PUB 180-2 as well as the corresponding HMAC implementation
-as defined in FIPS PUB 198a
-Copyright Brian Turek 2008-2015
-Distributed under the BSD License
-See http://caligatio.github.com/jsSHA/ for more information
-
-Raphael 2.2.1 - JavaScript Vector Library
-Copyright 2008-2016 Dmitry Baranovskiy (http://raphaeljs.com)
-Copyright 2008-2016 Sencha Labs (http://sencha.com)
-Licensed under the MIT (https://github.com/DmitryBaranovskiy/raphael/blob/master/license.txt) license.
+Recharts
+Released under the MIT License
+Copyright (c) 2016-2019 Recharts Group

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prunusnira.gitadorainfo.mapper.ProfileMapper">
+
+    <select id="getUserById" resultType="user">
+        SELECT * FROM profile WHERE id = #{id}
+    </select>
+    
+    <select id="getUserByToken" resultType="user">
+        SELECT * FROM profile WHERE token = #{token}
+    </select>
+    
+    <select id="getAllUser" resultType="user">
+    	SELECT * FROM profile
+    </select>
+    
+    <select id="getUserSearchName" resultType="user">
+    	SELECT * FROM profile WHERE LOWER(name) LIKE "%${value}%"
+    </select>
+    
+    <select id="getUserSearchGSkill" resultType="user">
+    <![CDATA[
+    	SELECT * FROM profile WHERE
+    		gskill-#{value} < 500 AND #{value}-gskill < 500
+    		ORDER BY abs(gskill-#{value}) ASC
+    ]]>
+    </select>
+    
+    <select id="getUserSearchDSkill" resultType="user">
+    <![CDATA[
+    	SELECT * FROM profile WHERE
+    		dskill-#{value} < 500 AND #{value}-dskill < 500
+    		ORDER BY abs(dskill-#{value}) ASC
+    ]]>
+    </select>
+    
+    <select id="getPlayCountAll" resultType="countRank">
+    	SELECT id, titletower, name, opencount, countgf, countdm FROM profile
+    	ORDER BY countgf+countdm DESC
+    </select>
+    
+    <select id="getRecentUserList" resultType="recentUser">
+    	SELECT id, titletower, name, gskill, dskill, updatetime FROM profile
+    	WHERE NOT gskill = 0 OR NOT dskill = 0 OR NOT gskilltb = 0 OR NOT dskilltb = 0
+    	 	OR NOT gskilltbre = 0 OR NOT dskilltbre = 0 OR NOT gskillmx = 0 OR NOT dskillmx = 0
+    	ORDER BY updatetime DESC LIMIT 10
+    </select>
+
+    <insert id="addUser">
+         INSERT INTO profile ( title, name, token, gskill, dskill, gskillall,
+         				dskillall, gclearlv, dclearlv, gclearnum, dclearnum,
+         				gfclv, dfclv, gfcnum, dfcnum, gexclv, dexclv,
+         				gexcnum, dexcnum )
+         VALUES (
+         	#{user.title}, #{user.name}, #{user.token},
+         	#{user.gskill}, #{user.dskill}, #{user.gskillall},
+         	#{user.dskillall}, #{user.gclearlv}, #{user.dclearlv},
+         	#{user.gclearnum}, #{user.dclearnum},
+         	#{user.gfclv}, #{user.dfclv}, #{user.gfcnum},
+         	#{user.dfcnum}, #{user.gexclv}, #{user.dexclv},
+         	#{user.gexcnum}, #{user.dexcnum}
+         )
+    </insert>
+    
+    <!-- 신작 나오면 업데이트 -->
+    <update id="updateOldSkill">
+         UPDATE profile SET
+         	<if test='gver == "ex"'>
+         		gskillex = #{gf},
+         		dskillex = #{dm},
+         	</if>
+         	<if test='gver == "mx"'>
+         		gskillmx = #{gf},
+         		dskillmx = #{dm},
+         	</if>
+         	<if test='gver == "tbre"'>
+         		gskilltbre = #{gf},
+         		dskilltbre = #{dm},
+         	</if>
+         	
+         	updatetime = NOW()
+         WHERE id = #{id}
+    </update>
+    
+    <update id="updateProfile">
+         UPDATE profile SET
+         	title = #{user.title},
+         	name = #{user.name},
+         	gskill = #{user.gskill},
+         	dskill = #{user.dskill},
+         	gskillall = #{user.gskillall},
+         	dskillall = #{user.dskillall},
+         	gclearlv = #{user.gclearlv},
+         	dclearlv = #{user.dclearlv},
+         	gclearnum = #{user.gclearnum},
+         	dclearnum = #{user.dclearnum},
+         	gfclv = #{user.gfclv},
+         	dfclv = #{user.dfclv},
+         	gfcnum = #{user.gfcnum},
+         	dfcnum = #{user.dfcnum},
+         	gexclv = #{user.gexclv},
+         	dexclv = #{user.dexclv},
+         	gexcnum = #{user.gexcnum},
+         	dexcnum = #{user.dexcnum},
+         	updatetime = NOW()
+         WHERE token = #{user.token}
+    </update>
+    
+    <update id="updateTime">
+    	UPDATE profile SET
+    		updatetime = NOW()
+    	WHERE id = #{id}
+    </update>
+    
+    <update id="updateOpenCount">
+    	UPDATE profile SET
+    		opencount = #{open}
+    	WHERE id=#{userid}
+    </update>
+    
+    <update id="updateComment">
+    	UPDATE profile SET
+    		comment = #{comment}
+    	WHERE id=#{userid}
+    </update>
+    
+    <update id="updatePlayCount">
+    	UPDATE profile SET
+			<if test='type=="gf"'>
+				countgf = #{count}
+			</if>
+			<if test='type=="dm"'>
+				countdm = #{count}
+			</if>
+			<if test='type=="all"'>
+				countall = #{count}
+			</if>
+    	WHERE id=#{userid}
+    </update>
+
+    <delete id="deleteProfile">
+         DELETE FROM profile WHERE id = #{id}
+    </delete>
+    
+    <select id="getTowerTitle" resultType="String">
+    	SELECT titletower FROM profile WHERE id=#{userid}
+    </select>
+    
+    <update id="updateManualSkill">
+    	UPDATE profile SET
+    		<if test='gtype == "gf"'>
+    		gskill = #{skill}
+    		</if>
+    		<if test='gtype == "dm"'>
+    		dskill = #{skill}
+    		</if>
+    	WHERE id = ${userid}
+    </update>
+    
+    <update id="resetProfile">
+    	UPDATE profile SET
+    		title="",
+    		name="",
+    		gskill=0,
+    		dskill=0,
+    		gskillex=0,
+    		dskillex=0,
+    		gskillmx=0,
+    		dskillmx=0,
+    		gskilltbre=0,
+    		dskilltbre=0,
+    		gskilltb=0,
+    		dskilltb=0,
+    		gskillall=0,
+    		dskillall=0,
+    		gclearlv = 0,
+         	dclearlv = 0,
+         	gclearnum = 0,
+         	dclearnum = 0,
+         	gfclv = 0,
+         	dfclv = 0,
+         	gfcnum = 0,
+         	dfcnum = 0,
+         	gexclv = 0,
+         	dexclv = 0,
+         	gexcnum = 0,
+         	dexcnum = 0,
+         	comment="",
+         	opencount="N",
+         	countall=0,
+         	countgf=0,
+         	countdm=0
+    	WHERE id = ${id}
+    </update>
+    
+    <update id="setTowerTitle">
+    	UPDATE profile SET titletower=#{title} WHERE id=#{userid}
+    </update>
+</mapper>

@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prunusnira.gitadorainfo.mapper.SkillMapper">
+
+    <select id="getSkillOnePattern" resultType="skill">
+    	SELECT
+    		userid,
+    		musicid,
+    		version,
+    		patterncode,
+    		playtime,
+    		cleartime,
+    		rank,
+    		rate,
+    		rateex,
+    		ratemx,
+    		ratetbre,
+    		ratetb,
+    		score,
+    		combo,
+    		checkfc,
+    		meter
+    	FROM skill
+    	WHERE musicid = #{musicid} AND userid = #{userid} AND patterncode = #{ptcode}
+    </select>
+    
+    <select id="getSkill" resultType="skill">
+    	SELECT
+			s.userid as userid,
+			m.id as musicid,
+			m.version as version,
+			s.patterncode as patterncode,
+			s.playtime as playtime,
+			s.cleartime as cleartime,
+			s.rank as rank,
+			s.rate as rate,
+			s.rateex as rateex,
+			s.ratemx as ratemx,
+			s.ratetbre as ratetbre,
+			s.ratetb as ratetb,
+			s.score as score,
+			s.combo as combo,
+			s.checkfc as checkfc,
+			s.meter as meter,
+			CASE
+				WHEN s.patterncode = 1 THEN m.gbsc
+				WHEN s.patterncode = 2 THEN m.gadv
+				WHEN s.patterncode = 3 THEN m.gext
+				WHEN s.patterncode = 4 THEN m.gmas
+				WHEN s.patterncode = 5 THEN m.bbsc
+				WHEN s.patterncode = 6 THEN m.badv
+				WHEN s.patterncode = 7 THEN m.bext
+				WHEN s.patterncode = 8 THEN m.bmas
+				WHEN s.patterncode = 9 THEN m.dbsc
+				WHEN s.patterncode = 10 THEN m.dadv
+				WHEN s.patterncode = 11 THEN m.dext
+				WHEN s.patterncode = 12 THEN m.dmas
+			END AS level
+		FROM skill as s, music as m
+ 		WHERE s.musicid = m.id AND s.musicid = #{musicid} AND s.userid = #{userid}
+    </select>
+    
+    <select id="getSkillAll" resultType="skillTable">
+	   	SELECT * FROM (
+			SELECT
+			m.id as musicid,
+			m.name as mname,
+			m.hurigana as hurigana,
+			m.hot as ishot,
+			s.patterncode as patterncode,
+			s.rank as rank,
+			s.rate as rate,
+			s.rateex as rateex,
+			s.ratemx as ratemx,
+			s.ratetbre as ratetbre,
+			s.ratetb as ratetb,
+			m.version as version,
+			s.combo as combo,
+			s.playtime as playtime,
+			CASE
+				WHEN s.patterncode = 1 THEN m.gbsc
+				WHEN s.patterncode = 2 THEN m.gadv
+				WHEN s.patterncode = 3 THEN m.gext
+				WHEN s.patterncode = 4 THEN m.gmas
+				WHEN s.patterncode = 5 THEN m.bbsc
+				WHEN s.patterncode = 6 THEN m.badv
+				WHEN s.patterncode = 7 THEN m.bext
+				WHEN s.patterncode = 8 THEN m.bmas
+				WHEN s.patterncode = 9 THEN m.dbsc
+				WHEN s.patterncode = 10 THEN m.dadv
+				WHEN s.patterncode = 11 THEN m.dext
+				WHEN s.patterncode = 12 THEN m.dmas
+			END AS level,
+			s.checkfc as checkfc,
+			s.meter as meter
+		FROM skill as s, music as m
+		WHERE
+			s.musicid = m.id
+			AND s.userid = #{userid}
+   		<choose>
+    		<when test="gtype == 'gf'">
+    			<![CDATA[
+    			AND s.patterncode <= 8
+    			]]>
+    		</when>
+    		<when test="gtype == 'dm'">
+    			AND s.patterncode >= 9
+    		</when>
+   		</choose>
+	   		
+		<if test="ranks != null">
+	   		<if test="ranks.size() > 0">
+	   		AND (
+	   			<foreach item="ritem" index="index" collection="ranks" separator="OR">
+	   				s.rank = #{ritem}
+	   			</foreach>
+	   		)
+	   		</if>
+   		</if>
+	   		
+   		<if test="vers != null">
+	   		<if test="vers.size() > 0">
+	   		AND (
+	   			<foreach item="vitem" index="index" collection="vers" separator="OR">
+	   				s.version = #{vitem}
+	   			</foreach>
+	   		)
+	   		</if>
+   		</if>
+	   		
+   		<if test="hot != null">
+	   		<if test='hot == "h"'>
+	   			AND m.hot = "Y"
+	   		</if>
+	   		<if test='hot == "o"'>
+	   			AND m.hot = "N"
+	   		</if>
+   		</if>
+			) a
+
+   		<if test="levels != null">
+	   		<if test="levels.size() > 0">
+	   		WHERE (
+	   			<foreach item="litem" index="index" collection="levels" separator="OR">
+	   			<![CDATA[
+	   				(level >= #{litem} AND level < #{litem}+50)
+	   			]]>
+	   			</foreach>
+	   		)
+	   		</if>
+   		</if>
+	   		ORDER BY
+   		<choose>
+   			<when test="order == 'skilldesc'">
+   				rate*level DESC
+   			</when>
+   			<when test="order == 'skillasc'">
+   				rate*level ASC
+   			</when>
+   			<when test="order == 'titleasc'">
+   				hurigana ASC
+   			</when>
+   			<when test="order == 'titledesc'">
+   				hurigana DESC
+   			</when>
+   			<when test="order == 'verasc'">
+   				version ASC
+   			</when>
+   			<when test="order == 'verdesc'">
+   				version DESC
+   			</when>
+   			<when test="order == 'rateasc'">
+   				rate ASC
+   			</when>
+   			<when test="order == 'ratedesc'">
+   				rate DESC
+   			</when>
+   			<when test="order == 'playtime'">
+   				playtime DESC
+   			</when>
+   		</choose>
+    </select>
+    
+    <select id="getSkillTop" resultType="skillTable">
+    	select
+		s.musicid as musicid,
+		m.name as mname,
+		m.hurigana as hurigana,
+		m.hot as ishot,
+		s.patterncode as patterncode,
+		s.rank as rank,
+		s.rate as rate,
+		s.rateex as rateex,
+		s.ratemx as ratemx,
+		s.ratetbre as ratetbre,
+		s.ratetb as ratetb,
+		m.version as version,
+		s.combo as combo,
+		s.playtime as playtime,
+		CASE
+			WHEN s.patterncode = 1 THEN m.gbsc
+			WHEN s.patterncode = 2 THEN m.gadv
+			WHEN s.patterncode = 3 THEN m.gext
+			WHEN s.patterncode = 4 THEN m.gmas
+			WHEN s.patterncode = 5 THEN m.bbsc
+			WHEN s.patterncode = 6 THEN m.badv
+			WHEN s.patterncode = 7 THEN m.bext
+			WHEN s.patterncode = 8 THEN m.bmas
+			WHEN s.patterncode = 9 THEN m.dbsc
+			WHEN s.patterncode = 10 THEN m.dadv
+			WHEN s.patterncode = 11 THEN m.dext
+			WHEN s.patterncode = 12 THEN m.dmas
+		END AS level,
+		s.checkfc as checkfc,
+		s.meter as meter
+		from skill s
+		<if test='version == 0'>
+			inner join music m
+		</if>
+		<if test='version == 1'>
+			inner join music_tb m
+		</if>
+		<if test='version == 2'>
+			inner join music_tbre m
+		</if>
+		<if test='version == 3'>
+			inner join music_mx m
+		</if>
+		<if test='version == 4'>
+			inner join music_ex m
+		</if>
+		on s.musicid = m.id
+		and s.userid = #{userid}
+		<if test='version == 0'>
+			and rate > 0
+		</if>
+		<if test='version == 1'>
+			and ratetb > 0
+		</if>
+		<if test='version == 2'>
+			and ratetbre > 0
+		</if>
+		<if test='version == 3'>
+			and ratemx > 0
+		</if>
+		<if test='version == 4'>
+			and rateex > 0
+		</if>
+		where
+		<if test='gtype == "gf"'>
+		<![CDATA[
+			patterncode <= 8
+		]]> 
+		</if>
+		<if test='gtype == "dm"'>
+			patterncode >= 9 
+		</if>
+		
+		<if test='version == 0'>
+			order by rate*level desc
+		</if>
+		<if test='version == 1'>
+			order by ratetb*level desc
+		</if>
+		<if test='version == 2'>
+			order by ratetbre*level desc
+		</if>
+		<if test='version == 3'>
+			order by ratemx*level desc
+		</if>
+		<if test='version == 4'>
+			order by rateex*level desc
+		</if>
+		limit 100
+    </select>
+    
+    <select id="getSkillTarget" resultType="skillTable">
+    	SELECT
+			sa.musicid,
+			sa.mname,
+			sa.hurigana,
+			sa.ishot,
+			sa.patterncode,
+			sa.rank,
+			sa.rate,
+			sa.rateex,
+			sa.ratemx,
+			sa.ratetbre,
+			sa.ratetb,
+			sa.version,
+			sa.combo,
+			sa.playtime,
+			sa.level,
+			sa.checkfc,
+			sa.meter
+			FROM
+			(SELECT
+				*,
+				<if test='version == 0'>
+					a.level*a.rate*20 AS skill
+				</if>
+				<if test='version == 1'>
+					a.level*a.ratetb*20 AS skill
+				</if>
+				<if test='version == 2'>
+					a.level*a.ratetbre*20 AS skill
+				</if>
+				<if test='version == 3'>
+					a.level*a.ratemx*20 AS skill
+				</if>
+				<if test='version == 4'>
+					a.level*a.rateex*20 AS skill
+				</if>
+				FROM
+				(SELECT
+					m.name as mname,
+					m.hurigana as hurigana,
+					m.id as musicid,
+					m.hot as ishot,
+					s.patterncode as patterncode,
+					s.rank as rank,
+					s.rateex as rateex,
+					s.ratemx as ratemx,
+					s.ratetbre as ratetbre,
+					s.ratetb as ratetb,
+					s.rate as rate,
+					m.version as version,
+					s.playtime as playtime,
+					s.cleartime as cleartime,
+					s.combo as combo,
+					CASE
+						WHEN s.patterncode = 1 THEN m.gbsc
+						WHEN s.patterncode = 2 THEN m.gadv
+						WHEN s.patterncode = 3 THEN m.gext
+						WHEN s.patterncode = 4 THEN m.gmas
+						WHEN s.patterncode = 5 THEN m.bbsc
+						WHEN s.patterncode = 6 THEN m.badv
+						WHEN s.patterncode = 7 THEN m.bext
+						WHEN s.patterncode = 8 THEN m.bmas
+						WHEN s.patterncode = 9 THEN m.dbsc
+						WHEN s.patterncode = 10 THEN m.dadv
+						WHEN s.patterncode = 11 THEN m.dext
+						WHEN s.patterncode = 12 THEN m.dmas
+					END AS level,
+					s.checkfc as checkfc,
+					s.meter as meter
+				FROM
+					skill as s,
+					<if test='version == 0'>
+						music as m
+					</if>
+					<if test='version == 1'>
+						music_tb as m
+					</if>
+					<if test='version == 2'>
+						music_tbre as m
+					</if>
+					<if test='version == 3'>
+						music_mx as m
+					</if>
+					<if test='version == 4'>
+						music_ex as m
+					</if>
+				WHERE
+					s.musicid = m.id
+					<choose>
+						<when test='version == 0'>
+							AND <![CDATA[m.removed < 1]]>
+						</when>
+						<otherwise>
+							AND (<![CDATA[m.removed < 1]]> OR m.removed > #{version})
+						</otherwise>
+					</choose>
+					AND s.userid = #{userid}
+					
+					<if test='type == "h"'>
+						AND m.hot = "Y"
+					</if>
+					<if test='type == "o"'>
+						AND m.hot = "N"
+					</if>
+						
+					<if test='gtype == "gf"'>
+					<![CDATA[
+						AND s.patterncode <= 8
+					]]> 
+					</if>
+					<if test='gtype == "dm"'>
+						AND s.patterncode >= 9
+					</if>
+					
+					<if test='version == 0'>
+						AND s.rate > 0
+					</if>
+					<if test='version == 1'>
+						AND s.ratetb > 0
+					</if>
+					<if test='version == 2'>
+						AND s.ratetbre > 0
+					</if>
+					<if test='version == 3'>
+						AND s.ratemx > 0
+					</if>
+					<if test='version == 4'>
+						AND s.rateex > 0
+					</if>
+				) a
+			) sa
+		INNER JOIN
+		(SELECT
+			a.musicid,
+			<if test='version == 0'>
+				MAX(a.level*a.rate*20) AS skill
+			</if>
+			<if test='version == 1'>
+				MAX(a.level*a.ratetb*20) AS skill
+			</if>
+			<if test='version == 2'>
+				MAX(a.level*a.ratetbre*20) AS skill
+			</if>
+			<if test='version == 3'>
+				MAX(a.level*a.ratemx*20) AS skill
+			</if>
+			<if test='version == 4'>
+				MAX(a.level*a.rateex*20) AS skill
+			</if>
+			FROM
+			(SELECT
+				m.id as musicid,
+				m.hot as ishot,
+				s.patterncode as patterncode,
+				s.rank as rank,
+				s.rate as rate,
+				s.rateex as rateex,
+				s.ratemx as ratemx,
+				s.ratetbre as ratetbre,
+				s.ratetb as ratetb,
+				m.version as version,
+				s.playtime as playtime,
+				s.cleartime as cleartime,
+				s.combo as combo,
+				CASE
+					WHEN s.patterncode = 1 THEN m.gbsc
+					WHEN s.patterncode = 2 THEN m.gadv
+					WHEN s.patterncode = 3 THEN m.gext
+					WHEN s.patterncode = 4 THEN m.gmas
+					WHEN s.patterncode = 5 THEN m.bbsc
+					WHEN s.patterncode = 6 THEN m.badv
+					WHEN s.patterncode = 7 THEN m.bext
+					WHEN s.patterncode = 8 THEN m.bmas
+					WHEN s.patterncode = 9 THEN m.dbsc
+					WHEN s.patterncode = 10 THEN m.dadv
+					WHEN s.patterncode = 11 THEN m.dext
+					WHEN s.patterncode = 12 THEN m.dmas
+				END AS level,
+				s.checkfc as checkfc,
+				s.meter as meter
+			FROM
+				skill as s,
+				<if test='version == 0'>
+					music as m
+				</if>
+				<if test='version == 1'>
+					music_tb as m
+				</if>
+				<if test='version == 2'>
+					music_tbre as m
+				</if>
+				<if test='version == 3'>
+					music_mx as m
+				</if>
+				<if test='version == 4'>
+					music_ex as m
+				</if>
+			WHERE
+				s.musicid = m.id
+				<choose>
+					<when test='version == 0'>
+						AND <![CDATA[m.removed < 1]]>
+					</when>
+					<otherwise>
+						AND (<![CDATA[m.removed < 1]]> OR m.removed > #{version})
+					</otherwise>
+				</choose>
+				
+				AND s.userid = #{userid}
+				
+				<if test='type == "h"'>
+					AND m.hot = "Y"
+				</if>
+				<if test='type == "o"'>
+					AND m.hot = "N"
+				</if>
+					
+				<if test='gtype == "gf"'>
+				<![CDATA[
+					AND s.patterncode <= 8
+				]]> 
+				</if>
+				<if test='gtype == "dm"'>
+					AND s.patterncode >= 9
+				</if>
+				
+				<if test='version == 0'>
+					AND s.rate > 0
+				</if>
+				<if test='version == 1'>
+					AND s.ratetb > 0
+				</if>
+				<if test='version == 2'>
+					AND s.ratetbre > 0
+				</if>
+				<if test='version == 3'>
+					AND s.ratemx > 0
+				</if>
+				<if test='version == 4'>
+					AND s.rateex > 0
+				</if>
+				) a
+				GROUP BY musicid
+			) sb
+		WHERE
+			sa.skill = sb.skill AND
+			sa.musicid = sb.musicid
+		GROUP BY sa.musicid
+		ORDER BY sa.skill DESC LIMIT 50
+    </select>
+    
+    <select id="getSkillPattern" resultType="pattern">
+    	SELECT
+    		p.id as userid,
+    		p.name as name,
+    		<if test='version == 28'>
+    		s.rate as rate,
+    		</if>
+    		<if test='version == 27'>
+    		s.rateex as rate,
+    		</if>
+    		<if test='version == 26'>
+    		s.ratemx as rate,
+    		</if>
+    		<if test='version == 25'>
+    		s.ratetbre as rate,
+    		</if>
+    		<if test='version == 24'>
+    		s.ratetb as rate,
+    		</if>
+    		s.checkfc as checkfc,
+    		s.rank as rank
+    	FROM
+			skill as s
+			<if test='version == 28'>
+    		USE INDEX(ptrank_nextage)
+    		</if>
+			<if test='version == 27'>
+    		USE INDEX(ptrank_exchain)
+    		</if>
+    		<if test='version == 26'>
+    		USE INDEX(ptrank_matixx)
+    		</if>
+    		<if test='version == 25'>
+    		USE INDEX(ptrank_tbre)
+    		</if>
+    		<if test='version == 24'>
+    		USE INDEX(ptrank_tb)
+    		</if>
+			,
+			profile as p USE INDEX (id_name)
+    	WHERE s.musicid=#{mid}
+    		AND s.patterncode=#{p}
+    		AND s.userid=p.id
+    		<if test='version == 28'>
+    		AND s.rate > 0
+    		</if>
+    		<if test='version == 27'>
+    		AND s.rateex > 0
+    		</if>
+    		<if test='version == 26'>
+    		AND s.ratemx > 0
+    		</if>
+    		<if test='version == 25'>
+    		AND s.ratetbre > 0
+    		</if>
+    		<if test='version == 24'>
+    		AND s.ratetb > 0
+    		</if>
+    	ORDER BY
+    		<if test='version == 28'>
+    		s.rate
+    		</if>
+    		<if test='version == 27'>
+    		s.rateex
+    		</if>
+    		<if test='version == 26'>
+    		s.ratemx
+    		</if>
+    		<if test='version == 25'>
+    		s.ratetbre
+    		</if>
+    		<if test='version == 24'>
+    		s.ratetb
+    		</if>
+    	DESC
+    </select>
+    
+    <select id="getSkillPatternSelf" resultType="pattern">
+    	SELECT
+    		p.id as userid,
+    		p.name as name,
+    		s.rate as rate,
+    		s.checkfc as checkfc,
+    		s.rank as rank
+		FROM skill as s
+		INNER JOIN (
+			SELECT id, name, token
+			FROM profile
+			WHERE id=#{uid}
+		) p
+		ON s.userid=p.id
+		WHERE s.musicid=#{mid}
+			AND s.patterncode=#{p}
+			AND s.rate > 0
+		LIMIT 1
+    </select>
+    
+    <select id="getPlayCountGF" resultType="integer">
+    	SELECT SUM(playtime)
+    	FROM skill
+    	WHERE userid=#{userid}
+    		AND
+    		<![CDATA[
+    		patterncode < 9
+    		]]>
+    </select>
+    
+    <select id="getPlayCountDM" resultType="integer">
+    	SELECT SUM(playtime)
+    	FROM skill
+    	WHERE userid=#{userid}
+    		AND patterncode >= 9
+    </select>
+
+    <insert id="addResult" parameterType="java.util.ArrayList">
+         INSERT INTO skill ( userid, musicid, version, patterncode, playtime,
+         				cleartime, rank, rate, score, combo, checkfc, meter )
+         VALUES
+         <foreach collection="list" item="item" index="index" separator=",">
+         	( #{item.userid}, #{item.musicid}, #{item.version}, #{item.patterncode},
+			#{item.playtime}, #{item.cleartime}, #{item.rank}, #{item.rate},
+			#{item.score}, #{item.combo}, #{item.checkfc}, #{item.meter} )
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			playtime = VALUES(playtime),
+			cleartime = VALUES(cleartime),
+			rank = VALUES(rank),
+			rate = VALUES(rate),
+			score = VALUES(score),
+			combo = VALUES(combo),
+			checkfc = VALUES(checkfc),
+			meter = VALUES(meter)
+    </insert>
+    
+    <!-- 신작 출시 시 구작 스킬 업데이트로 변경 -->
+    <insert id="addResultOld">
+         INSERT INTO skill ( userid, musicid, version, patterncode,
+         	<if test='gver == "ex"'>
+         	rateex
+         	</if>
+         	<if test='gver == "mx"'>
+         	ratemx
+         	</if>
+         	<if test='gver == "tbre"'>
+         	ratetbre
+         	</if>
+         )
+         VALUES
+         <foreach collection="skill" item="item" index="index" separator=",">
+         	( #{item.userid}, #{item.musicid}, #{item.version}, #{item.patterncode}, #{item.rate} )
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+			<if test='gver == "ex"'>
+         	rateex = VALUES(rateex)
+         	</if>
+			<if test='gver == "mx"'>
+         	ratemx = VALUES(ratemx)
+         	</if>
+         	<if test='gver == "tbre"'>
+         	ratetbre = VALUES(ratetbre)
+         	</if>
+    </insert>
+    
+    <select id="getPatternCountGF" resultType="integer">
+    	SELECT count(*) FROM
+    	(
+    		SELECT
+    			s.userid,
+    			s.rank,
+	    		CASE
+					WHEN s.patterncode = 1 THEN m.gbsc
+					WHEN s.patterncode = 2 THEN m.gadv
+					WHEN s.patterncode = 3 THEN m.gext
+					WHEN s.patterncode = 4 THEN m.gmas
+					WHEN s.patterncode = 5 THEN m.bbsc
+					WHEN s.patterncode = 6 THEN m.badv
+					WHEN s.patterncode = 7 THEN m.bext
+					WHEN s.patterncode = 8 THEN m.bmas
+					WHEN s.patterncode = 9 THEN m.dbsc
+					WHEN s.patterncode = 10 THEN m.dadv
+					WHEN s.patterncode = 11 THEN m.dext
+					WHEN s.patterncode = 12 THEN m.dmas
+				END AS level
+    		FROM skill AS s
+    		INNER JOIN (
+    			SELECT * FROM music
+    		) AS m
+	    	WHERE
+	    		s.musicid = m.id AND
+	    		s.userid = #{uid} AND
+	    		s.rank = #{rank} AND
+	    		<![CDATA[ s.patterncode <= 8 ]]>
+    	) AS r
+    	
+    	WHERE
+    		<![CDATA[ r.level >= #{level} AND r.level < #{level}+50 ]]>
+    </select>
+    
+    <select id="getPatternCountDM" resultType="integer">
+    	SELECT count(*) FROM
+    	(
+    		SELECT
+    			s.userid,
+    			s.rank,
+	    		CASE
+					WHEN s.patterncode = 1 THEN m.gbsc
+					WHEN s.patterncode = 2 THEN m.gadv
+					WHEN s.patterncode = 3 THEN m.gext
+					WHEN s.patterncode = 4 THEN m.gmas
+					WHEN s.patterncode = 5 THEN m.bbsc
+					WHEN s.patterncode = 6 THEN m.badv
+					WHEN s.patterncode = 7 THEN m.bext
+					WHEN s.patterncode = 8 THEN m.bmas
+					WHEN s.patterncode = 9 THEN m.dbsc
+					WHEN s.patterncode = 10 THEN m.dadv
+					WHEN s.patterncode = 11 THEN m.dext
+					WHEN s.patterncode = 12 THEN m.dmas
+				END AS level
+    		FROM skill AS s
+    		INNER JOIN (
+    			SELECT * FROM music
+    		) AS m
+	    	WHERE
+	    		s.musicid = m.id AND
+	    		s.userid = #{uid} AND
+	    		s.rank = #{rank} AND
+	    		s.patterncode >= 9
+    	) AS r
+    	
+    	WHERE
+    		<![CDATA[ r.level >= #{level} AND r.level < #{level}+50 ]]>
+    		
+    </select>
+    
+    <select id="getMybestPattern" resultType="mostPlayedPattern">
+    	SELECT m.id, m.name, s.patterncode, s.playtime
+		FROM music AS m
+		INNER JOIN (
+			SELECT musicid, patterncode, playtime
+			FROM skill
+			WHERE userid=#{userid} AND playtime > 0
+		) AS s
+		WHERE m.id = s.musicid
+		ORDER BY s.playtime DESC
+		LIMIT 50
+    </select>
+    
+    <select id="getMybestPatternG" resultType="mostPlayedPattern">
+    	SELECT m.id, m.name, s.patterncode, s.playtime
+		FROM music AS m
+		INNER JOIN (
+			SELECT musicid, patterncode, playtime
+			FROM skill
+			WHERE userid=#{userid} AND playtime > 0 and <![CDATA[ patterncode < 9 ]]>
+		) AS s
+		WHERE m.id = s.musicid
+		ORDER BY s.playtime DESC
+		LIMIT 50
+    </select>
+    
+    <select id="getMybestPatternD" resultType="mostPlayedPattern">
+    	SELECT m.id, m.name, s.patterncode, s.playtime
+		FROM music AS m
+		INNER JOIN (
+			SELECT musicid, patterncode, playtime
+			FROM skill
+			WHERE userid=#{userid} AND playtime > 0 and patterncode > 8
+		) AS s
+		WHERE m.id = s.musicid
+		ORDER BY s.playtime DESC
+		LIMIT 50
+    </select>
+    
+    <select id="getMybestMusic" resultType="mostPlayedMusic">
+    	SELECT m.id, m.name, s.playtime
+		FROM music AS m
+		INNER JOIN (
+			SELECT musicid, SUM(playtime) AS playtime
+			FROM skill
+			WHERE userid=#{userid} and playtime > 0
+			GROUP BY musicid
+		) AS s
+		WHERE m.id = s.musicid
+		ORDER BY s.playtime DESC
+		LIMIT 50
+    </select>
+    
+    <select id="getEXCData" resultType="skillTable">
+	    SELECT
+	    		c.id as musicid,
+				c.name as mname,
+				c.hurigana as hurigana,
+				c.hot as ishot,
+				c.patterncode as patterncode,
+				c.version as version,
+				b.level as level
+		FROM (
+			SELECT id, name, hurigana, hot, version, max(level) as level FROM (
+				SELECT id, name, hurigana, hot, version, gbsc as level, 1 as patterncode FROM music WHERE gbsc > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, gadv as level, 2 as patterncode FROM music WHERE gadv > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, gext as level, 3 as patterncode FROM music WHERE gext > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, gmas as level, 4 as patterncode FROM music WHERE gmas > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, bbsc as level, 5 as patterncode FROM music WHERE bbsc > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, badv as level, 6 as patterncode FROM music WHERE badv > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, bext as level, 7 as patterncode FROM music WHERE bext > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, bmas as level, 8 as patterncode FROM music WHERE bmas > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, dbsc as level, 9 as patterncode FROM music WHERE dbsc > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, dadv as level, 10 as patterncode FROM music WHERE dadv > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, dext as level, 11 as patterncode FROM music WHERE dext > 0 AND <![CDATA[removed < 1]]>
+				UNION SELECT id, name, hurigana, hot, version, dmas as level, 12 as patterncode FROM music WHERE dmas > 0 AND <![CDATA[removed < 1]]>
+			) a
+			WHERE a.hot = #{hot} AND
+			<if test="gtype == 'gf'">
+				<![CDATA[a.patterncode <= 8]]>
+			</if>
+			<if test="gtype == 'dm'">
+				a.patterncode >= 9
+			</if>
+			GROUP BY id ORDER BY level DESC LIMIT 25
+		) b
+		INNER JOIN (
+			SELECT id, name, hurigana, hot, version, gbsc as level, 1 as patterncode FROM music WHERE gbsc > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, gadv as level, 2 as patterncode FROM music WHERE gadv > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, gext as level, 3 as patterncode FROM music WHERE gext > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, gmas as level, 4 as patterncode FROM music WHERE gmas > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, bbsc as level, 5 as patterncode FROM music WHERE bbsc > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, badv as level, 6 as patterncode FROM music WHERE badv > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, bext as level, 7 as patterncode FROM music WHERE bext > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, bmas as level, 8 as patterncode FROM music WHERE bmas > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, dbsc as level, 9 as patterncode FROM music WHERE dbsc > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, dadv as level, 10 as patterncode FROM music WHERE dadv > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, dext as level, 11 as patterncode FROM music WHERE dext > 0 AND <![CDATA[removed < 1]]>
+			UNION SELECT id, name, hurigana, hot, version, dmas as level, 12 as patterncode FROM music WHERE dmas > 0 AND <![CDATA[removed < 1]]>
+		) c ON b.id = c.id AND b.level = c.level AND
+		<if test="gtype == 'gf'">
+			<![CDATA[c.patterncode <= 8]]>
+		</if>
+		<if test="gtype == 'dm'">
+			c.patterncode >= 9
+		</if>
+		GROUP BY musicid ORDER BY level DESC
+    </select>
+    
+    <delete id="resetSkill">
+    	DELETE FROM skill WHERE userid=#{id}
+    </delete>
+</mapper>

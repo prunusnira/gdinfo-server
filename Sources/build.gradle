@@ -1,0 +1,67 @@
+buildscript {
+	ext {
+		kotlinVersion = '1.2.71'
+		springBootVersion = '2.1.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+	}
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+mainClassName='com.prunusnira.gitadorainfo.ServerApplication'
+
+group = 'com.prunusnira.gitadorainfo'
+version = '1'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Kotlin
+	implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8')
+	implementation('org.jetbrains.kotlin:kotlin-reflect')
+	implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
+	
+	// Web component
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	
+	// DB Setting
+	implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+	implementation('org.mariadb.jdbc:mariadb-java-client:2.3.0')
+	
+	// Google Login control
+	implementation('org.springframework.social:spring-social-google:1.0.0.RELEASE')
+	implementation('org.springframework.social:spring-social-security:1.1.6.RELEASE')
+	
+	// Thymeleaf
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+	
+	// JSP
+	//implementation('javax.servlet:jstl')
+	//implementation('org.apache.tomcat.embed:tomcat-embed-jasper')
+	
+	// JSON manage
+	implementation('com.googlecode.json-simple:json-simple:1.1')
+	
+	// RandomStringUtils in UpdateController
+	implementation('org.apache.commons:commons-lang3:3.4')
+	
+	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	
+	// Run on tomcat
+	//providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+}

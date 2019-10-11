@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prunusnira.gitadorainfo.mapper.MusicMapper">
+
+    <select id="getMusicInfo" resultType="music">
+        SELECT * FROM music where name = #{name}
+    </select>
+    
+    <select id="getMusicInfoInt" resultType="music">
+        SELECT * FROM music where id = #{mid}
+    </select>
+    
+    <select id="getMusicInfoAll" resultType="music">
+        SELECT * FROM music
+    </select>
+    
+    <select id="getMusicInfoAllList" resultType="music">
+        SELECT *
+        FROM music
+        	
+        <if test="vers.size > 0">
+        	WHERE (
+	        <foreach item="vitem" index="index" collection="vers" separator="OR">
+		   		version = #{vitem}
+	 		</foreach>)
+ 		</if>
+ 		
+ 		<if test='hot != "" and vers.size() == 0'>
+ 			WHERE
+ 		</if>
+ 		<if test='hot != ""'>
+ 			<if test="vers.size() > 0">
+	   			AND
+		   	</if>
+	   		<if test='hot == "h"'>
+	   			hot = "Y"
+	   		</if>
+	   		<if test='hot == "o"'>
+	   			hot = "N"
+	   		</if>
+   		</if>
+   		<if test="order != null">
+	   		<choose>
+	   			<when test="order == 'titleasc'">
+	   				ORDER BY hurigana ASC
+	   			</when>
+	   			<when test="order == 'titledesc'">
+	   				ORDER BY hurigana DESC
+	   			</when>
+	   			<when test="order == 'verasc'">
+	   				ORDER BY version ASC
+	   			</when>
+	   			<when test="order == 'verdesc'">
+	   				ORDER BY version DESC
+	   			</when>
+	   			<when test="order == 'gbscasc'">
+	   				ORDER BY gbsc ASC
+	   			</when>
+	   			<when test="order == 'gbscdesc'">
+	   				ORDER BY gbsc DESC
+	   			</when>
+	   			<when test="order == 'gadvasc'">
+	   				ORDER BY gadv ASC
+	   			</when>
+	   			<when test="order == 'gadvdesc'">
+	   				ORDER BY gadv DESC
+	   			</when>
+	   			<when test="order == 'gextasc'">
+	   				ORDER BY gext ASC
+	   			</when>
+	   			<when test="order == 'gextdesc'">
+	   				ORDER BY gext DESC
+	   			</when>
+	   			<when test="order == 'gmasasc'">
+	   				ORDER BY gmas ASC
+	   			</when>
+	   			<when test="order == 'gmasdesc'">
+	   				ORDER BY gmas DESC
+	   			</when>
+	   			<when test="order == 'bbscasc'">
+	   				ORDER BY bbsc ASC
+	   			</when>
+	   			<when test="order == 'bbscdesc'">
+	   				ORDER BY bbsc DESC
+	   			</when>
+	   			<when test="order == 'badvasc'">
+	   				ORDER BY badv ASC
+	   			</when>
+	   			<when test="order == 'badvdesc'">
+	   				ORDER BY badv DESC
+	   			</when>
+	   			<when test="order == 'bextasc'">
+	   				ORDER BY bext ASC
+	   			</when>
+	   			<when test="order == 'bextdesc'">
+	   				ORDER BY bext DESC
+	   			</when>
+	   			<when test="order == 'bmasasc'">
+	   				ORDER BY bmas ASC
+	   			</when>
+	   			<when test="order == 'bmasdesc'">
+	   				ORDER BY bmas DESC
+	   			</when>
+	   			<when test="order == 'dbscasc'">
+	   				ORDER BY dbsc ASC
+	   			</when>
+	   			<when test="order == 'dbscdesc'">
+	   				ORDER BY dbsc DESC
+	   			</when>
+	   			<when test="order == 'dadvasc'">
+	   				ORDER BY dadv ASC
+	   			</when>
+	   			<when test="order == 'dadvdesc'">
+	   				ORDER BY dadv DESC
+	   			</when>
+	   			<when test="order == 'dextasc'">
+	   				ORDER BY dext ASC
+	   			</when>
+	   			<when test="order == 'dextdesc'">
+	   				ORDER BY dext DESC
+	   			</when>
+	   			<when test="order == 'dmasasc'">
+	   				ORDER BY dmas ASC
+	   			</when>
+	   			<when test="order == 'dmasdesc'">
+	   				ORDER BY dmas DESC
+	   			</when>
+	   		</choose>
+   		</if>
+    </select>
+    
+    <select id="getMusicInfoAllListAllSong" resultType="music">
+        SELECT *
+        FROM music
+ 		
+ 		<if test="hot != null">
+ 			<if test='hot == "h"'>
+	   			 WHERE hot = "Y"
+	   		</if>
+	   		<if test='hot == "o"'>
+	   			WHERE hot = "N"
+	   		</if>
+   		</if>
+   		<if test="order != null">
+	   		<choose>
+	   			<when test="order == 'titleasc'">
+	   				ORDER BY hurigana ASC
+	   			</when>
+	   			<when test="order == 'titledesc'">
+	   				ORDER BY hurigana DESC
+	   			</when>
+	   			<when test="order == 'verasc'">
+	   				ORDER BY version ASC
+	   			</when>
+	   			<when test="order == 'verdesc'">
+	   				ORDER BY version DESC
+	   			</when>
+	   			<when test="order == 'gbscasc'">
+	   				ORDER BY gbsc ASC
+	   			</when>
+	   			<when test="order == 'gbscdesc'">
+	   				ORDER BY gbsc DESC
+	   			</when>
+	   			<when test="order == 'gadvasc'">
+	   				ORDER BY gadv ASC
+	   			</when>
+	   			<when test="order == 'gadvdesc'">
+	   				ORDER BY gadv DESC
+	   			</when>
+	   			<when test="order == 'gextasc'">
+	   				ORDER BY gext ASC
+	   			</when>
+	   			<when test="order == 'gextdesc'">
+	   				ORDER BY gext DESC
+	   			</when>
+	   			<when test="order == 'gmasasc'">
+	   				ORDER BY gmas ASC
+	   			</when>
+	   			<when test="order == 'gmasdesc'">
+	   				ORDER BY gmas DESC
+	   			</when>
+	   			<when test="order == 'bbscasc'">
+	   				ORDER BY bbsc ASC
+	   			</when>
+	   			<when test="order == 'bbscdesc'">
+	   				ORDER BY bbsc DESC
+	   			</when>
+	   			<when test="order == 'badvasc'">
+	   				ORDER BY badv ASC
+	   			</when>
+	   			<when test="order == 'badvdesc'">
+	   				ORDER BY badv DESC
+	   			</when>
+	   			<when test="order == 'bextasc'">
+	   				ORDER BY bext ASC
+	   			</when>
+	   			<when test="order == 'bextdesc'">
+	   				ORDER BY bext DESC
+	   			</when>
+	   			<when test="order == 'bmasasc'">
+	   				ORDER BY bmas ASC
+	   			</when>
+	   			<when test="order == 'bmasdesc'">
+	   				ORDER BY bmas DESC
+	   			</when>
+	   			<when test="order == 'dbscasc'">
+	   				ORDER BY dbsc ASC
+	   			</when>
+	   			<when test="order == 'dbscdesc'">
+	   				ORDER BY dbsc DESC
+	   			</when>
+	   			<when test="order == 'dadvasc'">
+	   				ORDER BY dadv ASC
+	   			</when>
+	   			<when test="order == 'dadvdesc'">
+	   				ORDER BY dadv DESC
+	   			</when>
+	   			<when test="order == 'dextasc'">
+	   				ORDER BY dext ASC
+	   			</when>
+	   			<when test="order == 'dextdesc'">
+	   				ORDER BY dext DESC
+	   			</when>
+	   			<when test="order == 'dmasasc'">
+	   				ORDER BY dmas ASC
+	   			</when>
+	   			<when test="order == 'dmasdesc'">
+	   				ORDER BY dmas DESC
+	   			</when>
+	   		</choose>
+   		</if>
+    </select>
+    
+    <select id="getMusicSearch" resultType="music">
+    	SELECT * FROM music WHERE LOWER(name) LIKE "%${value}%"
+    </select>
+    
+    <select id="getTotalPatternCountGF" resultType="integer">
+    	SELECT A.gb+B.ga+C.ge+D.gm+E.bb+F.ba+G.be+H.bm FROM
+    	(
+	    	SELECT count(*) as gb FROM music
+	    	WHERE <![CDATA[ gbsc >= #{key} AND gbsc < #{key}+50 ]]>
+    	) as A,
+    	(
+	    	SELECT count(*) as ga FROM music
+	    	WHERE <![CDATA[ gadv >= #{key} AND gadv < #{key}+50 ]]>
+    	) as B,
+    	(
+	    	SELECT count(*) as ge FROM music
+	    	WHERE <![CDATA[ gext >= #{key} AND gext < #{key}+50 ]]>
+    	) as C,
+    	(
+	    	SELECT count(*) as gm FROM music
+	    	WHERE <![CDATA[ gmas >= #{key} AND gmas < #{key}+50 ]]>
+    	) as D,
+    	(
+	    	SELECT count(*) as bb FROM music
+	    	WHERE <![CDATA[ bbsc >= #{key} AND bbsc < #{key}+59 ]]>
+    	) as E,
+    	(
+	    	SELECT count(*) as ba FROM music
+	    	WHERE <![CDATA[ badv >= #{key} AND badv < #{key}+50 ]]>
+    	) as F,
+    	(
+	    	SELECT count(*) as be FROM music
+	    	WHERE <![CDATA[ bext >= #{key} AND bext < #{key}+50 ]]>
+    	) as G,
+    	(
+	    	SELECT count(*) as bm FROM music
+	    	WHERE <![CDATA[ bmas >= #{key} AND bmas < #{key}+50 ]]>
+    	) as H
+    </select>
+    
+    <select id="getTotalPatternCountDM" resultType="integer">
+    	SELECT A.db+B.da+C.de+D.dm FROM
+    	(
+	    	SELECT count(*) as db FROM music
+	    	WHERE <![CDATA[ dbsc >= #{key} AND dbsc < #{key}+50 ]]>
+    	) as A,
+    	(
+	    	SELECT count(*) as da FROM music
+	    	WHERE <![CDATA[ dadv >= #{key} AND dadv < #{key}+50 ]]>
+    	) as B,
+    	(
+	    	SELECT count(*) as de FROM music
+	    	WHERE <![CDATA[ dext >= #{key} AND dext < #{key}+50 ]]>
+    	) as C,
+    	(
+	    	SELECT count(*) as dm FROM music
+	    	WHERE <![CDATA[ dmas >= #{key} AND dmas < #{key}+50 ]]>
+    	) as D
+    </select>
+    
+    <select id="getNotPlayed" resultType="notPlayed">
+	    select * from
+			(select id, name, hurigana, 1 as ptcode, gbsc as lv, version, hot from music where gbsc > 0 and removed=0 union
+			select id, name, hurigana, 2 as ptcode, gadv as lv, version, hot from music where gadv > 0 and removed=0 union
+			select id, name, hurigana, 3 as ptcode, gext as lv, version, hot from music where gext > 0 and removed=0 union
+			select id, name, hurigana, 4 as ptcode, gmas as lv, version, hot from music where gmas > 0 and removed=0 union
+			select id, name, hurigana, 5 as ptcode, bbsc as lv, version, hot from music where bbsc > 0 and removed=0 union
+			select id, name, hurigana, 6 as ptcode, badv as lv, version, hot from music where badv > 0 and removed=0 union
+			select id, name, hurigana, 7 as ptcode, bext as lv, version, hot from music where bext > 0 and removed=0 union
+			select id, name, hurigana, 8 as ptcode, bmas as lv, version, hot from music where bmas > 0 and removed=0 union
+			select id, name, hurigana, 9 as ptcode, dbsc as lv, version, hot from music where dbsc > 0 and removed=0 union
+			select id, name, hurigana, 10 as ptcode, dadv as lv, version, hot from music where dadv > 0 and removed=0 union
+			select id, name, hurigana, 11 as ptcode, dext as lv, version, hot from music where dext > 0 and removed=0 union
+			select id, name, hurigana, 12 as ptcode, dmas as lv, version, hot from music where dmas > 0 and removed=0
+		) as a
+		
+		where
+			<if test="gtype == 'gf'">
+    			<![CDATA[ ptcode <= 8 ]]>
+    		</if>
+    		<if test="gtype == 'dm'">
+    			ptcode >= 9
+    		</if>
+    		<if test="vers != null">
+		   		<if test="vers.size() > 0">
+		   		AND (
+		   			<foreach item="vitem" index="index" collection="vers" separator="OR">
+		   				version = #{vitem}
+		   			</foreach>
+		   		)
+		   		</if>
+	   		</if>
+    		<if test="hot != null">
+		   		<if test='hot == "h"'>
+		   			AND hot = "Y"
+		   		</if>
+		   		<if test='hot == "o"'>
+		   			AND hot = "N"
+		   		</if>
+	   		</if>
+    		<if test="levels != null">
+		   		<if test="levels.size() > 0">
+			   		AND (
+			   			<foreach item="litem" index="index" collection="levels" separator="OR">
+			   			<![CDATA[
+			   				(lv >= #{litem} AND lv < #{litem}+50)
+			   			]]>
+			   			</foreach>
+			   		)
+		   		</if>
+	   		</if>
+			and
+				(id, ptcode)
+			not in
+			(
+				select musicid as id, patterncode as ptcode
+				from skill
+				where
+					userid=#{id}
+					<if test="vertype == 0">
+						and (rank != "none" or meter != "")
+					</if>
+					<if test="vertype == 1">
+						and rate > 0
+					</if>
+					and
+					<if test="gtype == 'gf'">
+		    			<![CDATA[ patterncode <= 8 ]]>
+		    		</if>
+		    		<if test="gtype == 'dm'">
+		    			patterncode >= 9
+		    		</if>
+			)
+		ORDER BY
+	   		<choose>
+	   			<when test="order == 'titleasc'">
+	   				hurigana ASC
+	   			</when>
+	   			<when test="order == 'titledesc'">
+	   				hurigana DESC
+	   			</when>
+	   			<when test="order == 'verasc'">
+	   				version ASC
+	   			</when>
+	   			<when test="order == 'verdesc'">
+	   				version DESC
+	   			</when>
+	   			<when test="order == 'lvasc'">
+	   				lv ASC
+	   			</when>
+	   			<when test="order == 'lvdesc'">
+	   				lv DESC
+	   			</when>
+	   		</choose>
+    </select>
+    
+    <insert id="addNewMusicUpdater">
+    	INSERT INTO music (name, version, hot)
+    	VALUES (#{name}, #{currentver}, "Y")
+    </insert>
+    
+    <update id="updateMusicUpdaterGF">
+    	UPDATE music SET
+   			gbsc=#{lvtable.gbsc}, gadv=#{lvtable.gadv},
+   			gext=#{lvtable.gext}, gmas=#{lvtable.gmas},
+   			bbsc=#{lvtable.bbsc}, badv=#{lvtable.badv},
+   			bext=#{lvtable.bext}, bmas=#{lvtable.bmas}
+   		WHERE
+   			name=#{name}
+    </update>
+    
+    <update id="updateMusicUpdaterDM">
+    	UPDATE music SET
+   			dbsc=#{lvtable.dbsc}, dadv=#{lvtable.dadv},
+   			dext=#{lvtable.dext}, dmas=#{lvtable.dmas}
+   		WHERE
+   			name=#{name}
+    </update>
+</mapper>

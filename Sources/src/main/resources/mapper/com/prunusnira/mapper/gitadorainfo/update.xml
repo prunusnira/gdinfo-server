@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prunusnira.gitadorainfo.mapper.UpdateMapper"> 
+
+    <select id="getUserTokenByCrawlToken" resultType="String">
+    	SELECT SQL_NO_CACHE token FROM crawl WHERE crawltoken = #{crawlToken} AND expire &gt; NOW()
+    </select>
+  
+  	<select id="getCrawlTokenByUserToken" resultType="String">
+  		SELECT SQL_NO_CACHE crawltoken FROM crawl WHERE token = #{token} AND expire &gt; NOW()
+  	</select>
+  	  	
+  	<insert id="insertCrawlToken">
+         REPLACE INTO crawl ( token, crawltoken, expire )
+         VALUES ( #{token}, #{crawlToken}, DATE_ADD(NOW(), INTERVAL 2 HOUR) )
+    </insert>
+</mapper>
