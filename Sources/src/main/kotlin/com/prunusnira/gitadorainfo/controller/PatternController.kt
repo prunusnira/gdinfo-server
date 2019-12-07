@@ -44,7 +44,7 @@ class PatternController {
 	@Autowired
 	lateinit var userService:UserService
 	
-	@RequestMapping(value=["/d/rank/{gtype}/{page}"],
+	@RequestMapping(value=["/rank/{gtype}/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun skillRanking(@PathVariable("gtype") gtype: String,
@@ -74,7 +74,7 @@ class PatternController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/ptrank/{ver}/{order}/{page}"],
+	@RequestMapping(value=["/ptrank/{ver}/{order}/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun ptrankList(req:HttpServletRequest,
@@ -119,7 +119,7 @@ class PatternController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/ptdetail/{mid}/{p}/{page}/{version}"],
+	@RequestMapping(value=["/ptdetail/{mid}/{p}/{page}/{version}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun ptdetail(@PathVariable("mid") mid: Int,
@@ -151,7 +151,7 @@ class PatternController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/cntrank/{page}"],
+	@RequestMapping(value=["/cntrank/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun cntrank(@PathVariable("page") page: Int): String {

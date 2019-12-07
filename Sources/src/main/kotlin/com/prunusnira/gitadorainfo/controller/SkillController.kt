@@ -56,7 +56,7 @@ class SkillController {
 	 * 8: MX 스킬표
 	 * 1000: EXC
 	 */
-	@RequestMapping(value=["/d/skill/{ptype}/{id}/{gtype}/{page}/{order}"],
+	@RequestMapping(value=["/skill/{ptype}/{id}/{gtype}/{page}/{order}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun skill(req: HttpServletRequest,
@@ -134,7 +134,7 @@ class SkillController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/music/{mid}/{id}"],
+	@RequestMapping(value=["/music/{mid}/{id}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun musicPattern(@PathVariable("mid") musicid: Int,
@@ -153,7 +153,7 @@ class SkillController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/exc/{gtype}"],
+	@RequestMapping(value=["/exc/{gtype}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun exc(@PathVariable("gtype") gtype: String): String {
@@ -194,7 +194,7 @@ class SkillController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/musiclist/{ver}"],
+	@RequestMapping(value=["/musiclist/{ver}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun getMusicList(@PathVariable("ver") ver: Int): String {
@@ -212,7 +212,7 @@ class SkillController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/getmusic/{mid}"],
+	@RequestMapping(value=["/getmusic/{mid}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun getMusic(@PathVariable("mid") mid: Int): String {
@@ -227,7 +227,7 @@ class SkillController {
 		return node.toString()
 	}
 
-	@RequestMapping(value=["/d/skill/snapshot/create/{uid}/{gtype}"],
+	@RequestMapping(value=["/skill/snapshot/create/{uid}/{gtype}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun createSnapshot(@PathVariable("uid") uid: Int,
@@ -237,7 +237,7 @@ class SkillController {
 		return "/skill/snapshot/list/"+uid
 	}
 
-	@RequestMapping(value=["/d/skill/snapshot/list/{uid}"],
+	@RequestMapping(value=["/skill/snapshot/list/{uid}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun listSnapshot(@PathVariable("uid") uid: Int): String {
@@ -252,7 +252,7 @@ class SkillController {
 		return node.toString()
 	}
 
-	@RequestMapping(value=["/d/skill/snapshot/load/{uid}/{date}/{gtype}"],
+	@RequestMapping(value=["/skill/snapshot/load/{uid}/{date}/{gtype}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun loadSnapshot(@PathVariable("uid") uid: Int,

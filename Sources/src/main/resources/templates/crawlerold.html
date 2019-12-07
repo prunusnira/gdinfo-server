@@ -13,7 +13,7 @@
  * Dynamically modified by GF_Please (toycube.pf@gmail.com)
  *
  */
-loadScript("https://data.gitadora.info/js/bootstrap.min.js", "js");
+loadScript("https://sindata.nira.one/js/bootstrap.min.js", "js");
 
 var lang = navigator.language || navigator.systemLanguage;
 if(lang=='ko' || lang=='ko-kr' || lang=='ko-KR') {
@@ -32,15 +32,21 @@ var delay = 500;
 
 if (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/)) || (typeof $.browser !== "undefined" && $.browser.msie == 1))
 {
-	location.href="https://data.gitadora.info/noie";
+	location.href="https://sindata.nira.one/noie";
 }
 
 var text = {
 	crawler: {
 		notlogin: {
-			"jp":"先に<a href='https://data.gitadora.info/login' target='_blank'>こちら</a>のログインページでログインしてください",
-			"ko":"로그인이 필요합니다. <a href='https://data.gitadora.info/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요",
-			"en":"Please sign in first from <a href='https://data.gitadora.info/login' target='_blank'>This login page</a>"
+			"jp":"<b><font color='red'>* 更新スクリプトをdata.gitadora.infoではなくsindata.nira.oneに更新してください！！ *</font></b><br/>"+
+				"<b><font color='blue'>アドレス更新後ログインの問題がある場合は「ブラウザのキャッシュ削除」を行うか「シークレットモード」で更新してください</font></b><br/>"+
+				"先に<a href='https://sindata.nira.one/login' target='_blank'>こちら</a>のログインページでログインしてください",
+			"ko":"<b><font color='red'>* 갱신 스크립트를 data.gitadora.info가 아닌 sindata.nira.one으로 변경해서 접속해주세요!! *</font></b><br/>"+
+				"<b><font color='blue'>주소를 변경한 후에 로그인이 되지 않는다면 캐시삭제 혹은 시크릿 모드에서 해주세요</font></b><br/>"+
+				"로그인이 필요합니다. <a href='https://sindata.nira.one/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요",
+			"en":"<b><font color='red'>* Please change script url from [ data.gitadora.info ] to [ sindata.nira.one ] *</font></b><br/>"+			
+				"<b><font color='blue'>If you can not login after you changed script address, try to delete browser cache or try all sequence from secret mode</font></b><br/>"+
+				"Please sign in first from <a href='https://sindata.nira.one/login' target='_blank'>This login page</a>"
 		},
 		loginconfirm: {
 			"jp":"<h3><b><font color='red'>※ご注意※</font></b></h3><br/>"+
@@ -738,7 +744,7 @@ function SkillCrawler() {
 	function upload(text, type, gver) {
 		if (type=='profile') {
 		    $.ajax({
-		        url: "https://data.gitadora.info/$/updateProfileOld/"+gver,
+		        url: "https://sindata.nira.one/$/updateProfileOld/"+gver,
 		        type: "POST",
 		        data: text,
 		        contentType: "application/json"
@@ -762,7 +768,7 @@ function SkillCrawler() {
 		}
 		else if(type=='skill') {
 			$.ajax({
-		        url: "https://data.gitadora.info/$/updateSkillOld/"+gver,
+		        url: "https://sindata.nira.one/$/updateSkillOld/"+gver,
 		        type: "POST",
 		        data: text,
 		        contentType: "application/json"
@@ -848,10 +854,10 @@ function closeUpdater() {
     
 $(function () {
 	$("head").append( $("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />") );
-	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://data.gitadora.info/css/bootstrap.min.css") );
-	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://data.gitadora.info/css/custom/overall-w.css") );
-	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://data.gitadora.info/css/custom/filter.css") );
-	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://data.gitadora.info/css/custom/table.css") );
+	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://sindata.nira.one/css/bootstrap.min.css") );
+	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://sindata.nira.one/css/custom/overall-w.css") );
+	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://sindata.nira.one/css/custom/filter.css") );
+	$("head").append( $("<link rel='stylesheet' type='text/css' />").attr("href", "https://sindata.nira.one/css/custom/table.css") );
 	
 	var inject = 
 	"<div style='font-size: 100%; padding: 10px' id='gfdminfo' class='page-header crawler'>"

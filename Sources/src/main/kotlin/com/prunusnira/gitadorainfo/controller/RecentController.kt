@@ -26,7 +26,7 @@ class RecentController {
 	@Autowired
 	lateinit var userService: UserService
 	
-	@RequestMapping(value=["/d/recent"],
+	@RequestMapping(value=["/recent"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun recent(): String {

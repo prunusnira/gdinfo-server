@@ -197,7 +197,7 @@ class LoginController {
 		}
 	}
 	
-	@RequestMapping(value=["/d/newuser"], method=[RequestMethod.POST])
+	@RequestMapping(value=["/newuser"], method=[RequestMethod.POST])
 	@ResponseBody
 	fun newUser(req: HttpServletRequest,
 				@RequestParam("token") token: String): String {
@@ -222,7 +222,7 @@ class LoginController {
 		}
 	}
 	
-	@RequestMapping("/d/dropuser")
+	@RequestMapping("/dropuser")
 	@ResponseBody
 	fun dropUser(req: HttpServletRequest): String {
 		val session = req.getSession();

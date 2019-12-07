@@ -103,90 +103,6 @@ var text = {
 			"en":" min before"
 		}
 	},
-	qna: {
-		main: {
-			"jp":"GITADORA Infoに関するよく見える質問の説明のためのページです",
-			"ko":"GITADORA Info에 대해 자주 보이는 질문들에 대한 간단한 설명을 위한 페이지를 만들었습니다.",
-			"en":"This is FAQ page for GITADORA Info"
-		},
-		title1: {
-			"jp":"なぜGoogleアカウントを使ってログインするの？",
-			"ko":"왜 굳이 Google 계정을 사용하여 로그인하는가",
-			"en":"Why you need Google account?"
-		},
-		desc1: {
-			p1: {
-				"jp":"作ろとすれば自体的なログインシステムを作ることができますが、" +
-						"私はセキュリティーの専門家ではないのでもしや" +
-						"皆さんが他のサイトで使うパスワードをDBに保存して" +
-						"ちゃんと管理できるのかが分かりません。",
-				"ko":"만들고자 한다면 내부의 자체 로그인 시스템을 만들 수 있습니다만," +
-						" 전 보안전문가가 아니기 때문에 혹시나 여러분이 다른 사이트에서" +
-						" 자주 사용하는 비밀번호를 제가 만든 데이터베이스에 저장한다면..." +
-						" 솔직히 말해 아무리 암호화를 잘 해서 저장한다고 해도 잘 관리할 수 있을지 저는 잘 모르겠네요.",
-				"en":""
-			},
-			p2: {
-				"jp":"で、最近色んなサイトからよく使う他社のAPIを使ったログインを導入しました。" +
-					"実際に沢山のウェブサービスから「Twitterを使ってログイン」とか" +
-					"「Googleを使ってログイン」などのサービスを使っています。",
-				"ko":" 그래서 최근에 다양한 사이트에서 많이 사용되는 타사의 API를 사용한 로그인을 도입하였습니다." +
-					" 실제로 다양한 사이트에서 Twitter를 사용한 로그인," +
-					" Google을 사용한 로그인 등을 많이 사용하고 있지요.",
-				"en":""
-			},
-			p3: {
-				"jp":"GITADORA InfoではGoogle+ JavaScript API<br/>" +
-						"参考リンク1. <a href='https://developers.google.com/+/web/api/javascript'>https://developers.google.com/+/web/api/javascript</a><br/>" +
-						"参考リンク2. <a href='https://developers.google.com/identity/sign-in/web/reference'>https://developers.google.com/identity/sign-in/web/reference</a><br/>" +
-						"を使ってログインします。" +
-						"そして、この過程から持ってくるデータはユーザーのE-MAILアドレスです。" +
-						"(「Googleアカウント@gmail.com」の形のこれです)",
-				"ko":"GITADORA Info에서는 Google+ JavaScript API<br/>" +
-						"참고링크 1. <a href='https://developers.google.com/+/web/api/javascript'>https://developers.google.com/+/web/api/javascript</a><br/>" +
-						"참고링크 2. <a href='https://developers.google.com/identity/sign-in/web/reference'>https://developers.google.com/identity/sign-in/web/reference</a><br/>" +
-						"를 사용하여 로그인을 수행하고 있습니다." +
-						" 그리고 이 과정에서 실제로 가져오는 데이터는 로그인하는 유저의 이메일 주소입니다." +
-						" (「Google계정@gmail.com」의 형태의 그것입니다.)",
-				"en":""
-			},
-			p4: {
-				"jp":"このアドレスから@gmail.comを除外してGoogleIDのみ使います。" +
-						"さらに、このIDもSHA-256を使って変化させて保存します。" +
-						"(この部分はloginページのソースコードを確認すればすぐに分かります。)" +
-						"<br/><br/>実際にサーバーではこうなります。(DBデータのスクショットです)",
-				"ko":"여기서도 실제로 사용하는것은 @gmail.com을 제외한 구글 아이디 뿐이며," +
-						" 이 ID도 실제 서버 데이터베이스에 저장되는 것은 SHA-256을 사용하여 변환된 Token 값입니다." +
-						" (이 부분은 login 페이지의 소스코드를 확인하시면 알 수 있습니다." +
-						" 자바스크립트 라이브러리를 사용하여 아이디를 변형한 후 이를 개인 식별을 위한 토큰으로 저장합니다.)" +
-						"<br/><br/>실제 서버 DB에 저장되는 형태는 아래의 그림과 같습니다. (실제 DB 데이터의 스크린샷입니다)",
-				"en":""
-			},
-			p5: {
-				"jp":"<br/>ここの４番目のものがGoogle IDを変換したTokenです" +
-						" 他のはeAmusementGateからの表示されるデータを持ってきたものです",
-				"ko":"<br/>여기서 4번째 칸의 것이 Google ID를 변환하여 저장된 Token입니다." +
-						" 나머지는 eAmusementGate에 표시되는 데이터를 긁어온 가져온 게임 데이터입니다.",
-				"en":""
-			},
-			p6: {
-				"jp":"つまり、GITADORA Infoのサーバーにはゲームに関する情報以外の" +
-						"Googleアカウントや他の個人情報は一切保存しません",
-				"ko":"즉, GITADORA Info의 서버에는 게임과 관련된 정보를 제외하고는" +
-						" Google 계정이나 다른 아무런 개인정보도 서버에 저장하지 않습니다.",
-				"en":""
-			},
-			p7: {
-				"jp":"Twitterも選択できたんですが、Googleを選んだ理由は" +
-						"TwitterよりはGoogleを使ってる人が多く、" +
-						"不便を最小限にするためです。",
-				"ko":"Twitter도 선택할 수 있었겠지만 굳이 Google을 선택한 이유는" +
-						" Twitter를 사용하는 사람보다는 Google을 사용하는 사람이 많고" +
-						" 이에 따른 불편함을 최소한으로 줄이기 위함입니다.",
-				"en":""
-			}
-		}
-	},
 	login: {
 		title: {
 			"jp":"ログイン",
@@ -194,9 +110,9 @@ var text = {
 			"en":"Sign up"
 		},
 		google: {
-			"jp":"GITADORA InfoはGoogleのアカウントを使ったログインができます",
-			"ko":"GITADORA Info는 구글 계정을 사용한 로그인만을 지원합니다.",
-			"en":"GITADORA Info only uses Google account login"
+			"jp":"SINはGoogleのアカウントを使ったログインができます",
+			"ko":"SIN은 구글 계정을 사용한 로그인만을 지원합니다.",
+			"en":"SIN only uses Google account login"
 		}
 	},
 	music: {

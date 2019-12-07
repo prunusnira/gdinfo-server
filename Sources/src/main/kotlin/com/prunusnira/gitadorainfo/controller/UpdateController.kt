@@ -42,6 +42,7 @@ import java.io.InputStreamReader
 import java.util.Base64
 import javax.imageio.ImageIO
 import javax.servlet.http.HttpServletRequest
+import com.prunusnira.gitadorainfo.data.SecretConst
 
 @Controller
 class UpdateController {
@@ -174,7 +175,7 @@ class UpdateController {
 		val img = ImageIO.read(bis)
 		bis.close()
 		
-		val outputFile = File("/data/img/board/"+id+".png")
+		val outputFile = File(SecretConst.boardRealpathServer+id+".png")
 		outputFile.mkdirs()
 		if(outputFile.exists()) {
 			outputFile.delete()

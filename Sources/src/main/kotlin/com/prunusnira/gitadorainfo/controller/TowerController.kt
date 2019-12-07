@@ -37,7 +37,7 @@ class TowerController {
 	@Autowired
 	lateinit var userService: UserService
 	
-	@RequestMapping(value=["/d/towerdata/{towername}/{userid}"],
+	@RequestMapping(value=["/towerdata/{towername}/{userid}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun towerData(@PathVariable("towername") towername: String,
@@ -65,7 +65,7 @@ class TowerController {
 	
 	
 	
-	@RequestMapping(value=["/d/towerlist"],
+	@RequestMapping(value=["/towerlist"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun towerList(): String {
@@ -80,14 +80,14 @@ class TowerController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/towertitle/{userid}"],
+	@RequestMapping(value=["/towertitle/{userid}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun towerTitle(@PathVariable("userid") userid: Int): String {
 		return userService.getTowerTitle(userid)
 	}
 	
-	@RequestMapping(value=["/d/towertitleapply/{userid}/{title}"])
+	@RequestMapping(value=["/towertitleapply/{userid}/{title}"])
 	@ResponseBody
 	fun towerTitleApply(@PathVariable("userid") userid: Int,
 						@PathVariable("title") title: String): String {

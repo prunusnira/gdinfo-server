@@ -8,8 +8,6 @@
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
  *****************************************************/
-$('head').append('<script src="/function/language/header.js"><\/script>');
-$('head').append('<script src="/function/language/footer.js"><\/script>');
 $('head').append('<script src="/js/jquery.cookie.js"><\/script>');
 
 var searchtype = "name";

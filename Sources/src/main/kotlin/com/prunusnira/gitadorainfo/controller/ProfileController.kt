@@ -49,7 +49,7 @@ class ProfileController {
 	
 	val logger = LoggerFactory.getLogger(javaClass)
 	
-	@RequestMapping(value=["/d/gettoken"],
+	@RequestMapping(value=["/gettoken"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun getToken(req: HttpServletRequest): String? {
@@ -63,7 +63,7 @@ class ProfileController {
 		return token
 	}
 	
-	@RequestMapping(value=["/d/getuser/{token}"],
+	@RequestMapping(value=["/getuser/{token}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun getUserToken(@PathVariable("token") token: String): String {
@@ -78,7 +78,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/getuserid/{id}"],
+	@RequestMapping(value=["/getuserid/{id}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun getUserId(req: HttpServletRequest,
@@ -100,7 +100,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/skillrecord/{id}"],
+	@RequestMapping(value=["/skillrecord/{id}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun profile(@PathVariable("id") userid: Int): String {
@@ -115,7 +115,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/cleartable/{gtype}/{id}"],
+	@RequestMapping(value=["/cleartable/{gtype}/{id}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun clearTable(@PathVariable("id") uid: Int,
@@ -140,7 +140,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/mybest/{id}"],
+	@RequestMapping(value=["/mybest/{id}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun mostplayed(@PathVariable("id") userid: Int): String {
@@ -162,7 +162,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/d/setopencount"])
+	@RequestMapping(value=["/setopencount"])
 	fun opencount(@RequestParam(value="open", required=false) open: String,
 				  @RequestParam(value="id") userid: Int)
 	: String {
@@ -177,7 +177,7 @@ class ProfileController {
 		return "redirect:/profile"
 	}
 	
-	@RequestMapping(value=["/d/notplayed/{gtype}/{id}/{vertype}/{page}"],
+	@RequestMapping(value=["/notplayed/{gtype}/{id}/{vertype}/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun notplayed(@PathVariable("gtype") gtype: String,
@@ -218,7 +218,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping("/d/resetdata")
+	@RequestMapping("/resetdata")
 	@ResponseBody
 	fun resetData(@RequestParam("id") id: Int): String {
 		userService.reset(id)
@@ -232,7 +232,7 @@ class ProfileController {
 		return towerService.updateTowerProfile(id, skillService).toString()
 	}
 	
-	@RequestMapping("/d/profile/towerstatus/tower/{id}")
+	@RequestMapping("/profile/towerstatus/tower/{id}")
 	@ResponseBody
 	fun getTowerClearProfile(@PathVariable("id") id: Int): String {
 		val mapper = ObjectMapper()
@@ -250,7 +250,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping("/d/profile/towerstatus/floor/{id}")
+	@RequestMapping("/profile/towerstatus/floor/{id}")
 	@ResponseBody
 	fun getTowerFloorProfile(@PathVariable("id") id: Int): String {
 		val mapper = ObjectMapper()
@@ -261,7 +261,7 @@ class ProfileController {
 		return node.toString()
 	}
 	
-	@RequestMapping("/d/profile/countupdate/{id}")
+	@RequestMapping("/profile/countupdate/{id}")
 	@ResponseBody
 	fun updateTotalCount(@PathVariable("id") id: Int): String {
 		var gfc:Int = skillService.getPlayCountGF(id)

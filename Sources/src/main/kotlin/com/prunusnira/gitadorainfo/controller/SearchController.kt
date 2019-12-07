@@ -33,7 +33,7 @@ class SearchController {
 	@Autowired
 	lateinit var musicService: MusicService
 	
-	@RequestMapping(value=["/d/search/{stype}/{val}/{page}"],
+	@RequestMapping(value=["/search/{stype}/{val}/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun search(req: HttpServletRequest,
