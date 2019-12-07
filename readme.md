@@ -1,27 +1,25 @@
 # gdinfo-server
 
 ## About
-Repository for GITADORA Info Server  
+Repository for Skill Navigator Server  
 This repo was managed from BitBucket but moved to GitHub
 
 ## Spec
-* Backend: Spring Boot (Kotlin), MariaDB, MyBatis, Gradle, Thymeleaf (for script login)
-* Frontend: ReactJS, Bootstrap 4
-* Additional Library: Recharts, html2canvas
+* Spring Boot (Kotlin), MariaDB, MyBatis, Gradle, Thymeleaf (for script login)
+* Check frontend code from gdinfo-react repository
 
 ## URL
-https://gitadora.info
+https://sin.nira.one
 
-## Range (Changed)
+## Range
 The repository now contains fully backend codes except sensative files (such as DB connection info)
 
 ## Server Composition
-- Backend Framework: Spring Boot 2.1.9 written in Kotlin language  
-- Frontend Library: ReactJS, Bootstrap (Reactstrap), html2canvas, jsSHA, Recharts  
+- Framework: Spring Boot 2.1.9 written in Kotlin language  
 - Build System: Gradle (not included)  
 - SSL: Certbot (not included)  
-- Server environment: Linux(Ubuntu) - nginx - Spring  
-                                                                                        - ReactJS
+- DB: MariaDB  
+- Server environment: Linux(Ubuntu) - nginx - Spring - ReactJS
 
 ## License
 This project is under AGPL 3.0. Please check LICENSE file
@@ -37,7 +35,7 @@ All kind of pull requests are welcomed including translation
 2. Backend and Frontend are completely separated
 3. Backend: Only for data management - Spring Boot & Gradle
 4. Frontend: Only for showing data on screen through web, and Single Page Applicaiton - React JS
-5. PIU Manager also separated
+5. PIU Manager separated
 6. Update Spring Boot from 2.1.1 to 2.1.9
 
 ### Sixth Version (2018.11.30 Version 4.5)
