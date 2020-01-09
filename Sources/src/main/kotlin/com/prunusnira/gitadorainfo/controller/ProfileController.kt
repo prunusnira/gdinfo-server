@@ -84,9 +84,6 @@ class ProfileController {
 	fun getUserId(req: HttpServletRequest,
 				  @PathVariable("id") id: Int): String {
 		val session = req.session
-		System.out.println("SESSION TEST1: "+session.getAttribute("TEST"))
-		session.setAttribute("TEST", "TEST")
-		System.out.println("SESSION TEST2: "+session.getAttribute("TEST"))
 		val token = session.getAttribute("token")
 		val mapper = ObjectMapper()
 		val node = mapper.createObjectNode()
@@ -163,18 +160,19 @@ class ProfileController {
 	}
 	
 	@RequestMapping(value=["/setopencount"])
+	@ResponseBody
 	fun opencount(@RequestParam(value="open", required=false) open: String,
-				  @RequestParam(value="id") userid: Int)
-	: String {
+				  @RequestParam(value="id") userid: Int): String {
 		userService.updateOpenCount(open, userid)
-		return "redirect:/profile"
+		return "200"
 	}
 	
-	@RequestMapping(value=["/d/setcomment"])
+	@RequestMapping(value=["/setcomment"], method=[RequestMethod.GET])
+	@ResponseBody
 	fun comment(@RequestParam(value="val", required=false) comment: String,
 				@RequestParam(value="id") userid: Int): String {
 		userService.updateComment(comment, userid)
-		return "redirect:/profile"
+		return "200"
 	}
 	
 	@RequestMapping(value=["/notplayed/{gtype}/{id}/{vertype}/{page}"],
