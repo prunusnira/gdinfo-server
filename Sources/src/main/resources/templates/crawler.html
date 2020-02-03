@@ -48,15 +48,15 @@ var text = {
 			"en":"Updater is currently in construction. Please wait until fixed."
 		},
 		notlogin: {
-			"jp":"<b><font color='red'>* 更新スクリプトをdata.gitadora.infoではなくsindata.nira.oneに更新してください！！ *</font></b><br/>"+
-				"<b><font color='blue'>アドレス更新後ログインの問題がある場合は「ブラウザのキャッシュ削除」を行うか「シークレットモード」で更新してください</font></b><br/>"+
-				"先に<a href='https://sindata.nira.one/login' target='_blank'>こちら</a>のログインページでログインしてください",
-			"ko":"<b><font color='red'>* 갱신 스크립트를 data.gitadora.info가 아닌 sindata.nira.one으로 변경해서 접속해주세요!! *</font></b><br/>"+
-				"<b><font color='blue'>주소를 변경한 후에 로그인이 되지 않는다면 캐시삭제 혹은 시크릿 모드에서 해주세요</font></b><br/>"+
-				"로그인이 필요합니다. <a href='https://sindata.nira.one/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요",
-			"en":"<b><font color='red'>* Please change script url from [ data.gitadora.info ] to [ sindata.nira.one ] *</font></b><br/>"+			
-				"<b><font color='blue'>If you can not login after you changed script address, try to delete browser cache or try all sequence from secret mode</font></b><br/>"+
-				"Please sign in first from <a href='https://sindata.nira.one/login' target='_blank'>This login page</a>"
+			"jp":"お先に<a href='https://sindata.nira.one/login' target='_blank'>こちら</a>のログインページでログインしてください<br/><br/>"+
+				"<b><span style='color: red'>このログインはsin.nira.oneとは別のログインです!</span></b><br/><br/>"+
+				"※ GITADORA Infoのサイト名とアドレスが変更されました。ぜひ <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> をチェックしてください！ ※",
+			"ko":"로그인이 필요합니다. <a href='https://sindata.nira.one/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요<br/><br/>"+
+				"<b><span style='color: red'>이 로그인은 홈페이지 로그인과 별개의 로그인입니다!</span></b><br/><br/>"+
+				"※ GITADORA Info의 사이트 이름과 주소가 바뀌었습니다. 꼭 <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> 을 체크해주세요! ※",
+			"en":"Please sign in first from <a href='https://sindata.nira.one/login' target='_blank'>This login page</a><br/><br/>"+
+				"<b><span style='color: red'>This is separated login sequence</span></b><br/><br/>"+
+				"※ GITADORA Info changed its name and address. Please check <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> ※"
 		},
 		logined: {
 			"jp":"ログイン確認",
@@ -70,9 +70,9 @@ var text = {
 				"en":"※CAUTION※"
 			},
 			warn1: {
-				"jp":"1. GITADORA Infoは本サービスを利用することにより発生するe-amusementサービスからの利用制限について責任を持っていません",
-				"ko":"1. GITADORA Info에 의한 e-Amusement 서비스의 이용제한에 대해 책임을 지지 않음",
-				"en":"1. GITADORA Info DOES NOT take any charge of BAN from eAmusement service for using the service"
+				"jp":"1. Skill Navigatorは本サービスを利用することにより発生するe-amusementサービスからの利用制限について責任を持っていません",
+				"ko":"1. Skill Navigator에 의한 e-Amusement 서비스의 이용제한에 대해 책임을 지지 않음",
+				"en":"1. Skill Navigator DOES NOT take any charge of BAN from eAmusement service for using the service"
 			},
 			warn2: {
 				"jp":"2. Google Chromeブラウザをおすすめします<br/><b style='color:red;'>特にInternet Explorer(Windows), Safari(iOS)では利用できません</b>",
@@ -752,6 +752,13 @@ function SkillCrawler() {
 						jsonGf.clearcount = clearcount;
 						break;
 					case 2:
+						var clearstat;
+						$(this).children('td').each(function(zz,zx) {
+							if(zz == 1)
+								clearstat = $(this).attr('class').split(' ')[2];
+						});
+						jsonGf.clearstat = clearstat;
+						
 						var rank;
 						$(this).children('td').each(function(zz,zx) {
 							if(zz == 2)
@@ -823,6 +830,13 @@ function SkillCrawler() {
 						jsonDm.clearcount = clearcount;
 						break;
 					case 2:
+						var clearstat;
+						$(this).children('td').each(function(zz,zx) {
+							if(zz == 1)
+								clearstat = $(this).attr('class').split(' ')[2];
+						});
+						jsonDm.clearstat = clearstat;
+						
 						var rank;
 						$(this).children('td').each(function(zz,zx) {
 							if(zz == 2)
@@ -1506,7 +1520,7 @@ $(function () {
 			+ '</div>';
 	}
 	inject += '<div class="row">'
-				+ '<div class="col-12">GITADORA Info developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div>'
+				+ '<div class="col-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div>'
 				+ '</div>'
 		+ '</div></div>';
 	$(inject).insertBefore("body");

@@ -38,33 +38,33 @@ if (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgen
 var text = {
 	crawler: {
 		notlogin: {
-			"jp":"<b><font color='red'>* 更新スクリプトをdata.gitadora.infoではなくsindata.nira.oneに更新してください！！ *</font></b><br/>"+
-				"<b><font color='blue'>アドレス更新後ログインの問題がある場合は「ブラウザのキャッシュ削除」を行うか「シークレットモード」で更新してください</font></b><br/>"+
-				"先に<a href='https://sindata.nira.one/login' target='_blank'>こちら</a>のログインページでログインしてください",
-			"ko":"<b><font color='red'>* 갱신 스크립트를 data.gitadora.info가 아닌 sindata.nira.one으로 변경해서 접속해주세요!! *</font></b><br/>"+
-				"<b><font color='blue'>주소를 변경한 후에 로그인이 되지 않는다면 캐시삭제 혹은 시크릿 모드에서 해주세요</font></b><br/>"+
-				"로그인이 필요합니다. <a href='https://sindata.nira.one/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요",
-			"en":"<b><font color='red'>* Please change script url from [ data.gitadora.info ] to [ sindata.nira.one ] *</font></b><br/>"+			
-				"<b><font color='blue'>If you can not login after you changed script address, try to delete browser cache or try all sequence from secret mode</font></b><br/>"+
-				"Please sign in first from <a href='https://sindata.nira.one/login' target='_blank'>This login page</a>"
+			"jp":"お先に<a href='https://sindata.nira.one/login' target='_blank'>こちら</a>のログインページでログインしてください<br/><br/>"+
+				"<b><span style='color: red'>このログインはsin.nira.oneとは別のログインです!</span></b><br/><br/>"+
+				"※ GITADORA Infoのサイト名とアドレスが変更されました。ぜひ <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> をチェックしてください！ ※",
+			"ko":"로그인이 필요합니다. <a href='https://sindata.nira.one/login' target='_blank'>본 링크</a>의 로그인 페이지에서 먼저 로그인 하신 후 다시 시도해 주세요<br/><br/>"+
+				"<b><span style='color: red'>이 로그인은 홈페이지 로그인과 별개의 로그인입니다!</span></b><br/><br/>"+
+				"※ GITADORA Info의 사이트 이름과 주소가 바뀌었습니다. 꼭 <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> 을 체크해주세요! ※",
+			"en":"Please sign in first from <a href='https://sindata.nira.one/login' target='_blank'>This login page</a><br/><br/>"+
+				"<b><span style='color: red'>This is separated login sequence</span></b><br/><br/>"+
+				"※ GITADORA Info changed its name and address. Please check <a href='https://sin.nira.one' target='_blank'>sin.nira.one</a> ※"
 		},
 		loginconfirm: {
 			"jp":"<h3><b><font color='red'>※ご注意※</font></b></h3><br/>"+
-				"1. GITADORA Infoは本サービスを利用することで発生するe-AmusementサービスからのBANや制限について責任を持っていません<br/>"+
+				"1. Skill Navigatorは本サービスを利用することで発生するe-AmusementサービスからのBANや制限について責任を持っていません<br/>"+
 				"2. Google ChromeなどのWebKit類のブラウザがおすすめです (Internet Explorer使用不可)<br/>"+
 				"3. ２つ以上の機能を同時に使っては行けません<br/>"+
 				"4. 使用前eAmusementのログイン状態をチェックしてください<br/>"+
 				"5. 使用中eAmusementの他のページを探索するのは禁止となります (他のデバイスからの接近もエラーを発生することがあります)"+
 				"6. 一部のブラウザーはバックグラウンド状態では更新が一時的に止まりますのでご注意ください(ブラウザーのタブも含めて)",
 			"ko":"<h3><b><font color='red'>※주의사항※</font></b></h3><br/>"+
-				"1. GITADORA Info에 의한 e-Amusement 서비스의 밴에 대해 책임을 지지 않음(이용약관 참고)<br/>"+
+				"1. Skill Navigator에 의한 e-Amusement 서비스의 밴에 대해 책임을 지지 않음(이용약관 참고)<br/>"+
 				"2. Google Chrome 사용 권장 (Internet Explorer 사용 불가)<br/>"+
 				"3. 2가지 이상의 기능을 동시에 실행하지 말 것<br/>"+
 				"4. 사용 전 e-Amusement Gate 로그인 상태 체크<br/>"+
 				"5. 사용 중 e-Amusement Gate 내의 다른 페이지 접근 금지 (다른 디바이스를 사용한 접근도 안됨)<br/>"+
 				"6. 일부 환경에서는 페이지를 백그라운드로 할 경우 갱신이 되지 않으므로 주의 (브라우저 탭 포함)",
 			"en":"<h3><b><font color='red'>※CAUTION※</font></b></h3><br/>"+
-				"1. GITADORA Info DOES NOT take any charge of BAN from eAmusement service for using the service (Check terms and conditions)<br/>"+
+				"1. Skill Navigator DOES NOT take any charge of BAN from eAmusement service for using the service (Check terms and conditions)<br/>"+
 				"2. We recommend to use Google Chrome (Internet Explorer is not usable)<br/>"+
 				"3. Do not use 2 or more functions at the same time<br/>"+
 				"4. Check your login status of eAmusement<br/>"+
@@ -85,15 +85,21 @@ var text = {
 			"jp":"1.全曲更新は30分から50分、対象曲は3分くらい掛ります<br/>"+
 				"2.前作の更新は機種別全パターンの更新だけ可能となります<br/>"+
 				"3.読み込みタイムは基本設定(500ms)以上がおすすめです<br/>"+
-				"4.ボタンが間違えた時はページを読み直すとかタブを閉めて再更新してください<br/>",
+				"4.ボタンが間違えた時はページを読み直すとかタブを閉めて再更新してください<br/>"+
+				"5.この更新によりすべての旧曲のランクが旧バージョンのものになりますので、更新後は必ず現バージョンのデータにもう一度更新を行ってください<br/>"+
+				"(削除曲への対応となります)<br/>",
 			"ko":"1. 전곡 업데이트는 30~50분, 스킬대상곡은 3분정도 소요됩니다<br/>"+
 				"2. 구작 업데이트는 기종 별 전 패턴 업데이트만 가능합니다.<br/>"+
 				"3. 업데이트 시 곡 별 갱신 대기시간은 기본 설정(500ms) 이상으로 설정할 것을 추천합니다<br/>"+
-				"4. 버튼을 잘못 선택한 경우에는 페이지를 새로고침하거나 닫은 후 다시 불러오세요<br/>",
+				"4. 버튼을 잘못 선택한 경우에는 페이지를 새로고침하거나 닫은 후 다시 불러오세요<br/>"+
+				"5. 이 갱신을 수행한 뒤에는 구곡 랭크가 모두 구 버전의 랭크가 되므로 갱신 뒤 현재 버전의 데이터를 한 번 더 갱신해주세요<br/>"+
+				"(삭제곡에 대한 대응입니다)<br/>",
 			"en":"1. All song update takes 30 to 50 minutes and Skill Only update takes 3 minutes<br/>"+
 				"2. For old version update, you can only use 'all patterns' for each game(GF or DM)<br/>"+
 				"3. We recommend that time interval should be more than basic setting (at least 500ms)<br/>"+
-				"4. If you clicked wrong button, please use reload page or close tab and try again<br/>"
+				"4. If you clicked wrong button, please use reload page or close tab and try again<br/>"+
+				"5. After this sequence, your rank data will be changed as old version. Please do update for version which is in operation after you finished this update<br/>"+
+				"(This is for removed songs' rank update)<br/>"
 		},
 		gall: {
 			"jp":"GF全曲",
@@ -469,6 +475,13 @@ function SkillCrawler() {
 						jsonGf.clearcount = clearcount;
 						break;
 					case 2:
+						var clearstat;
+						$(this).children('td').each(function(zz,zx) {
+							if(zz == 1)
+								clearstat = $(this).attr('class').split(' ')[2];
+						});
+						jsonGf.clearstat = clearstat;
+						
 						var rank;
 						$(this).children('td').each(function(zz,zx) {
 							if(zz == 2)
@@ -540,6 +553,13 @@ function SkillCrawler() {
 						jsonDm.clearcount = clearcount;
 						break;
 					case 2:
+						var clearstat;
+						$(this).children('td').each(function(zz,zx) {
+							if(zz == 1)
+								clearstat = $(this).attr('class').split(' ')[2];
+						});
+						jsonDm.clearstat = clearstat;
+						
 						var rank;
 						$(this).children('td').each(function(zz,zx) {
 							if(zz == 2)
@@ -980,7 +1000,8 @@ $(function () {
 					+ '</div>'
 				+ '</div>';
 	    }
-	inject += '<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/><div class="row"><div class="col-xs-12">GITADORA Info developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div></div>'
-		+ '</div></div>';
+	inject += '<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>'+
+				'<div class="row"><div class="col-xs-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div></div>'
+				+ '</div></div>';
 	$(inject).insertBefore("body");
 });

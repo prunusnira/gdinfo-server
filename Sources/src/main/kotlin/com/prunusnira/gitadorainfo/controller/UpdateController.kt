@@ -290,8 +290,10 @@ class UpdateController {
 				val patterncode = Math.toIntExact(jsonPattern["patterncode"] as Long)
 				val playtime = (jsonPattern["playcount"] as String).toInt()
 				val cleartime = (jsonPattern["clearcount"] as String).toInt()
+				val clearstat = jsonPattern["clearstat"] as String
 				var rank = jsonPattern["rank"] as String
 				var rateStr = jsonPattern["rate"] as String
+				
 				if(rateStr == "-") rateStr = "0"
 				else if(rateStr == "NO") {
 					rateStr = "0"
@@ -299,7 +301,6 @@ class UpdateController {
 				}
 				else if(rateStr == "MAX" || rateStr == "100" || rateStr == "100.00") {
 					rateStr = "10000"
-					rank = "EXC"
 				}
 				else {
 					rateStr = rateStr.replace("%", "")
@@ -309,10 +310,16 @@ class UpdateController {
 				val combo = (jsonPattern["combo"] as String).toInt()
 				
 				var checkfc = "N"
-				val meter = jsonPattern["meter"] as String
-				if(meter.length == 64 && !meter.contains("0")) {
+				if(clearstat.equals("FULL")) {
 					checkfc = "Y"
 				}
+				
+				if(clearstat.equals("EXCELLENT")) {
+					checkfc = "Y"
+					rank = "EXC"
+				}
+				
+				val meter = jsonPattern["meter"] as String
 				
 				val skill = Skill(profile.id, mdata.id, mdata.version,
 					patterncode, playtime, cleartime, rank, rate, score, combo,

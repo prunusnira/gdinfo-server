@@ -662,7 +662,7 @@
     
     <!-- 신작 출시 시 구작 스킬 업데이트로 변경 -->
     <insert id="addResultOld">
-         INSERT INTO skill ( userid, musicid, version, patterncode,
+         INSERT INTO skill ( userid, musicid, version, patterncode, rank,
          	<if test='gver == "ex"'>
          	rateex
          	</if>
@@ -675,7 +675,8 @@
          )
          VALUES
          <foreach collection="skill" item="item" index="index" separator=",">
-         	( #{item.userid}, #{item.musicid}, #{item.version}, #{item.patterncode}, #{item.rate} )
+         	( #{item.userid}, #{item.musicid}, #{item.version},
+         		#{item.patterncode}, #{item.rank}, #{item.rate} )
 		</foreach>
 		ON DUPLICATE KEY UPDATE
 			<if test='gver == "ex"'>

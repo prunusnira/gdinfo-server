@@ -192,6 +192,8 @@ class UpdateOldController {
 			for(j in 0..pattern.size-1) {
 				val jsonPattern = pattern[j] as JSONObject
 				val patterncode = Math.toIntExact(jsonPattern["patterncode"] as Long)
+				val clearstat = jsonPattern["clearstat"] as String
+				var rank = jsonPattern["rank"] as String
 				var rateStr = jsonPattern["rate"] as String
 				if(rateStr == "-") rateStr = "0"
 				else if(rateStr == "NO") {
@@ -203,9 +205,12 @@ class UpdateOldController {
 				else {
 					rateStr = rateStr.replace("%", "")
 				}
+				
+				if(clearstat.equals("EXCELLENT")) rank = "EXC"
+				
 				val rate = rateStr.replace(".", "").toInt()
 				
-				val skill = Skill(profile.id, mdata.id, mdata.version, patterncode, rate)
+				val skill = Skill(profile.id, mdata.id, mdata.version, patterncode, rank, rate)
 				uploadList.add(skill)
 				if(uploadList.size == 50) {
 					skillService.addResultOld(uploadList, gver)

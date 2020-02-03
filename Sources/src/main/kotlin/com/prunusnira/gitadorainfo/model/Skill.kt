@@ -30,8 +30,8 @@ data class Skill(var userid: Int,
 			var checkfc: String,
 			var meter: String,
 			var level: Int) {
-	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int, rate: Int)
-			: this(userid, musicid, version, patterncode, 0, 0, "", rate,
+	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int, rank: String, rate: Int)
+			: this(userid, musicid, version, patterncode, 0, 0, rank, rate,
 				0, 0, 0, 0, 0, 0, "", "", 0)
 	
 	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int,
