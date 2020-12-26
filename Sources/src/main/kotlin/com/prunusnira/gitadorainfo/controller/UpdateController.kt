@@ -1,5 +1,4 @@
-/*****************************************************
- * GITADORA Info Server
+/* GITADORA Info Server
  * Developed by Jeong Woo Lee a.k.a toycube-pf
  * (c) Nira & toycube-pf 2016
  *
@@ -7,7 +6,7 @@
  *    Please refer to LICENSE file on root
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
- *****************************************************/
+ */
 package com.prunusnira.gitadorainfo.controller
 
 import com.prunusnira.gitadorainfo.data.Const
@@ -43,6 +42,7 @@ import java.util.Base64
 import javax.imageio.ImageIO
 import javax.servlet.http.HttpServletRequest
 import com.prunusnira.gitadorainfo.data.SecretConst
+import kotlin.jvm.Throws
 
 @Controller
 class UpdateController {
@@ -229,20 +229,17 @@ class UpdateController {
 			val name = jsonMusic["name"] as String
 			var music = musicList[name] as List<Music>?
 			var newmusic = false
-			println(name)
 
 			if(music == null) {
 				// Add new music to DB
 				if(name != "") musicService.addNewMusicUpdater(name, Const.currentVer)
-				println("NEW MUSIC ADDED ".plus(name))
 				newmusic = true
 			}
 			else if(music.size > 1) {
-				// nothing to do now
-				println("SAME NAME, More than 2")
+				// nothing to do now (SAME NAME, More than 2)
 			}
 			else {
-				println("MUSIC ALREADY EXIST")
+				// music already exist
 			}
 
 			val lvmap = getLevelMap(jsonMusic) as HashMap<String, Int>
@@ -264,24 +261,10 @@ class UpdateController {
 				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
 			}
 			
-			if(newmusic) {
-				println("LEVEL MAP UPDATE")
-				println(lvmap.toString())
-			}
-			
 			musicService.updateMusicUpdater(name, lvmap, gtype)
-
-			if(newmusic) {
-				println("LEVEL DB UPDATE")
-			}
 
 			music = musicService.getMusicInfo(name)
 			val mdata  = music[0]
-
-			if(newmusic) {
-				println("MUSIC INFO")
-				println(mdata.toString())
-			}
 
 			val pattern = jsonMusic["data"] as JSONArray
 			
@@ -380,25 +363,20 @@ class UpdateController {
 		
 		val uploadList = ArrayList<Skill>()
 		for(i in 0..list.size-1) {
-			println("====================")
 			val jsonMusic = list[i] as JSONObject
 			val name = jsonMusic["name"] as String
 			var music = musicList[name] as List<Music>?
 			var newmusic = false
-			println(name)
 
 			if(music == null) {
-				println("NEW MUSIC FOUND")
 				if(name != "") musicService.addNewMusicUpdater(name, Const.currentVer)
-				println("NEW MUSIC ADDED ".plus(name))
 				newmusic = true
 			}
 			else if(music.size > 1) {
-				// nothing to do
-				println("SAME NAME, More than 2")
+				// nothing to do (SAME NAME, More than 2)
 			}
 			else {
-				println("MUSIC ALREADY EXIST")
+				// music already exist
 			}
 			
 			var lvmap = getLevelMapFromSimple(jsonMusic) as HashMap<String, Int>
@@ -425,24 +403,10 @@ class UpdateController {
 				lvmap = getLevelExist(name) as HashMap<String, Int>
 			}
 			
-			if(newmusic) {
-				println("LEVEL MAP UPDATE")
-				println(lvmap.toString())
-			}
-			
 			musicService.updateMusicUpdater(name, lvmap, gtype)
-			
-			if(newmusic) {
-				println("LEVEL DB UPDATE")
-			}
 			
 			music = musicService.getMusicInfo(name)
 			val mdata = music[0]
-			
-			if(newmusic) {
-				println("MUSIC INFO")
-				println(mdata.toString())
-			}
 			
 			val ptcode = Const.getPtcodeFromString(jsonMusic["type"] as String
 					+ jsonMusic["diff"] as String)

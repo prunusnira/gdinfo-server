@@ -1,5 +1,4 @@
-/*****************************************************
- * GITADORA Info Server
+/* GITADORA Info Server
  * Developed by Tae Jun Kang a.k.a Prunus Nira
  * (c) Nira 2016
  *
@@ -7,7 +6,7 @@
  *    Please refer to LICENSE file on root
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
- *****************************************************/
+ */
 package com.prunusnira.gitadorainfo.controller
 
 import com.prunusnira.gitadorainfo.model.User
@@ -27,14 +26,6 @@ import javax.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.ResponseBody
 import com.fasterxml.jackson.databind.ObjectMapper
 
-class LoginInfo {
-	var id: Int = 0
-	var token: String = ""
-	var stat: String = ""
-	var pausetime: Long = 0
-	var currenttime: Long = 0
-}
-
 @Controller
 class LoginController {
 	@Autowired
@@ -45,6 +36,14 @@ class LoginController {
 	
 	@Autowired
 	lateinit var userService: UserService
+
+	class LoginInfo {
+		var id: Int = 0
+		var token: String = ""
+		var stat: String = ""
+		var pausetime: Long = 0
+		var currenttime: Long = 0
+	}
 	
 	@RequestMapping(value=["/login"])
 	fun issueAuthUrl(req: HttpServletRequest,
@@ -57,6 +56,19 @@ class LoginController {
 		model.addAttribute("loginurl", url)
 		model.addAttribute("referer", req.getHeader("Referer"))
 		return "login"
+	}
+	
+	@RequestMapping(value=["/logout"])
+	fun logoutFromWeb(req: HttpServletRequest,
+					 model: Model): String {
+		val session = req.session
+		session.setAttribute("LoginReferer", req.getHeader("Referer"))
+		val oauthOperations = googleCon.getOAuthOperations()
+		val url = oauthOperations.buildAuthorizeUrl(
+			GrantType.AUTHORIZATION_CODE, oauthParams)
+		model.addAttribute("logouturl", url)
+		model.addAttribute("referer", req.getHeader("Referer"))
+		return "logout"
 	}
 	
 	@RequestMapping(value=["/oauth"])
@@ -96,12 +108,9 @@ class LoginController {
 		
 		val info = LoginInfo()
 		
-		System.out.println("TOKEN="+token)
 		if(user == null) {
 			// New User
 			session.setAttribute("token", token)
-			System.out.println("New user login")
-			
 			info.stat = "newuser"
 			info.token = session.getAttribute("token") as String
 			node.putPOJO("loginData", mapper.writeValueAsString(info))
@@ -113,8 +122,6 @@ class LoginController {
 				if((session.getAttribute("token") != null
 						&& session.getAttribute("token") != "")) {
 					// session already exist
-					System.out.println("Session Already Exist")
-					
 					info.stat = "login"
 					info.token = session.getAttribute("token") as String
 					info.id = user.id
@@ -125,12 +132,10 @@ class LoginController {
 						|| session.getAttribute("token") == "")) {
 					// existing user, login now
 					session.setAttribute("token", token)
-					System.out.println("New token added")
 					
 					info.stat = "login"
 					info.token = session.getAttribute("token") as String
 					info.id = user.id
-					System.out.println(info.toString())
 					node.putPOJO("loginData", mapper.writeValueAsString(info))
 					return node.toString() // main
 				}
@@ -165,7 +170,6 @@ class LoginController {
 							info.stat = "login"
 							info.token = session.getAttribute("token") as String
 							info.id = user.id
-							System.out.println(info.toString())
 							node.putPOJO("loginData", mapper.writeValueAsString(info))
 							return node.toString() // main
 						}
@@ -175,7 +179,6 @@ class LoginController {
 							info.stat = "login"
 							info.token = session.getAttribute("token") as String
 							info.id = user.id
-							System.out.println(info.toString())
 							node.putPOJO("loginData", mapper.writeValueAsString(info))
 							return node.toString() // main
 						}
@@ -230,10 +233,10 @@ class LoginController {
 		return "ok";
 	}
 	
-	@RequestMapping(value=["/logout"])
+	/*@RequestMapping(value=["/logout"])
 	fun logout(req: HttpServletRequest): String {
 		val session = req.session
 		session.setAttribute("token", null)
 		return "redirect:/index";
-	}
+	}*/
 }

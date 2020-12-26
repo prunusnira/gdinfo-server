@@ -110,9 +110,21 @@ var text = {
 			"en":"Sign up"
 		},
 		google: {
-			"jp":"SINはGoogleのアカウントを使ったログインができます",
-			"ko":"SIN은 구글 계정을 사용한 로그인만을 지원합니다.",
-			"en":"SIN only uses Google account login"
+			"jp":"Skill NavigatorはGoogleのアカウントを使ったログインができます",
+			"ko":"Skill Navigator은 구글 계정을 사용한 로그인만을 지원합니다.",
+			"en":"Skill Navigator only uses Google account login"
+		}
+	},
+	logout: {
+		title: {
+			"jp":"ログアウト",
+			"ko":"로그아웃",
+			"en":"Sign out"
+		},
+		google: {
+			"jp":"ここでデータ更新からログアウトできます",
+			"ko":"여기서 업데이터에 대한 로그아웃을 수행할 수 있습니다",
+			"en":"You can logout from here (for data updater)"
 		}
 	},
 	music: {
@@ -209,11 +221,11 @@ var text = {
 		}
 	},
 	noie: {
-		"jp":"Internet ExplorerではGITADORA Infoに接続できません。<br/>" +
+		"jp":"Internet ExplorerではSkill Navigatorに接続できません。<br/>" +
 				"<a class='innerhref' href='http://chrome.google.com'>Google Chrome</a>などの他のブラウザを使ってください。",
-		"ko":"GITADORA Info는 Internet Explorer를 지원하지 않습니다.<br/>" +
+		"ko":"Skill Navigator는 Internet Explorer를 지원하지 않습니다.<br/>" +
 				"<a class='innerhref' href='http://chrome.google.com'>구글 크롬</a>을 사용해주세요",
-		"en":"GITADORA Info DOES NOT support Internet Explorer any more.<br />"+
+		"en":"Skill Navigator DOES NOT support Internet Explorer any more.<br />"+
 				"Please use <a class='innerhref' href='http://chrome.google.com'>Google Chrome</a> instead."
 	}
 }

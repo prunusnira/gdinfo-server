@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
 import org.springframework.web.servlet.ModelAndView
+import kotlin.jvm.Throws
 
 class LoginInterceptor:HandlerInterceptorAdapter() {
 	private val logger = LoggerFactory.getLogger(javaClass)

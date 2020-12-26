@@ -15,13 +15,14 @@ import java.sql.Timestamp
 
 @Alias("recentUser")
 data class RecentUser(var id: Int,
-				 var titletower: String,
-				 var name: String,
-				 var gskill: Double,
-				 var dskill: Double,
-				 var updatetime: Timestamp,
-				 var uptimelong: Long) {
+					var titletower: String,
+					var name: String,
+					var gskill: Double,
+					var dskill: Double,
+					var updatetime: Timestamp,
+					var uptimelong: Long,
+					var opencount: String) {
 	constructor(id: Int, titletower: String, name: String,
-				gskill: Double, dskill: Double, updatetime: Timestamp)
-	: this(id, titletower, name, gskill, dskill, updatetime, 0)
+				gskill: Double, dskill: Double, updatetime: Timestamp, opencount: String)
+	: this(id, titletower, name, gskill, dskill, updatetime, 0, opencount)
 }

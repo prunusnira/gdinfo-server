@@ -1,5 +1,4 @@
-/*****************************************************
- * GITADORA Info Server
+/* GITADORA Info Server
  * Developed by Tae Jun Kang a.k.a Prunus Nira
  * (c) Nira 2016
  *
@@ -7,7 +6,7 @@
  *    Please refer to LICENSE file on root
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
- *****************************************************/
+ */
 package com.prunusnira.gitadorainfo.controller
 
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -83,9 +82,6 @@ class SkillController {
 		val ranks = FilterProcess.filterRank(rank)
 		val vers = FilterProcess.filterVer(ver)
 		val hotv = FilterProcess.filterHot(hot)
-		
-		System.out.println(rank)
-		System.out.println(ranks)
 		
 		val skillMap = skillService.getSkillTablePtype(
 								ptype, user, gtype, cpage, levels,

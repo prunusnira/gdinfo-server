@@ -1,5 +1,4 @@
-/*****************************************************
- * GITADORA Info Server
+/* GITADORA Info Server
  * Developed by Tae Jun Kang a.k.a Prunus Nira
  * (c) Nira 2016
  *
@@ -7,7 +6,7 @@
  *    Please refer to LICENSE file on root
  * 2. Also, products and libraries used to implement
  *    this server are on USED-LIBRARIES file on root
- *****************************************************/
+ */
 package com.prunusnira.gitadorainfo.service
 
 import com.prunusnira.gitadorainfo.mapper.TowerMapper

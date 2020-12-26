@@ -9,6 +9,7 @@ import java.io.IOException
 import javax.servlet.http.HttpServletResponse
 import javax.servlet.Filter
 import org.springframework.stereotype.Component
+import kotlin.jvm.Throws
 
 @Component
 class CORSFilter: Filter {
