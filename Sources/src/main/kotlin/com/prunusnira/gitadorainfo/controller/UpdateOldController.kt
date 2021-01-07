@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import java.io.InputStreamReader
 import javax.servlet.http.HttpServletRequest
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class UpdateOldController {
@@ -59,35 +60,40 @@ class UpdateOldController {
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun showUpdater(req: HttpServletRequest,
-					model: Model): String {
+					model: Model,
+					@RequestParam(value="token", required=false) token: String?): String {
 		val session = req.session
-		val token = session.getAttribute("token")
+		var tokenval: String? = token
 		
 		lateinit var logAdd: String
 		var user: User? = null
 		var crawlToken: String? = ""
 		var code = ""
 		
-		if(token != null) {
-			user = userService.getUserByToken(token as String)
-			crawlToken = updateService.getCrawlTokenByUserToken(token)
+		if(tokenval == null) {
+			tokenval = session.getAttribute("token") as String?;
+		}
+		
+		if(tokenval != null) {
+			user = userService.getUserByToken(tokenval)
+			crawlToken = updateService.getCrawlTokenByUserToken(tokenval)
 			
 			if(crawlToken == null) {
 				val id = String.format("%06d", user.id)
 				crawlToken = id + RandomStringUtils.randomAlphanumeric(58)
 				
-				updateService.addCrawlToken(token, crawlToken)
+				updateService.addCrawlToken(tokenval, crawlToken)
 				logAdd = "New token"
 			}
 			else {
-				updateService.addCrawlToken(token, crawlToken)
+				updateService.addCrawlToken(tokenval, crawlToken)
 				logAdd = "Token extended"
 			}
 			
 			code = code.plus("var crawlToken = '").plus(crawlToken).plus("';\n")
 						.plus("var userid = ").plus(user.id.toString()).plus(";\n")
 						.plus("var username = '").plus(user.name).plus("';\n")
-						.plus("var token = '").plus(token).plus("';\n")
+						.plus("var token = '").plus(tokenval).plus("';\n")
 		}
 		else {
 			logAdd = "No User Logined"
@@ -108,7 +114,7 @@ class UpdateOldController {
 		
 		if(user != null) model.addAttribute("user", user)
 		if(crawlToken != null) model.addAttribute("crawlToken", crawlToken)
-		IPLogger.writeLog(req, logger, userService, "Update(Old) "+logAdd)
+		//IPLogger.writeLog(req, logger, userService, "Update(Old) "+logAdd)
 		return code//"crawlerold"
 	}
 	
@@ -139,7 +145,7 @@ class UpdateOldController {
 		}
 		
 		userService.updateOldSkill(userid, gskill, dskill, gver)
-		IPLogger.writeLog(req, logger, userService, "Profile(Old) update")
+		//IPLogger.writeLog(req, logger, userService, "Profile(Old) update")
 		return "200"
 	}
 	
@@ -173,7 +179,7 @@ class UpdateOldController {
 		
 		val uploadList = ArrayList<Skill>()
 		
-		IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
+		//IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
 		
 		for(i in 0..list.size-1) {
 			val jsonMusic = list[i] as JSONObject
@@ -181,7 +187,7 @@ class UpdateOldController {
 			var music = musicList[name] as List<Music>
 			
 			if(music.size == 0) {
-				IPLogger.writeLog(req,  logger, userService, "Music no match: " + name)
+				//IPLogger.writeLog(req,  logger, userService, "Music no match: " + name)
 				continue
 			}
 			
@@ -214,16 +220,16 @@ class UpdateOldController {
 				if(uploadList.size == 50) {
 					skillService.addResultOld(uploadList, gver)
 					uploadList.clear()
-					IPLogger.writeLog(req,  logger, userService, "Uploaded(Old) 50")
+					//IPLogger.writeLog(req,  logger, userService, "Uploaded(Old) 50")
 				}
 			}
 		}
 		
 		if(uploadList.size != 0) {
 			skillService.addResultOld(uploadList, gver)
-			IPLogger.writeLog(req,  logger, userService, "Uploaded(Old) "+uploadList.size)
+			//IPLogger.writeLog(req,  logger, userService, "Uploaded(Old) "+uploadList.size)
 		}
-		IPLogger.writeLog(req,  logger, userService, "Skill upload(Old) complete")
+		//IPLogger.writeLog(req,  logger, userService, "Skill upload(Old) complete")
 		return "200"
 	}
 }

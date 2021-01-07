@@ -122,6 +122,8 @@ class LoginController {
 				if((session.getAttribute("token") != null
 						&& session.getAttribute("token") != "")) {
 					// session already exist
+					session.setAttribute("token", token)
+					
 					info.stat = "login"
 					info.token = session.getAttribute("token") as String
 					info.id = user.id

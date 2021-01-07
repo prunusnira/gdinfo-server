@@ -43,6 +43,7 @@ import javax.imageio.ImageIO
 import javax.servlet.http.HttpServletRequest
 import com.prunusnira.gitadorainfo.data.SecretConst
 import kotlin.jvm.Throws
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class UpdateController {
@@ -67,35 +68,40 @@ class UpdateController {
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun showUpdater(req: HttpServletRequest,
-					model: Model): String {
+					model: Model,
+					@RequestParam(value="token", required=false) token: String?): String {
 		val session = req.session
-		val token = session.getAttribute("token")
+		var tokenval: String? = token
 		
 		lateinit var logAdd: String
 		var user: User? = null
 		var crawlToken: String? = ""
 		var code = ""
 		
-		if(token != null) {
-			user = userService.getUserByToken(token as String)
-			crawlToken = updateService.getCrawlTokenByUserToken(token)
+		if(tokenval == null) {
+			tokenval = session.getAttribute("token") as String?;
+		}
+		
+		if(tokenval != null) {
+			user = userService.getUserByToken(tokenval)
+			crawlToken = updateService.getCrawlTokenByUserToken(tokenval)
 			
 			if(crawlToken == null) {
 				val id = String.format("%06d", user.id)
 				crawlToken = id + RandomStringUtils.randomAlphanumeric(58)
 				
-				updateService.addCrawlToken(token, crawlToken)
+				updateService.addCrawlToken(tokenval, crawlToken)
 				logAdd = "New token"
 			}
 			else {
-				updateService.addCrawlToken(token, crawlToken)
+				updateService.addCrawlToken(tokenval, crawlToken)
 				logAdd = "Token extended"
 			}
 			
 			code = code.plus("var crawlToken = '").plus(crawlToken).plus("';\n")
 						.plus("var userid = ").plus(user.id.toString()).plus(";\n")
 						.plus("var username = '").plus(user.name).plus("';\n")
-						.plus("var token = '").plus(token).plus("';\n")
+						.plus("var token = '").plus(tokenval).plus("';\n")
 		}
 		else {
 			logAdd = "No User Logined"
@@ -116,7 +122,7 @@ class UpdateController {
 		
 		if(user != null) model.addAttribute("user", user)
 		if(crawlToken != null) model.addAttribute("crawlToken", crawlToken)
-		IPLogger.writeLog(req, logger, userService, "Update "+logAdd)
+		//IPLogger.writeLog(req, logger, userService, "Update "+logAdd)
 		return code//"crawler"
 	}
 	
@@ -159,7 +165,7 @@ class UpdateController {
 				gfclv, dfclv, gfcnum, dfcnum, gexclv, dexclv, gexcnum, dexcnum)
 		userService.updateUser(prof)
 		userService.updateSkillRecord(userid, gskill, dskill)
-		IPLogger.writeLog(req, logger, userService, "Profile update")
+		//IPLogger.writeLog(req, logger, userService, "Profile update")
 		return "200"
 	}
 	
@@ -186,7 +192,7 @@ class UpdateController {
 		}
 		
 		ImageIO.write(img, "png", outputFile)
-		IPLogger.writeLog(req, logger, userService, "Board update")
+		//IPLogger.writeLog(req, logger, userService, "Board update")
 		return "200"
 	}
 	
@@ -222,7 +228,7 @@ class UpdateController {
 		
 		val uploadList = ArrayList<Skill>()
 		
-		IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
+		//IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
 		
 		for(i in 0..list.size-1) {
 			val jsonMusic = list[i] as JSONObject
@@ -311,23 +317,23 @@ class UpdateController {
 				if(uploadList.size == 50) {
 					skillService.addResult(uploadList)
 					uploadList.clear()
-					IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
+					//IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
 				}
 			}
 		}
 		
 		if(uploadList.size != 0) {
 			skillService.addResult(uploadList)
-			IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
+			//IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
 		}
-		IPLogger.writeLog(req,  logger, userService, "Skill upload complete-"+profile.id)
+		//IPLogger.writeLog(req,  logger, userService, "Skill upload complete-"+profile.id)
 		
 		var gfc:Int = skillService.getPlayCountGF(profile.id)
 		var dfc:Int = skillService.getPlayCountDM(profile.id)
 		userService.updatePlayCount("gf", gfc, profile.id)
 		userService.updatePlayCount("dm", dfc, profile.id)
 		userService.updatePlayCount("all", gfc+dfc, profile.id)
-		IPLogger.writeLog(req,  logger, userService, "Play count updated-"+profile.id)
+		//IPLogger.writeLog(req,  logger, userService, "Play count updated-"+profile.id)
 		return "200"
 	}
 	
@@ -449,14 +455,14 @@ class UpdateController {
 			if(uploadList.size == 50) {
 				skillService.addResult(uploadList)
 				uploadList.clear()
-				IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
+				//IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
 			}
 		}
 		if(uploadList.size != 0) {
 			skillService.addResult(uploadList)
-			IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
+			//IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
 		}
-		IPLogger.writeLog(req,  logger, userService, "Simple skill upload complete")
+		//IPLogger.writeLog(req,  logger, userService, "Simple skill upload complete")
 		return "200"
 	}
 	
