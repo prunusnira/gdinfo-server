@@ -1124,6 +1124,9 @@ function SkillCrawler() {
 		    	}
 			});
 		}
+				
+		// Enable button
+		enableButton();
 	}
 
 	func.crawlProfile = crawlProfile;
@@ -1149,6 +1152,9 @@ function crawlRunner(type) {
 	else if(type==9) skill.crawlTarget('gf', delay);
 	else if(type==10) skill.crawlTarget('dm', delay);
 	else console.log("[GITADORA Info] Wrong parameter passed");
+	
+	// disable all button
+	disableButton();
 }
 
 function crawlSelRunner(type) {
@@ -1190,6 +1196,46 @@ function setDelay() {
 
 function closeUpdater() {
 	location.reload();
+}
+
+function disableButton() {
+	document.getElementById("btnGTgt").setAttribute("disabled", "disabled");
+	document.getElementById("btnDTgt").setAttribute("disabled", "disabled");
+	
+	document.getElementById("btnGTgt2").setAttribute("disabled", "disabled");
+	document.getElementById("btnDTgt2").setAttribute("disabled", "disabled");
+	
+	document.getElementById("btnGAll").setAttribute("disabled", "disabled");
+	document.getElementById("btnDAll").setAttribute("disabled", "disabled");
+	
+	document.getElementById("btnGFav").setAttribute("disabled", "disabled");
+	document.getElementById("btnDFav").setAttribute("disabled", "disabled");
+	
+	document.getElementById("btnGBrd").setAttribute("disabled", "disabled");
+	document.getElementById("btnDBrd").setAttribute("disabled", "disabled");
+	
+	document.getElementById("btnGSel").setAttribute("disabled", "disabled");
+	document.getElementById("btnDSel").setAttribute("disabled", "disabled");
+}
+
+function enableButton() {
+	document.getElementById("btnGTgt").removeAttribute("disabled");
+	document.getElementById("btnDTgt").removeAttribute("disabled");
+	
+	document.getElementById("btnGTgt2").removeAttribute("disabled");
+	document.getElementById("btnDTgt2").removeAttribute("disabled");
+	
+	document.getElementById("btnGAll").removeAttribute("disabled");
+	document.getElementById("btnDAll").removeAttribute("disabled");
+	
+	document.getElementById("btnGFav").removeAttribute("disabled");
+	document.getElementById("btnDFav").removeAttribute("disabled");
+	
+	document.getElementById("btnGBrd").removeAttribute("disabled");
+	document.getElementById("btnDBrd").removeAttribute("disabled");
+	
+	document.getElementById("btnGSel").removeAttribute("disabled");
+	document.getElementById("btnDSel").removeAttribute("disabled");
 }
     
 $(function () {
@@ -1336,26 +1382,26 @@ $(function () {
 					+ '</div>'
 					+ '<div class="row">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(3)">'+text.crawler.gtarget[lang]+'</a>'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(4)">'+text.crawler.dtarget[lang]+'</a>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(3)" id="btnGTgt">'+text.crawler.gtarget[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(4)" id="btnDTgt">'+text.crawler.dtarget[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 					+ '<div class="row">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(9)">'+text.crawler.gtarget2[lang]+'</a>'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(10)">'+text.crawler.dtarget2[lang]+'</a>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(9)" id="btnGTgt2">'+text.crawler.gtarget2[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(10)" id="btnDTgt2">'+text.crawler.dtarget2[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 					+ '<div class="row">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(1)">'+text.crawler.gall[lang]+'</a>'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(2)">'+text.crawler.dall[lang]+'</a>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(1)" id="btnGAll">'+text.crawler.gall[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(2)" id="btnDAll">'+text.crawler.dall[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 					+ '<div class="row">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(7)">GF'+text.crawler.favo[lang]+'</a>'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(8)">DM'+text.crawler.favo[lang]+'</a>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(7)" id="btnGFav">GF'+text.crawler.favo[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(8)" id="btnDFav">DM'+text.crawler.favo[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 				+ '</div>'
@@ -1371,8 +1417,8 @@ $(function () {
 					+ '</div>'
 					+ '<div class="card-text" id="current">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(5)">GF '+text.crawler.board.short[lang]+'</a>'
-							+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlRunner(6)">DM '+text.crawler.board.short[lang]+'</a>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(5)" id="btnGBrd">GF '+text.crawler.board.short[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(6)" id="btnDBrd">DM '+text.crawler.board.short[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 				+ '</div>'
@@ -1508,8 +1554,8 @@ $(function () {
 						+ '</div>'
 						+ '<div class="row">'
 							+ '<div class="col-12 btn-group btn-group-justified">'
-								+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlSelRunner(1)">'+text.crawler.gsel[lang]+'</a>'
-								+ '<a class="btn btn-primary" style="width:100%;" href="#no_div" onclick="crawlSelRunner(2)">'+text.crawler.dsel[lang]+'</a>'
+								+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlSelRunner(1)" id="btnGSel">'+text.crawler.gsel[lang]+'</button>'
+								+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlSelRunner(2)" id="btnDSel">'+text.crawler.dsel[lang]+'</button>'
 							+ '</div>'
 						+ '</div>'
 					+ '</div>'
