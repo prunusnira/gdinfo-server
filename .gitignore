@@ -1,8 +1,3 @@
-/Design/
-/img/
-/database/
-/userdata/
-/snapshot/
 /oldver/
 
 Sources/src/main/resources/application.properties
