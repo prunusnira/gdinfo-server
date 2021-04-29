@@ -354,7 +354,7 @@
 						and (rank != "none" or meter != "")
 					</if>
 					<if test="vertype == 1">
-						and rate > 0
+						and ratehv > 0
 					</if>
 					and
 					<if test="gtype == 'gf'">

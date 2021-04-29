@@ -1084,18 +1084,31 @@ function SkillCrawler() {
 function crawlRunner(type) {
 	var skill = new SkillCrawler();
 	
-	// crawlSongs - 0: all, 1: target, 2: favo, 3: select
 	if(type==0) skill.crawlProfile();
-	else if(type==1) skill.crawlSongs('gf', 0, delay, null);
-	else if(type==2) skill.crawlSongs('dm', 0, delay, null);
-	else if(type==3) skill.crawlSongs('gf', 1, delay, null);
-	else if(type==4) skill.crawlSongs('dm', 1, delay, null);
-	else if(type==5) skill.crawlBoard('gf');
-	else if(type==6) skill.crawlBoard('dm');
-	else if(type==7) skill.crawlSongs('gf', 2, delay, null);
-	else if(type==8) skill.crawlSongs('dm', 2, delay, null);
-	else if(type==9) skill.crawlTarget('gf', delay);
-	else if(type==10) skill.crawlTarget('dm', delay);
+	
+	// quick target update
+	else if(type==10) skill.crawlTarget('gf', delay);
+	else if(type==11) skill.crawlTarget('gf', delay);
+	else if(type==12) skill.crawlTarget('dm', delay);
+	
+	// all song update
+	else if(type==20) skill.crawlSongs('gf', 0, delay, null);
+	else if(type==21) skill.crawlSongs('gf', 0, delay, null);
+	else if(type==22) skill.crawlSongs('dm', 0, delay, null);
+	
+	// target song update
+	else if(type==30) skill.crawlSongs('gf', 1, delay, null);
+	else if(type==31) skill.crawlSongs('gf', 1, delay, null);
+	else if(type==32) skill.crawlSongs('dm', 1, delay, null);
+	
+	// favo update
+	else if(type==41) skill.crawlSongs('gf', 2, delay, null);
+	else if(type==42) skill.crawlSongs('gf', 2, delay, null);
+	else if(type==40) skill.crawlSongs('dm', 2, delay, null);
+	
+	// board update
+	else if(type==51) skill.crawlBoard('gf');
+	else if(type==52) skill.crawlBoard('dm');
 	else console.log("[GITADORA Info] Wrong parameter passed");
 	
 	// disable all button
@@ -1146,15 +1159,19 @@ function closeUpdater() {
 function disableButton() {
 	document.getElementById("btnGTgt").setAttribute("disabled", "disabled");
 	document.getElementById("btnDTgt").setAttribute("disabled", "disabled");
+	document.getElementById("btnATgt").setAttribute("disabled", "disabled");
 	
 	document.getElementById("btnGTgt2").setAttribute("disabled", "disabled");
 	document.getElementById("btnDTgt2").setAttribute("disabled", "disabled");
+	document.getElementById("btnATgt2").setAttribute("disabled", "disabled");
 	
 	document.getElementById("btnGAll").setAttribute("disabled", "disabled");
 	document.getElementById("btnDAll").setAttribute("disabled", "disabled");
+	document.getElementById("btnAAll").setAttribute("disabled", "disabled");
 	
 	document.getElementById("btnGFav").setAttribute("disabled", "disabled");
 	document.getElementById("btnDFav").setAttribute("disabled", "disabled");
+	document.getElementById("btnAFav").setAttribute("disabled", "disabled");
 	
 	document.getElementById("btnGBrd").setAttribute("disabled", "disabled");
 	document.getElementById("btnDBrd").setAttribute("disabled", "disabled");
@@ -1166,15 +1183,19 @@ function disableButton() {
 function enableButton() {
 	document.getElementById("btnGTgt").removeAttribute("disabled");
 	document.getElementById("btnDTgt").removeAttribute("disabled");
+	document.getElementById("btnATgt").removeAttribute("disabled");
 	
 	document.getElementById("btnGTgt2").removeAttribute("disabled");
 	document.getElementById("btnDTgt2").removeAttribute("disabled");
+	document.getElementById("btnATgt2").removeAttribute("disabled");
 	
 	document.getElementById("btnGAll").removeAttribute("disabled");
 	document.getElementById("btnDAll").removeAttribute("disabled");
+	document.getElementById("btnAAll").removeAttribute("disabled");
 	
 	document.getElementById("btnGFav").removeAttribute("disabled");
 	document.getElementById("btnDFav").removeAttribute("disabled");
+	document.getElementById("btnAFav").removeAttribute("disabled");
 	
 	document.getElementById("btnGBrd").removeAttribute("disabled");
 	document.getElementById("btnDBrd").removeAttribute("disabled");
@@ -1292,8 +1313,9 @@ $(function () {
 							+ '<span>' + text.crawler.descTgtShort[lang] + '</span>'
 						+ '</div>'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(9)" id="btnGTgt2">GF</button>'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(10)" id="btnDTgt2">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(11)" id="btnGTgt2">GF</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(12)" id="btnDTgt2">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(10)" id="btnATgt2">All</button>'
 							+ '<br/>'
 						+ '</div>'
 					+ '</div>'
@@ -1305,8 +1327,9 @@ $(function () {
 							+ '<span>' + text.crawler.descTgtAll[lang] + '</span>'
 						+ '</div>'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(3)" id="btnGTgt">GF</button>'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(4)" id="btnDTgt">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(31)" id="btnGTgt">GF</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(32)" id="btnDTgt">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(30)" id="btnATgt">All</button>'
 							+ '<br/>'
 						+ '</div>'
 					+ '</div>'
@@ -1318,8 +1341,9 @@ $(function () {
 							+ '<span>' + text.crawler.descAll[lang] + '</span>'
 						+ '</div>'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(1)" id="btnGAll">GF</button>'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(2)" id="btnDAll">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(21)" id="btnGAll">GF</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(22)" id="btnDAll">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(20)" id="btnAAll">All</button>'
 							+ '<br/>'
 						+ '</div>'
 					+ '</div>'
@@ -1331,8 +1355,9 @@ $(function () {
 							+ '<span>' + text.crawler.descFavo[lang] + '</span>'
 						+ '</div>'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(7)" id="btnGFav">GF</button>'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(8)" id="btnDFav">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(41)" id="btnGFav">GF</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(42)" id="btnDFav">DM</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(40)" id="btnAFav">All</button>'
 						+ '</div>'
 					+ '</div>'
 				+ '</div>'
@@ -1348,8 +1373,8 @@ $(function () {
 					+ '</div>'
 					+ '<div class="card-text" id="current">'
 						+ '<div class="col-12 btn-group btn-group-justified">'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(5)" id="btnGBrd">GF '+text.crawler.board.short[lang]+'</button>'
-							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(6)" id="btnDBrd">DM '+text.crawler.board.short[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(51)" id="btnGBrd">GF '+text.crawler.board.short[lang]+'</button>'
+							+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(52)" id="btnDBrd">DM '+text.crawler.board.short[lang]+'</button>'
 						+ '</div>'
 					+ '</div>'
 				+ '</div>'
@@ -1494,7 +1519,7 @@ $(function () {
 			+ '</div>';
 	}
 	inject += '<div class="row">'
-				+ '<div class="col-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div>'
+				+ '<div class="col-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by Nira (<a href="https://twitter.com/_nira_one">@_nira_one</a>)</div>'
 				+ '</div>'
 		+ '</div></div>';
 	$(inject).insertBefore("body");

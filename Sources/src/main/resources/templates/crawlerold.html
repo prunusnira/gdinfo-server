@@ -131,7 +131,9 @@ function SkillCrawler() {
 		
 		var profurl = "";
 		
-		if(gver == "ex")
+		if(gver == "nx")
+			profurl = "https://p.eagate.573.jp/game/gfdm/gitadora_nextage/p/eam/playdata/profile.html";
+		else if(gver == "ex")
 			profurl = "https://p.eagate.573.jp/game/gfdm/gitadora_exchain/p/eam/playdata/profile.html";
 		else if(gver == "mx")
 			profurl = "https://p.eagate.573.jp/game/gfdm/gitadora_matixx/p/eam/playdata/profile.html";
@@ -601,7 +603,9 @@ function SkillCrawler() {
 	function getIndex(gtype, i, gver) {
 		var musicurl = "";
 		
-		if(gver == "ex")
+		if(gver == "nx")
+			musicurl = "https://p.eagate.573.jp/game/gfdm/gitadora_nextage/p/eam/playdata/music.html";
+		else if(gver == "ex")
 			musicurl = "https://p.eagate.573.jp/game/gfdm/gitadora_exchain/p/eam/playdata/music.html";
 		else if(gver == "mx")
 			musicurl = "https://p.eagate.573.jp/game/gfdm/gitadora_matixx/p/eam/playdata/music.html";
@@ -639,7 +643,9 @@ function SkillCrawler() {
 	function getTarget(gtype, stype, gver) {
 		var targeturl = "";
 		
-		if(gver == "ex")
+		if(gver == "nx")
+			targeturl = "https://p.eagate.573.jp/game/gfdm/gitadora_nextage/p/eam/playdata/skill.html";
+		else if(gver == "ex")
 			targeturl = "https://p.eagate.573.jp/game/gfdm/gitadora_exchain/p/eam/playdata/skill.html";
 		else if(gver == "mx")
 			targeturl = "https://p.eagate.573.jp/game/gfdm/gitadora_matixx/p/eam/playdata/skill.html";
@@ -677,6 +683,8 @@ function SkillCrawler() {
 	function getSongInfo(c, g, i, s, p, gver) {
 		var musicurl = "";
 		
+		if(gver == "nx")
+			musicurl = "https://p.eagate.573.jp/game/gfdm/gitadora_nextage/p/eam/playdata/music_detail.html";
 		if(gver == "ex")
 			musicurl = "https://p.eagate.573.jp/game/gfdm/gitadora_exchain/p/eam/playdata/music_detail.html";
 		else if(gver == "mx")
@@ -814,28 +822,36 @@ function SkillCrawler() {
 function crawlRunner(type) {
 	var skill = new SkillCrawler();
 	
-	// MATIXX
-	// crawlSongs - 0: all, 1: target, 2: favo, 3: select
-	if(type==0) skill.crawlProfile("mx");
-	else if(type==1) skill.crawlSongs('gf', 0, delay, null, "mx");
-	else if(type==2) skill.crawlSongs('dm', 0, delay, null, "mx");
-	else if(type==3) skill.crawlSongs('gf', 1, delay, null, "mx");
-	else if(type==4) skill.crawlSongs('dm', 1, delay, null, "mx");
-	
-	// crawlSongs - 0: all, 1: target, 2: favo, 3: select
-	if(type==5) skill.crawlProfile("tbre");
-	else if(type==6) skill.crawlSongs('gf', 0, delay, null, "tbre");
-	else if(type==7) skill.crawlSongs('dm', 0, delay, null, "tbre");
-	else if(type==8) skill.crawlSongs('gf', 1, delay, null, "tbre");
-	else if(type==9) skill.crawlSongs('dm', 1, delay, null, "tbre");
+	// TBRE
+	if(type==10) skill.crawlProfile("tbre");
+	else if(type==11) skill.crawlSongs('gf', 0, delay, null, "tbre");
+	else if(type==12) skill.crawlSongs('dm', 0, delay, null, "tbre");
+	else if(type==13) skill.crawlSongs('gf', 1, delay, null, "tbre");
+	else if(type==14) skill.crawlSongs('dm', 1, delay, null, "tbre");
 	else console.log("[GITADORA Info] Wrong parameter passed");
 	
-	// crawlSongs - 0: all, 1: target, 2: favo, 3: select
-	if(type==10) skill.crawlProfile("ex");
-	else if(type==11) skill.crawlSongs('gf', 0, delay, null, "ex");
-	else if(type==12) skill.crawlSongs('dm', 0, delay, null, "ex");
-	else if(type==13) skill.crawlSongs('gf', 1, delay, null, "ex");
-	else if(type==14) skill.crawlSongs('dm', 1, delay, null, "ex");
+	// MATIXX
+	if(type==20) skill.crawlProfile("mx");
+	else if(type==21) skill.crawlSongs('gf', 0, delay, null, "mx");
+	else if(type==22) skill.crawlSongs('dm', 0, delay, null, "mx");
+	else if(type==23) skill.crawlSongs('gf', 1, delay, null, "mx");
+	else if(type==24) skill.crawlSongs('dm', 1, delay, null, "mx");
+	else console.log("[GITADORA Info] Wrong parameter passed");
+	
+	// EXCHAIN
+	if(type==30) skill.crawlProfile("ex");
+	else if(type==31) skill.crawlSongs('gf', 0, delay, null, "ex");
+	else if(type==32) skill.crawlSongs('dm', 0, delay, null, "ex");
+	else if(type==33) skill.crawlSongs('gf', 1, delay, null, "ex");
+	else if(type==34) skill.crawlSongs('dm', 1, delay, null, "ex");
+	else console.log("[GITADORA Info] Wrong parameter passed");
+	
+	// NEXTAGE
+	if(type==40) skill.crawlProfile("nx");
+	else if(type==41) skill.crawlSongs('gf', 0, delay, null, "nx");
+	else if(type==42) skill.crawlSongs('dm', 0, delay, null, "nx");
+	else if(type==43) skill.crawlSongs('gf', 1, delay, null, "nx");
+	else if(type==44) skill.crawlSongs('dm', 1, delay, null, "nx");
 	else console.log("[GITADORA Info] Wrong parameter passed");
 	
 	// disable all button
@@ -873,6 +889,11 @@ function closeUpdater() {
 }
 
 function disableButton() {
+	document.getElementById("btnNXGTgt").setAttribute("disabled", "disabled");
+	document.getElementById("btnNXDTgt").setAttribute("disabled", "disabled");
+	document.getElementById("btnNXGAll").setAttribute("disabled", "disabled");
+	document.getElementById("btnNXDAll").setAttribute("disabled", "disabled");
+	
 	document.getElementById("btnEXGTgt").setAttribute("disabled", "disabled");
 	document.getElementById("btnEXDTgt").setAttribute("disabled", "disabled");
 	document.getElementById("btnEXGAll").setAttribute("disabled", "disabled");
@@ -890,6 +911,11 @@ function disableButton() {
 }
 
 function enableButton() {
+	document.getElementById("btnNXGTgt").removeAttribute("disabled");
+	document.getElementById("btnNXDTgt").removeAttribute("disabled");
+	document.getElementById("btnNXGAll").removeAttribute("disabled");
+	document.getElementById("btnNXDAll").removeAttribute("disabled");
+	
 	document.getElementById("btnEXGTgt").removeAttribute("disabled");
 	document.getElementById("btnEXDTgt").removeAttribute("disabled");
 	document.getElementById("btnEXGAll").removeAttribute("disabled");
@@ -968,23 +994,46 @@ $(function () {
 				
 				+ '<div class="row">'
 					+ '<div class="col-12 text-left">'
+					+ '<h3>NEXTAGE</h3>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-sm-6">'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(43)" id="btnNXGTgt">'+text.crawler.gtarget[lang]+'</button>'
+					+ '</div>'
+					+ '<div class="col-sm-6">'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(44)" id="btnNXDTgt">'+text.crawler.dtarget[lang]+'</button>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-sm-6">'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(41)" id="btnNXGAll">'+text.crawler.gall[lang]+'</button>'
+					+ '</div>'
+					+ '<div class="col-sm-6">'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(42)" id="btnNXDTgt">'+text.crawler.dall[lang]+'</button>'
+					+ '</div>'
+				+ '</div>'
+				
+				
+				+ '<div class="row">'
+					+ '<div class="col-12 text-left">'
 					+ '<h3>EXCHAIN</h3>'
 					+ '</div>'
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(13)" id="btnEXGTgt">'+text.crawler.gtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(33)" id="btnEXGTgt">'+text.crawler.gtarget[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(14)" id="btnEXDTgt">'+text.crawler.dtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(34)" id="btnEXDTgt">'+text.crawler.dtarget[lang]+'</button>'
 					+ '</div>'
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(11)" id="btnEXGAll">'+text.crawler.gall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(31)" id="btnEXGAll">'+text.crawler.gall[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(12)" id="btnEXDTgt">'+text.crawler.dall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(32)" id="btnEXDTgt">'+text.crawler.dall[lang]+'</button>'
 					+ '</div>'
 				+ '</div>'
 				
@@ -996,18 +1045,18 @@ $(function () {
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(3)" id="btnMXGTgt">'+text.crawler.gtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(23)" id="btnMXGTgt">'+text.crawler.gtarget[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(4)" id="btnMXDTgt">'+text.crawler.dtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(24)" id="btnMXDTgt">'+text.crawler.dtarget[lang]+'</button>'
 					+ '</div>'
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(1)" id="btnMXGAll">'+text.crawler.gall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(21)" id="btnMXGAll">'+text.crawler.gall[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(2)" id="btnMXDAll">'+text.crawler.dall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(22)" id="btnMXDAll">'+text.crawler.dall[lang]+'</button>'
 					+ '</div>'
 				+ '</div>'
 				
@@ -1019,23 +1068,23 @@ $(function () {
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(8)" id="btnREGTgt">'+text.crawler.gtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(13)" id="btnREGTgt">'+text.crawler.gtarget[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(9)" id="btnREDTgt">'+text.crawler.dtarget[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(14)" id="btnREDTgt">'+text.crawler.dtarget[lang]+'</button>'
 					+ '</div>'
 				+ '</div>'
 				+ '<div class="row">'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(6)" id="btnREGAll">'+text.crawler.gall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(11)" id="btnREGAll">'+text.crawler.gall[lang]+'</button>'
 					+ '</div>'
 					+ '<div class="col-sm-6">'
-						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(7)" id="btnREDAll">'+text.crawler.dall[lang]+'</button>'
+						+ '<button class="btn btn-primary" style="width:100%;" onclick="crawlRunner(12)" id="btnREDAll">'+text.crawler.dall[lang]+'</button>'
 					+ '</div>'
 				+ '</div>';
 	    }
 	inject += '<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>'+
-				'<div class="row"><div class="col-xs-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by <a href="https://twitter.com/prunusnira">@prunusNira</a></div></div>'
+				'<div class="row"><div class="col-xs-12"><a href="https://sin.nira.one" target="_blank">Skill Navigator</a> developed by Nira (<a href="https://twitter.com/_nira_one">@_nira_one</a>)</div></div>'
 				+ '</div></div>';
 	$(inject).insertBefore("body");
 });

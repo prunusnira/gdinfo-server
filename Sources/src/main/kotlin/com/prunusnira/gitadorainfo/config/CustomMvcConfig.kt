@@ -28,17 +28,17 @@ class CustomMvcConfig:WebMvcConfigurer, WebMvcRegistrations {
         registry
         	.addResourceHandler("/resources/**")
         	.addResourceLocations("/resources");
-        registry
-	    	.addResourceHandler("/img/music/**")
-	    	.addResourceLocations(SecretConst.musicimgServer); // for real server
+        //registry
+	    //	.addResourceHandler("/img/music/**")
+	    //	.addResourceLocations(SecretConst.musicimgServer); // for real server
     		//.addResourceLocations(SecretConst.musicimgLocal); // for local test
-        registry
-	    	.addResourceHandler("/board/**")
-	    	.addResourceLocations(SecretConst.boardServer); // for real server
+        //registry
+	    //	.addResourceHandler("/board/**")
+	    //	.addResourceLocations(SecretConst.boardServer); // for real server
 			//.addResourceLocations(SecretConst.boardLocal); // for local test
-		registry
-			.addResourceHandler("/file/snapshot/**")
-			.addResourceLocations(SecretConst.snapshotServer); // for real server
+		//registry
+		//	.addResourceHandler("/file/snapshot/**")
+		//	.addResourceLocations(SecretConst.snapshotServer); // for real server
 			// .addResourceLocations(SecretConst.snapshotLocal); // for local test
 	}
 	
