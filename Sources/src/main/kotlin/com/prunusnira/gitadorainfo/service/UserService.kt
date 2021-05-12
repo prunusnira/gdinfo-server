@@ -69,14 +69,10 @@ class UserService {
 		return profileMapper.getUserById(id)
 	}
 	
-	fun getAllUser(): List<User> {
-		return profileMapper.getAllUser()
-	}
-	
 	fun getUserSearch(stype: String, value: String): ArrayList<User> {
 		val list = ArrayList<User>()
 		when(stype) {
-			"name" -> list.addAll(profileMapper.getUserSearchName(value))
+			"player" -> list.addAll(profileMapper.getUserSearchName(value))
 			"gskill" -> list.addAll(profileMapper.getUserSearchGSkill(value.toDouble()))
 			"dskill" -> list.addAll(profileMapper.getUserSearchDSkill(value.toDouble()))
 		}
@@ -225,35 +221,8 @@ class UserService {
 		profileMapper.setTowerTitle(userid, title)
 	}
 	
-	fun skillRanking(gtype: String): List<User> {
-		var userList = getAllUser()
-		
-		Collections.sort(userList, object: Comparator<User> {
-			override fun compare(o1: User, o2: User): Int {
-				if(gtype != "all") {
-					var s1:Double = 0.0
-					var s2:Double = 0.0
-					if(gtype == "dm") {
-						s1 = o1.dskill
-						s2 = o2.dskill
-					}
-					else if(gtype == "gf") {
-						s1 = o1.gskill
-						s2 = o2.gskill
-					}
-					return s1.compareTo(s2)
-				}
-				else {
-					val s1g = o1.gskill
-					val s1d = o1.dskill
-					val s2g = o2.gskill
-					val s2d = o2.dskill
-					return (s1g+s1d).compareTo(s2g+s2d)
-				}
-			}
-		});
-		Collections.reverse(userList)
-		
+	fun skillRanking(gtype: String, page: Int): List<User> {
+		var userList = profileMapper.getSkillRanking(gtype, page)
 		return userList
 	}
 }

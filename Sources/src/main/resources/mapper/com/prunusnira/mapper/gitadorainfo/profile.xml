@@ -10,10 +10,6 @@
         SELECT * FROM profile WHERE token = #{token}
     </select>
     
-    <select id="getAllUser" resultType="user">
-    	SELECT * FROM profile
-    </select>
-    
     <select id="getUserSearchName" resultType="user">
     	SELECT * FROM profile WHERE LOWER(name) LIKE "%${value}%"
     </select>
@@ -203,4 +199,17 @@
     <update id="setTowerTitle">
     	UPDATE profile SET titletower=#{title} WHERE id=#{userid}
     </update>
+    
+    <select id="getSkillRanking" resultType="user">
+    	SELECT * FROM profile
+    		<if test="gtype == 'gf'">
+    			ORDER BY gskill DESC
+    		</if>
+    		<if test="gtype == 'dm'">
+    			ORDER BY dskill DESC
+    		</if>
+    		<if test="gtype == 'all'">
+    			ORDER BY gskill+dskill DESC
+    		</if>
+    </select>
 </mapper>

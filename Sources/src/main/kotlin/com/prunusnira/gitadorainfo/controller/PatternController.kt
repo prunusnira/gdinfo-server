@@ -50,7 +50,7 @@ class PatternController {
 					 @PathVariable("page") page: Int): String {
 		val mapper = ObjectMapper()
 		val node = mapper.createObjectNode()
-		val userList = userService.skillRanking(gtype)
+		val userList = userService.skillRanking(gtype, page)
 		val sendList = Const.getPagedList(userList, page, 30)
 		val pages = Const.getListPages(userList, 30)
 		
@@ -73,7 +73,7 @@ class PatternController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/ptrank/{ver}/{order}/{page}"],
+	@RequestMapping(value=["/pattern/{ver}/{order}/{page}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun ptrankList(req:HttpServletRequest,
@@ -118,7 +118,7 @@ class PatternController {
 		return node.toString()
 	}
 	
-	@RequestMapping(value=["/ptdetail/{mid}/{p}/{page}/{version}"],
+	@RequestMapping(value=["/ptrank/{mid}/{p}/{page}/{version}"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun ptdetail(@PathVariable("mid") mid: Int,

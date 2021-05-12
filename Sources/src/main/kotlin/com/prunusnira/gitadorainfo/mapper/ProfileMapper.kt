@@ -48,8 +48,6 @@ interface ProfileMapper {
 	
 	fun getUserByToken(@Param("token") token: String): User
 	
-	fun getAllUser(): List<User>
-	
 	fun getUserSearchName(@Param("value") value: String): List<User>
 	
 	fun getUserSearchGSkill(@Param("value") value: Double): List<User>
@@ -66,4 +64,7 @@ interface ProfileMapper {
 	
 	fun setTowerTitle(@Param("userid") userid: Int,
 					  @Param("title") title: String)
+	
+	fun getSkillRanking(@Param("gtype") gtype: String,
+						@Param("page") page: Int): List<User>
 }

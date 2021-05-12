@@ -49,7 +49,7 @@ class SearchController {
 			model.addAttribute("resultexist", "no")
 			return "";
 		}
-		else if(stype == "name" || stype == "gskill" || stype == "dskill") {
+		else if(stype == "player" || stype == "gskill" || stype == "dskill") {
 			val userList = userService.getUserSearch(stype, value.toLowerCase())
 			val sendList = Const.getPagedList(userList, page, 30)
 			val pages = Const.getListPages(userList, 30)
