@@ -15,9 +15,9 @@ class FilterProcess {
 		fun filterLevel(level: Int?): ArrayList<Int> {
 			val levels = ArrayList<Int>()
 			if(level != null) {
-				val levellist = filterBinaryProcess(level)
-				for(l in levellist) {
-					when(l) {
+				//val levellist = filterBinaryProcess(level)
+				//for(l in levellist) {
+					when(level) {
 						1->levels.add(100)
 						2->levels.add(150)
 						3->levels.add(200)
@@ -37,7 +37,7 @@ class FilterProcess {
 						17->levels.add(900)
 						18->levels.add(950)
 					}
-				}
+				//}
 			}
 			return levels
 		}

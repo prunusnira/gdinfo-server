@@ -223,20 +223,20 @@ class SkillService {
 				other.addAll(getSkillTarget(Const.INFOVER.CURRENT.value,
 					user.id, "o", gtype))
 			}
-			3 -> all.addAll(getSkillTop(Const.INFOVER.TBRE.value,
+			3 -> all.addAll(getSkillTop(Const.INFOVER.TB.value,
 					user.id, gtype))
-			4 -> all.addAll(getSkillTop(Const.INFOVER.TB.value,
-					user.id, gtype))
-			5 -> {
-				hot.addAll(getSkillTarget(Const.INFOVER.TBRE.value,
-					user.id, "h", gtype))
-				other.addAll(getSkillTarget(Const.INFOVER.TBRE.value,
-					user.id, "o", gtype))
-			}
-			6 -> {
+			4 -> {
 				hot.addAll(getSkillTarget(Const.INFOVER.TB.value,
 					user.id, "h", gtype))
 				other.addAll(getSkillTarget(Const.INFOVER.TB.value,
+					user.id, "o", gtype))
+			}
+			5 -> all.addAll(getSkillTop(Const.INFOVER.TBRE.value,
+					user.id, gtype))
+			6 -> {
+				hot.addAll(getSkillTarget(Const.INFOVER.TBRE.value,
+					user.id, "h", gtype))
+				other.addAll(getSkillTarget(Const.INFOVER.TBRE.value,
 					user.id, "o", gtype))
 			}
 			7 -> all.addAll(getSkillTop(Const.INFOVER.MX.value,
@@ -253,6 +253,14 @@ class SkillService {
 				hot.addAll(getSkillTarget(Const.INFOVER.EXC.value,
 					user.id, "h", gtype))
 				other.addAll(getSkillTarget(Const.INFOVER.EXC.value,
+					user.id, "o", gtype))
+			}
+			11 -> all.addAll(getSkillTop(Const.INFOVER.NX.value,
+					user.id, gtype))
+			12 -> {
+				hot.addAll(getSkillTarget(Const.INFOVER.NX.value,
+					user.id, "h", gtype))
+				other.addAll(getSkillTarget(Const.INFOVER.NX.value,
 					user.id, "o", gtype))
 			}
 		}
