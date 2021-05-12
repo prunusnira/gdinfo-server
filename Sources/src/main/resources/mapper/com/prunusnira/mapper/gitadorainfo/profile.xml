@@ -10,10 +10,6 @@
         SELECT * FROM profile WHERE token = #{token}
     </select>
     
-    <select id="getAllUser" resultType="user">
-    	SELECT * FROM profile
-    </select>
-    
     <select id="getUserSearchName" resultType="user">
     	SELECT * FROM profile WHERE LOWER(name) LIKE "%${value}%"
     </select>
@@ -43,6 +39,7 @@
     	SELECT id, titletower, name, gskill, dskill, updatetime, opencount FROM profile
     	WHERE NOT gskill = 0 OR NOT dskill = 0 OR NOT gskilltb = 0 OR NOT dskilltb = 0
     	 	OR NOT gskilltbre = 0 OR NOT dskilltbre = 0 OR NOT gskillmx = 0 OR NOT dskillmx = 0
+    	 	OR NOT gskillex = 0 OR NOT dskillex = 0 OR NOT gskillnx = 0 OR NOT dskillnx = 0
     	ORDER BY updatetime DESC LIMIT 10
     </select>
 
@@ -65,6 +62,10 @@
     <!-- 신작 나오면 업데이트 -->
     <update id="updateOldSkill">
          UPDATE profile SET
+         	<if test='gver == "nx"'>
+         		gskillnx = #{gf},
+         		dskillnx = #{dm},
+         	</if>
          	<if test='gver == "ex"'>
          		gskillex = #{gf},
          		dskillex = #{dm},
@@ -163,6 +164,8 @@
     		name="",
     		gskill=0,
     		dskill=0,
+    		gskillnx=0,
+    		dskillnx=0,
     		gskillex=0,
     		dskillex=0,
     		gskillmx=0,
@@ -196,4 +199,17 @@
     <update id="setTowerTitle">
     	UPDATE profile SET titletower=#{title} WHERE id=#{userid}
     </update>
+    
+    <select id="getSkillRanking" resultType="user">
+    	SELECT * FROM profile
+    		<if test="gtype == 'gf'">
+    			ORDER BY gskill DESC
+    		</if>
+    		<if test="gtype == 'dm'">
+    			ORDER BY dskill DESC
+    		</if>
+    		<if test="gtype == 'all'">
+    			ORDER BY gskill+dskill DESC
+    		</if>
+    </select>
 </mapper>
