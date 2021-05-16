@@ -75,9 +75,23 @@ class TowerService {
 	fun checkClear(d: Tower, skill: Skill?): Boolean {
 		var clear = true
 		if(skill != null) {
-			if(d.score > 0 && d.score > skill.score) clear = false
-			if(d.rate > 0 && d.rate > skill.rate) clear = false
-			if(d.combo > 0 && d.combo > skill.combo) clear = false
+			if(d.rate > 0 &&
+				(
+					(d.rate > skill.rate) &&
+					(d.rate > skill.ratetb) &&
+					(d.rate > skill.ratetbre) &&
+					(d.rate > skill.ratemx) &&
+					(d.rate > skill.rateex) &&
+					(d.rate > skill.ratenx)
+				)
+			) {
+				clear = false
+			}
+			if(d.fc == true) {
+				if(skill.checkfc == "N") {
+					clear = false
+				}
+			}
 		}
 		else clear = false
 		return clear
