@@ -14,6 +14,5 @@ import org.apache.ibatis.type.Alias
 
 @Alias("towerManage")
 class TowerManage(var name: String,
-				  var skill: Int,
 				  var levels: Int) {
 }

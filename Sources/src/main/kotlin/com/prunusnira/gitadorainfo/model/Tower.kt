@@ -18,9 +18,7 @@ class Tower(var floor: Int,
 			var mname: String,
 			var ptcode: Int,
 			var level: Int,
-			var score: Int,
 			var rate: Int,
 			var fc: Boolean,
-			var combo: Int,
 			var description: String) {
 }

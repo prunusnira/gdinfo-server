@@ -22,10 +22,8 @@
 				WHEN t.ptcode = 11 THEN m.dext
 				WHEN t.ptcode = 12 THEN m.dmas
 			END AS level,
-			t.score,
 			t.rate,
 			t.fc,
-			t.combo,
 			t.description
 		FROM
 			${tower} as t, music as m
