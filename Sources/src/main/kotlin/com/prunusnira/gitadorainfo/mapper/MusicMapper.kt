@@ -52,4 +52,7 @@ interface MusicMapper {
 	
 	fun updateMusicUpdaterDM(@Param("name") name: String,
 							 @Param("lvtable") lvtable: Map<String, Int>)
+	
+	fun updateMusicUpdater(@Param("name") name: String,
+							 @Param("lvtable") lvtable: Map<String, Int>)
 }

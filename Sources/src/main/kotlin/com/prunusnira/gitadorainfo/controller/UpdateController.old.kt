@@ -46,7 +46,7 @@ import kotlin.jvm.Throws
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class UpdateController {
+class UpdateControllerOldVer {
 	@Autowired
 	lateinit var userService: UserService
 	
@@ -59,12 +59,12 @@ class UpdateController {
 	@Autowired
 	lateinit var updateService: UpdateService
 	
-	@Value("classpath:/templates/crawlertest/index.html")
+	@Value("classpath:/templates/crawler.html")
 	lateinit var resource: Resource
 	
 	val logger = LoggerFactory.getLogger(javaClass)
 	
-	@RequestMapping(value=["/$/update"],
+	@RequestMapping(value=["/$/updateOldver"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
 	fun showUpdater(req: HttpServletRequest,
@@ -98,18 +98,18 @@ class UpdateController {
 				logAdd = "Token extended"
 			}
 			
-			code = code.plus("window.crawlToken = '").plus(crawlToken).plus("';\n")
-						.plus("window.userid = ").plus(user.id.toString()).plus(";\n")
-						.plus("window.username = '").plus(user.name).plus("';\n")
-						.plus("window.token = '").plus(tokenval).plus("';\n")
+			code = code.plus("var crawlToken = '").plus(crawlToken).plus("';\n")
+						.plus("var userid = ").plus(user.id.toString()).plus(";\n")
+						.plus("var username = '").plus(user.name).plus("';\n")
+						.plus("var token = '").plus(tokenval).plus("';\n")
 		}
 		else {
 			logAdd = "No User Logined"
 			
-			code = code.plus("window.crawlToken = '';\n")
-						.plus("window.userid = 0;\n")
-						.plus("window.username = '';\n")
-						.plus("window.token = '';\n")
+			code = code.plus("var crawlToken = '';\n")
+						.plus("var userid = 0;\n")
+						.plus("var username = '';\n")
+						.plus("var token = '';\n")
 		}
 		
 		// 스크립트 내용 만들기 -> 파일 불러오기로 대체
@@ -127,12 +127,12 @@ class UpdateController {
 	}
 	
 	@CrossOrigin("https://p.eagate.573.jp")
-	@RequestMapping("/$/updateProfile")
+	@RequestMapping("/$/updateProfileOldver")
 	@ResponseBody
 	fun uploadProfile(req: HttpServletRequest,
-					  @RequestBody json: String): Int {
+					  @RequestBody json: String): String {
 		val parser = JSONParser()
-		var jsonobj = parser.parse(json) as JSONObject
+		var jsonobj = (parser.parse(json) as JSONObject)["profile"] as JSONObject
 		
 		val title = jsonobj["title"] as String
 		val name = jsonobj["name"] as String
@@ -157,7 +157,7 @@ class UpdateController {
 		val userid = userService.getUserByToken(userToken).id
 		
 		if(StringUtils.isEmpty(userToken)) {
-			return 501
+			return "501"
 		}
 		
 		val prof = User(title, name, userToken, gskill, dskill,
@@ -166,16 +166,16 @@ class UpdateController {
 		userService.updateUser(prof)
 		userService.updateSkillRecord(userid, gskill, dskill)
 		//IPLogger.writeLog(req, logger, userService, "Profile update")
-		return 200
+		return "200"
 	}
 	
 	@CrossOrigin("https://p.eagate.573.jp")
-	@RequestMapping("/$/updateBoard/{id}")
+	@RequestMapping("/$/updateBoardOldver/{id}")
 	@ResponseBody
 	@Throws(IOException::class)
 	fun uploadBoard(req: HttpServletRequest,
 					@PathVariable("id") id: Int,
-					@RequestBody imgStr: String): Int {
+					@RequestBody imgStr: String): String {
 		val imageByte = Base64.getDecoder().decode(imgStr)
 		val bis = ByteArrayInputStream(imageByte)
 		val img = ImageIO.read(bis)
@@ -193,51 +193,64 @@ class UpdateController {
 		
 		ImageIO.write(img, "png", outputFile)
 		//IPLogger.writeLog(req, logger, userService, "Board update")
-		return 200
+		return "200"
 	}
 	
 	@CrossOrigin("https://p.eagate.573.jp")
-	@RequestMapping("/$/updateSkill")
+	@RequestMapping("/$/updateSkillOldver")
 	@ResponseBody
 	fun updateSkill(req: HttpServletRequest,
-					@RequestBody json: String): Int {
+					@RequestBody json: String): String {
+		lateinit var gtype: String
+		lateinit var list:JSONArray
 		val musicList = musicService.getMusicInfoAll()
 		val parser = JSONParser()
 		val parsed = parser.parse(json) as JSONObject
 		val crawlToken = parsed["crawlToken"] as String
-		val musicData = parsed["musicData"] as JSONArray
+		val objG = (parsed["music"] as JSONObject)["gf"] as JSONArray
+		val objD = (parsed["music"] as JSONObject)["dm"] as JSONArray
 		
 		val userToken = updateService.getUserTokenByCrawlToken(crawlToken)
 		val profile = userService.getUserByToken(userToken)
 		
 		if(StringUtils.isEmpty(userToken)) {
-			return 501
+			return "501"
+		}
+		
+		if(objG.size > objD.size) {
+			gtype = "gf"
+			list = objG
+		}
+		else {
+			gtype = "dm"
+			list = objD
 		}
 		
 		val uploadList = ArrayList<Skill>()
-		for(i in 0 until musicData.size) {
-			val jsonMusic = musicData[i] as JSONObject
-			val name = jsonMusic["musictitle"] as String
-			val patternData = jsonMusic["data"] as JSONArray
-			
-			// 곡 정보 처리 (신곡인경우 신곡으로 데이터 추가)
+		
+		//IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
+		
+		for(i in 0..list.size-1) {
+			val jsonMusic = list[i] as JSONObject
+			val name = jsonMusic["name"] as String
 			var music = musicList[name] as List<Music>?
 			var newmusic = false
 
 			if(music == null) {
+				// Add new music to DB
 				if(name != "") musicService.addNewMusicUpdater(name, Const.currentVer)
 				newmusic = true
 			}
 			else if(music.size > 1) {
-				// nothing to do (SAME NAME, More than 2)
+				// nothing to do now (SAME NAME, More than 2)
 			}
 			else {
 				// music already exist
 			}
+
+			val lvmap = getLevelMap(jsonMusic) as HashMap<String, Int>
 			
-			var lvmap = getLevelMap(patternData) as HashMap<String, Int>
-			
-			if(newmusic) {
+			if(gtype == "gf") {
 				if(lvmap["gbsc"] == null) lvmap["gbsc"] = 0
 				if(lvmap["gadv"] == null) lvmap["gadv"] = 0
 				if(lvmap["gext"] == null) lvmap["gext"] = 0
@@ -246,72 +259,61 @@ class UpdateController {
 				if(lvmap["badv"] == null) lvmap["badv"] = 0
 				if(lvmap["bext"] == null) lvmap["bext"] = 0
 				if(lvmap["bmas"] == null) lvmap["bmas"] = 0
+			}
+			else if(gtype == "dm") {
 				if(lvmap["dbsc"] == null) lvmap["dbsc"] = 0
 				if(lvmap["dadv"] == null) lvmap["dadv"] = 0
 				if(lvmap["dext"] == null) lvmap["dext"] = 0
 				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
 			}
-			else {
-				lvmap = getLevelExist(name) as HashMap<String, Int>
-			}
 			
-			musicService.updateMusicUpdater(name, lvmap)
-			
+			musicService.updateMusicUpdater(name, lvmap, gtype)
+
 			music = musicService.getMusicInfo(name)
-			val mdata = music[0]
+			val mdata  = music[0]
+
+			val pattern = jsonMusic["data"] as JSONArray
 			
-			// 해당 곡의 각 패턴별 데이터 처리
-			for(j in 0 until patternData.size) {
-				val pt = patternData[j] as JSONObject
+			for(j in 0..pattern.size-1) {
+				val jsonPattern = pattern[j] as JSONObject
+				val patterncode = Math.toIntExact(jsonPattern["patterncode"] as Long)
+				val playtime = (jsonPattern["playcount"] as String).toInt()
+				val cleartime = (jsonPattern["clearcount"] as String).toInt()
+				val clearstat = jsonPattern["clearstat"] as String
+				var rank = jsonPattern["rank"] as String
+				var rateStr = jsonPattern["rate"] as String
 				
-				val ptcode = Math.toIntExact(pt["ptcode"] as Long)
-				val playtime = Math.toIntExact(pt["playcount"] as Long)
-				val cleartime = Math.toIntExact(pt["clearcount"] as Long)
-				val rateStr = pt["rate"] as String
-				var rank = ""
-				var rate = 0
-				
-				// rateStr에서 rate 판정
-				if(rateStr == "-") {
-					rate = 0
-					rank = "E"
-				}
+				if(rateStr == "-") rateStr = "0"
 				else if(rateStr == "NO") {
-					rate = 0
+					rateStr = "0"
 					rank = "F"
 				}
 				else if(rateStr == "MAX" || rateStr == "100" || rateStr == "100.00") {
-					rate = 10000
-					rank = "EXC"
+					rateStr = "10000"
 				}
 				else {
-					rate = rateStr.replace("%", "").replace(".", "").toInt()
+					rateStr = rateStr.replace("%", "")
 				}
+				val rate = rateStr.replace(".", "").toInt()
+				val score = (jsonPattern["score"] as String).toInt()
+				val combo = (jsonPattern["combo"] as String).toInt()
 				
-				// 지정되지 않은 rank 판정
-				if(rate < 6300) rank = "C"
-				else if(rate < 7300) rank = "B"
-				else if(rate < 8000) rank = "A"
-				else if(rate < 9500) rank = "S"
-				else if(rate < 10000) rank = "SS"
-				
-				val score = Math.toIntExact(pt["score"] as Long)
-				val combo = Math.toIntExact(pt["combo"] as Long)
-				
-				val clearstat = pt["clearstat"] as String
 				var checkfc = "N"
-				if(clearstat == "FULL" || clearstat == "EXCELLENT") {
+				if(clearstat.equals("FULL")) {
 					checkfc = "Y"
 				}
 				
-				val meter = pt["meter"] as String
-			
-				val skill = Skill(profile.id, mdata.id,
-					mdata.version, ptcode, playtime, cleartime, rank, rate,
-					score, combo, checkfc, meter)
+				if(clearstat.equals("EXCELLENT")) {
+					checkfc = "Y"
+					rank = "EXC"
+				}
 				
+				val meter = jsonPattern["meter"] as String
+				
+				val skill = Skill(profile.id, mdata.id, mdata.version,
+					patterncode, playtime, cleartime, rank, rate, score, combo,
+					checkfc, meter)
 				uploadList.add(skill)
-				
 				if(uploadList.size == 50) {
 					skillService.addResult(uploadList)
 					uploadList.clear()
@@ -319,10 +321,12 @@ class UpdateController {
 				}
 			}
 		}
+		
 		if(uploadList.size != 0) {
 			skillService.addResult(uploadList)
 			//IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
 		}
+		//IPLogger.writeLog(req,  logger, userService, "Skill upload complete-"+profile.id)
 		
 		var gfc:Int = skillService.getPlayCountGF(profile.id)
 		var dfc:Int = skillService.getPlayCountDM(profile.id)
@@ -330,34 +334,43 @@ class UpdateController {
 		userService.updatePlayCount("dm", dfc, profile.id)
 		userService.updatePlayCount("all", gfc+dfc, profile.id)
 		//IPLogger.writeLog(req,  logger, userService, "Play count updated-"+profile.id)
-		return 200
+		return "200"
 	}
 	
 	@CrossOrigin("https://p.eagate.573.jp")
-	@RequestMapping("/$/updateTarget")
+	@RequestMapping("/$/updateTargetOldver")
 	@ResponseBody
 	fun updateSimpleSkill(req: HttpServletRequest,
-						  @RequestBody json: String): Int {
+						  @RequestBody json: String): String {
+		lateinit var list: JSONArray
+		lateinit var gtype: String
 		val musicList = musicService.getMusicInfoAll()
 		val parser = JSONParser()
 		val parsed = parser.parse(json) as JSONObject
 		val crawlToken = parsed["crawlToken"] as String
-		val musicData = parsed["musicData"] as JSONArray
+		val objG = (parsed["music"] as JSONObject)["gf"] as JSONArray
+		val objD = (parsed["music"] as JSONObject)["dm"] as JSONArray
 		
 		val userToken = updateService.getUserTokenByCrawlToken(crawlToken)
 		val profile = userService.getUserByToken(userToken)
 		
 		if(StringUtils.isEmpty(userToken)) {
-			return 501
+			return "501"
+		}
+		
+		if(objG.size > objD.size) {
+			list = objG
+			gtype = "gf"
+		}
+		else {
+			list = objD
+			gtype = "dm"
 		}
 		
 		val uploadList = ArrayList<Skill>()
-		for(i in 0..musicData.size-1) {
-			val jsonMusic = musicData[i] as JSONObject
-			val name = jsonMusic["musictitle"] as String
-			val patternData = jsonMusic["data"] as JSONArray
-			
-			// 곡 정보 처리 (신곡인경우 신곡으로 데이터 추가)
+		for(i in 0..list.size-1) {
+			val jsonMusic = list[i] as JSONObject
+			val name = jsonMusic["name"] as String
 			var music = musicList[name] as List<Music>?
 			var newmusic = false
 
@@ -372,88 +385,77 @@ class UpdateController {
 				// music already exist
 			}
 			
-			var lvmap = getLevelMap(patternData) as HashMap<String, Int>
+			var lvmap = getLevelMapFromSimple(jsonMusic) as HashMap<String, Int>
 			
 			if(newmusic) {
-				if(lvmap["gbsc"] == null) lvmap["gbsc"] = 0
-				if(lvmap["gadv"] == null) lvmap["gadv"] = 0
-				if(lvmap["gext"] == null) lvmap["gext"] = 0
-				if(lvmap["gmas"] == null) lvmap["gmas"] = 0
-				if(lvmap["bbsc"] == null) lvmap["bbsc"] = 0
-				if(lvmap["badv"] == null) lvmap["badv"] = 0
-				if(lvmap["bext"] == null) lvmap["bext"] = 0
-				if(lvmap["bmas"] == null) lvmap["bmas"] = 0
-				if(lvmap["dbsc"] == null) lvmap["dbsc"] = 0
-				if(lvmap["dadv"] == null) lvmap["dadv"] = 0
-				if(lvmap["dext"] == null) lvmap["dext"] = 0
-				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
+				if(gtype == "gf") {
+					if(lvmap.get("gbsc") == null) lvmap["gbsc"] = 0
+					if(lvmap.get("gadv") == null) lvmap["gadv"] = 0
+					if(lvmap.get("gext") == null) lvmap["gext"] = 0
+					if(lvmap.get("gmas") == null) lvmap["gmas"] = 0
+					if(lvmap.get("bbsc") == null) lvmap["bbsc"] = 0
+					if(lvmap.get("badv") == null) lvmap["badv"] = 0
+					if(lvmap.get("bext") == null) lvmap["bext"] = 0
+					if(lvmap.get("bmas") == null) lvmap["bmas"] = 0
+				}
+				else {
+					if(lvmap.get("dbsc") == null) lvmap["dbsc"] = 0
+					if(lvmap.get("dadv") == null) lvmap["dadv"] = 0
+					if(lvmap.get("dext") == null) lvmap["dext"] = 0
+					if(lvmap.get("dmas") == null) lvmap["dmas"] = 0
+				}
 			}
 			else {
 				lvmap = getLevelExist(name) as HashMap<String, Int>
 			}
 			
-			musicService.updateMusicUpdater(name, lvmap)
+			musicService.updateMusicUpdater(name, lvmap, gtype)
 			
 			music = musicService.getMusicInfo(name)
 			val mdata = music[0]
 			
-			// 해당 곡의 각 패턴별 데이터 처리
-			for(j in 0 until patternData.size) {
-				val pt = patternData[j] as JSONObject
-				
-				val ptcode = Math.toIntExact(pt["ptcode"] as Long)
-				val playtime = Math.toIntExact(pt["playcount"] as Long)
-				val cleartime = Math.toIntExact(pt["clearcount"] as Long)
-				val rateStr = pt["rate"] as String
-				var rank = ""
-				var rate = 0
-				
-				// rateStr에서 rate 판정
-				if(rateStr == "-") {
-					rate = 0
-					rank = "E"
-				}
-				else if(rateStr == "NO") {
-					rate = 0
-					rank = "F"
-				}
-				else if(rateStr == "MAX" || rateStr == "100" || rateStr == "100.00") {
-					rate = 10000
-					rank = "EXC"
-				}
-				else {
-					rate = rateStr.replace("%", "").replace(".", "").toInt()
-				}
-				
-				// 지정되지 않은 rank 판정
-				if(rate < 6300) rank = "C"
-				else if(rate < 7300) rank = "B"
-				else if(rate < 8000) rank = "A"
-				else if(rate < 9500) rank = "S"
-				else if(rate < 10000) rank = "SS"
-				
-				val score = Math.toIntExact(pt["score"] as Long)
-				val combo = Math.toIntExact(pt["combo"] as Long)
-				
-				val clearstat = pt["clearstat"] as String
-				var checkfc = "N"
-				if(clearstat == "FULL" || clearstat == "EXCELLENT") {
-					checkfc = "Y"
-				}
-				
-				val meter = pt["meter"] as String
+			val ptcode = Const.getPtcodeFromString(jsonMusic["type"] as String
+					+ jsonMusic["diff"] as String)
+			val playtime = 1
+			val cleartime = 1
+			var rank = ""
+			var rateStr = jsonMusic["rate"] as String
+			if(rateStr == "-") {
+				rateStr = "0"
+				rank = "E"
+			}
+			else if(rateStr == "NO") {
+				rateStr = "0"
+				rank = "F"
+			}
+			else if(rateStr == "MAX" || rateStr == "100" || rateStr == "100.00") {
+				rateStr = "10000"
+				rank = "EXC"
+			}
+			else {
+				rateStr = rateStr.replace("%", "")
+			}
 			
-				val skill = Skill(profile.id, mdata.id,
-					mdata.version, ptcode, playtime, cleartime, rank, rate,
-					score, combo, checkfc, meter)
-				
-				uploadList.add(skill)
-				
-				if(uploadList.size == 50) {
-					skillService.addResult(uploadList)
-					uploadList.clear()
-					//IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
-				}
+			val rate = rateStr.replace(".", "").toInt()
+			if(rate < 6300) rank = "C"
+			else if(rate < 7300) rank = "B"
+			else if(rate < 8000) rank = "A"
+			else if(rate < 9500) rank = "S"
+			else if(rate < 10000) rank = "SS"
+			
+			val score = 0
+			val combo = 0
+			val checkfc = "N"
+			val meter = ""
+			
+			val skill = Skill(profile.id, mdata.id,
+				mdata.version, ptcode, playtime, cleartime, rank, rate,
+				score, combo, checkfc, meter)
+			uploadList.add(skill)
+			if(uploadList.size == 50) {
+				skillService.addResult(uploadList)
+				uploadList.clear()
+				//IPLogger.writeLog(req,  logger, userService, "Uploaded 50")
 			}
 		}
 		if(uploadList.size != 0) {
@@ -461,31 +463,29 @@ class UpdateController {
 			//IPLogger.writeLog(req,  logger, userService, "Uploaded "+uploadList.size)
 		}
 		//IPLogger.writeLog(req,  logger, userService, "Simple skill upload complete")
-		return 200
+		return "200"
 	}
 	
-	fun getLevelMap(json: JSONArray): Map<String, Int> {
+	fun getLevelMap(json: JSONObject): Map<String, Int> {
 		val lvmap = HashMap<String, Int>()
+		val arr = json["data"] as JSONArray
 		
-		for(i in 0..json.size-1) {
-			val pattern = json[i] as JSONObject
-			val ptcode = Math.toIntExact(pattern["ptcode"] as Long)
-			
-			when (ptcode) {
-				1 -> lvmap["gbsc"] = Math.toIntExact(pattern["level"] as Long)
-				2 -> lvmap["gadv"] = Math.toIntExact(pattern["level"] as Long)
-				3 -> lvmap["gext"] = Math.toIntExact(pattern["level"] as Long)
-				4 -> lvmap["gmas"] = Math.toIntExact(pattern["level"] as Long)
-				5 -> lvmap["bbsc"] = Math.toIntExact(pattern["level"] as Long)
-				6 -> lvmap["badv"] = Math.toIntExact(pattern["level"] as Long)
-				7 -> lvmap["bext"] = Math.toIntExact(pattern["level"] as Long)
-				8 -> lvmap["bmas"] = Math.toIntExact(pattern["level"] as Long)
-				9 -> lvmap["dbsc"] = Math.toIntExact(pattern["level"] as Long)
-				10 -> lvmap["dadv"] = Math.toIntExact(pattern["level"] as Long)
-				11 -> lvmap["dext"] = Math.toIntExact(pattern["level"] as Long)
-				12 -> lvmap["dmas"] = Math.toIntExact(pattern["level"] as Long)
-			}
+		for(i in 0..arr.size-1) {
+			val pat = arr[i] as JSONObject
+			val ptcode = Math.toIntExact(pat["patterncode"] as Long)
+			val lva = (pat["level"] as String).split(".")
+			val lv = (lva[0]+lva[1]).toInt()
+			val pt = Const.getPtstringFromCode(ptcode)
+			lvmap[pt] = lv
 		}
+		return lvmap
+	}
+	
+	fun getLevelMapFromSimple(json: JSONObject): Map<String, Int> {
+		val lvmap = HashMap<String, Int>()
+		val ptype = (json["type"] as String)+(json["diff"] as String)
+		val lv = (json["level"] as String).toInt()
+		lvmap[ptype] = lv
 		return lvmap
 	}
 	
