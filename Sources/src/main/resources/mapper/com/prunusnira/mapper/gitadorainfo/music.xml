@@ -409,4 +409,16 @@
    		WHERE
    			name=#{name}
     </update>
+    
+    <update id="updateMusicUpdater">
+    	UPDATE music SET
+   			gbsc=#{lvtable.gbsc}, gadv=#{lvtable.gadv},
+   			gext=#{lvtable.gext}, gmas=#{lvtable.gmas},
+   			bbsc=#{lvtable.bbsc}, badv=#{lvtable.badv},
+   			bext=#{lvtable.bext}, bmas=#{lvtable.bmas},
+   			dbsc=#{lvtable.dbsc}, dadv=#{lvtable.dadv},
+   			dext=#{lvtable.dext}, dmas=#{lvtable.dmas}
+   		WHERE
+   			name=#{name}
+    </update>
 </mapper>

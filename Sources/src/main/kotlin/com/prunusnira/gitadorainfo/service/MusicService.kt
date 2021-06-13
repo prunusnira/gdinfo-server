@@ -146,4 +146,9 @@ class MusicService {
 		else
 			musicMapper.updateMusicUpdaterDM(name, lvtable)
 	}
+	
+	fun updateMusicUpdater(name: String,
+						   lvtable: Map<String, Int>) {
+		musicMapper.updateMusicUpdater(name, lvtable)
+	}
 }

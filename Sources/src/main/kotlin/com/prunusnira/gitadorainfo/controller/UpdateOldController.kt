@@ -125,14 +125,7 @@ class UpdateOldController {
 					  @RequestBody json: String,
 					  @PathVariable("gver") gver: String): String {
 		val parser = JSONParser()
-		var jsonobj = (parser.parse(json) as JSONObject)["profile"] as JSONObject
-		
-		/*try {
-			jsonobj = (parser.parse(json) as JSONObject)["profile"] as JSONObject
-		} catch(e: ParseException) {
-			e.printStackTrace()
-			return "500"
-		}*/
+		var jsonobj = parser.parse(json) as JSONObject
 		
 		val gskill = (jsonobj["gskill"] as String).toDouble()
 		val dskill = (jsonobj["dskill"] as String).toDouble()
@@ -155,13 +148,11 @@ class UpdateOldController {
 	fun updateSkill(req: HttpServletRequest,
 					@RequestBody json: String,
 					@PathVariable("gver") gver: String): String {
-		lateinit var list: JSONArray
 		val musicList = musicService.getMusicInfoAll()
 		val parser = JSONParser()
-		
-		val crawlToken = (parser.parse(json) as JSONObject)["crawlToken"] as String
-		val objG = ((parser.parse(json) as JSONObject)["music"] as JSONObject)["gf"] as JSONArray
-		val objD = ((parser.parse(json) as JSONObject)["music"] as JSONObject)["dm"] as JSONArray
+		val parsed = parser.parse(json) as JSONObject
+		val crawlToken = parsed["crawlToken"] as String
+		val musicData = parsed["musicData"] as JSONArray
 		
 		val userToken = updateService.getUserTokenByCrawlToken(crawlToken)
 		val profile = userService.getUserByToken(userToken)
@@ -170,20 +161,13 @@ class UpdateOldController {
 			return "501"
 		}
 		
-		if(objG.size > objD.size) {
-			list = objG
-		}
-		else {
-			list = objD
-		}
-		
 		val uploadList = ArrayList<Skill>()
-		
-		//IPLogger.writeLog(req,  logger, userService, "Upload pattenrs: " + list.size)
-		
-		for(i in 0..list.size-1) {
-			val jsonMusic = list[i] as JSONObject
-			val name = jsonMusic["name"] as String
+		for(i in 0 until musicData.size) {
+			val jsonMusic = musicData[i] as JSONObject
+			val name = jsonMusic["musictitle"] as String
+			val patternData = jsonMusic["data"] as JSONArray
+			
+			// 곡 정보 처리, 구곡의 데이터 추가이므로 별도로 곡의 데이터를 넣을 필요는 없음
 			var music = musicList[name] as List<Music>
 			
 			if(music.size == 0) {
@@ -192,30 +176,36 @@ class UpdateOldController {
 			}
 			
 			val mdata  = music[0]
-			val pattern = jsonMusic["data"] as JSONArray
 			
-			for(j in 0..pattern.size-1) {
-				val jsonPattern = pattern[j] as JSONObject
-				val patterncode = Math.toIntExact(jsonPattern["patterncode"] as Long)
-				val clearstat = jsonPattern["clearstat"] as String
-				var rank = jsonPattern["rank"] as String
-				var rateStr = jsonPattern["rate"] as String
-				if(rateStr == "-") rateStr = "0"
+			// 패턴별 순회
+			for(j in 0 until patternData.size) {
+				val pt = patternData[j] as JSONObject
+				
+				val ptcode = Math.toIntExact(pt["ptcode"] as Long)
+				val playtime = Math.toIntExact(pt["playcount"] as Long)
+				val cleartime = Math.toIntExact(pt["clearcount"] as Long)
+				val rateStr = pt["rate"] as String
+				var rank = ""
+				var rate = 0
+				
+				// rateStr에서 rate 판정
+				if(rateStr == "-") {
+					rate = 0
+					rank = "E"
+				}
 				else if(rateStr == "NO") {
-					rateStr = "0"
+					rate = 0
+					rank = "F"
 				}
 				else if(rateStr == "MAX" || rateStr == "100" || rateStr == "100.00") {
-					rateStr = "10000"
+					rate = 10000
+					rank = "EXC"
 				}
 				else {
-					rateStr = rateStr.replace("%", "")
+					rate = rateStr.replace("%", "").replace(".", "").toInt()
 				}
 				
-				if(clearstat.equals("EXCELLENT")) rank = "EXC"
-				
-				val rate = rateStr.replace(".", "").toInt()
-				
-				val skill = Skill(profile.id, mdata.id, mdata.version, patterncode, rank, rate)
+				val skill = Skill(profile.id, mdata.id, mdata.version, ptcode, rank, rate)
 				uploadList.add(skill)
 				if(uploadList.size == 50) {
 					skillService.addResultOld(uploadList, gver)
