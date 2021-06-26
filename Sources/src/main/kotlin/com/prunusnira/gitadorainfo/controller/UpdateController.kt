@@ -215,6 +215,8 @@ class UpdateController {
 		}
 		
 		val uploadList = ArrayList<Skill>()
+		println("size: "+musicData.size)
+		
 		for(i in 0 until musicData.size) {
 			val jsonMusic = musicData[i] as JSONObject
 			val name = jsonMusic["musictitle"] as String
@@ -222,11 +224,9 @@ class UpdateController {
 			
 			// 곡 정보 처리 (신곡인경우 신곡으로 데이터 추가)
 			var music = musicList[name] as List<Music>?
-			var newmusic = false
 
 			if(music == null) {
 				if(name != "") musicService.addNewMusicUpdater(name, Const.currentVer)
-				newmusic = true
 			}
 			else if(music.size > 1) {
 				// nothing to do (SAME NAME, More than 2)
@@ -234,25 +234,57 @@ class UpdateController {
 			else {
 				// music already exist
 			}
+			var lvmap = getLevelExist(name) as HashMap<String, Int>
+			var newlvmap = getLevelMap(patternData) as HashMap<String, Int>
 			
-			var lvmap = getLevelMap(patternData) as HashMap<String, Int>
+			if(newlvmap["gbsc"] == null) newlvmap["gbsc"] = 0
+			if(newlvmap["gadv"] == null) newlvmap["gadv"] = 0
+			if(newlvmap["gext"] == null) newlvmap["gext"] = 0
+			if(newlvmap["gmas"] == null) newlvmap["gmas"] = 0
+			if(newlvmap["bbsc"] == null) newlvmap["bbsc"] = 0
+			if(newlvmap["badv"] == null) newlvmap["badv"] = 0
+			if(newlvmap["bext"] == null) newlvmap["bext"] = 0
+			if(newlvmap["bmas"] == null) newlvmap["bmas"] = 0
+			if(newlvmap["dbsc"] == null) newlvmap["dbsc"] = 0
+			if(newlvmap["dadv"] == null) newlvmap["dadv"] = 0
+			if(newlvmap["dext"] == null) newlvmap["dext"] = 0
+			if(newlvmap["dmas"] == null) newlvmap["dmas"] = 0
 			
-			if(newmusic) {
-				if(lvmap["gbsc"] == null) lvmap["gbsc"] = 0
-				if(lvmap["gadv"] == null) lvmap["gadv"] = 0
-				if(lvmap["gext"] == null) lvmap["gext"] = 0
-				if(lvmap["gmas"] == null) lvmap["gmas"] = 0
-				if(lvmap["bbsc"] == null) lvmap["bbsc"] = 0
-				if(lvmap["badv"] == null) lvmap["badv"] = 0
-				if(lvmap["bext"] == null) lvmap["bext"] = 0
-				if(lvmap["bmas"] == null) lvmap["bmas"] = 0
-				if(lvmap["dbsc"] == null) lvmap["dbsc"] = 0
-				if(lvmap["dadv"] == null) lvmap["dadv"] = 0
-				if(lvmap["dext"] == null) lvmap["dext"] = 0
-				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
+			if(newlvmap["gbsc"].greaterThan(0)) {
+				lvmap["gbsc"] = newlvmap["gbsc"] as Int
 			}
-			else {
-				lvmap = getLevelExist(name) as HashMap<String, Int>
+			if(newlvmap["gadv"].greaterThan(0)) {
+				lvmap["gadv"] = newlvmap["gadv"] as Int
+			}
+			if(newlvmap["gext"].greaterThan(0)) {
+				lvmap["gext"] = newlvmap["gext"] as Int
+			}
+			if(newlvmap["gmas"].greaterThan(0)) {
+				lvmap["gmas"] = newlvmap["gmas"] as Int
+			}
+			if(newlvmap["bbsc"].greaterThan(0)) {
+				lvmap["bbsc"] = newlvmap["bbsc"] as Int
+			}
+			if(newlvmap["badv"].greaterThan(0)) {
+				lvmap["badv"] = newlvmap["badv"] as Int
+			}
+			if(newlvmap["bext"].greaterThan(0)) {
+				lvmap["bext"] = newlvmap["bext"] as Int
+			}
+			if(newlvmap["bmas"].greaterThan(0)) {
+				lvmap["bmas"] = newlvmap["bmas"] as Int
+			}
+			if(newlvmap["dbsc"].greaterThan(0)) {
+				lvmap["dbsc"] = newlvmap["dbsc"] as Int
+			}
+			if(newlvmap["dadv"].greaterThan(0)) {
+				lvmap["dadv"] = newlvmap["dadv"] as Int
+			}
+			if(newlvmap["dext"].greaterThan(0)) {
+				lvmap["dext"] = newlvmap["dext"] as Int
+			}
+			if(newlvmap["dmas"].greaterThan(0)) {
+				lvmap["dmas"] = newlvmap["dmas"] as Int
 			}
 			
 			musicService.updateMusicUpdater(name, lvmap)
@@ -352,6 +384,8 @@ class UpdateController {
 		}
 		
 		val uploadList = ArrayList<Skill>()
+		println("size: "+musicData.size)
+		
 		for(i in 0..musicData.size-1) {
 			val jsonMusic = musicData[i] as JSONObject
 			val name = jsonMusic["musictitle"] as String
@@ -359,11 +393,9 @@ class UpdateController {
 			
 			// 곡 정보 처리 (신곡인경우 신곡으로 데이터 추가)
 			var music = musicList[name] as List<Music>?
-			var newmusic = false
 
 			if(music == null) {
 				if(name != "") musicService.addNewMusicUpdater(name, Const.currentVer)
-				newmusic = true
 			}
 			else if(music.size > 1) {
 				// nothing to do (SAME NAME, More than 2)
@@ -372,24 +404,57 @@ class UpdateController {
 				// music already exist
 			}
 			
-			var lvmap = getLevelMap(patternData) as HashMap<String, Int>
+			var lvmap = getLevelExist(name) as HashMap<String, Int>
+			var newlvmap = getLevelMap(patternData) as HashMap<String, Int>
 			
-			if(newmusic) {
-				if(lvmap["gbsc"] == null) lvmap["gbsc"] = 0
-				if(lvmap["gadv"] == null) lvmap["gadv"] = 0
-				if(lvmap["gext"] == null) lvmap["gext"] = 0
-				if(lvmap["gmas"] == null) lvmap["gmas"] = 0
-				if(lvmap["bbsc"] == null) lvmap["bbsc"] = 0
-				if(lvmap["badv"] == null) lvmap["badv"] = 0
-				if(lvmap["bext"] == null) lvmap["bext"] = 0
-				if(lvmap["bmas"] == null) lvmap["bmas"] = 0
-				if(lvmap["dbsc"] == null) lvmap["dbsc"] = 0
-				if(lvmap["dadv"] == null) lvmap["dadv"] = 0
-				if(lvmap["dext"] == null) lvmap["dext"] = 0
-				if(lvmap["dmas"] == null) lvmap["dmas"] = 0
+			if(newlvmap["gbsc"] == null) newlvmap["gbsc"] = 0
+			if(newlvmap["gadv"] == null) newlvmap["gadv"] = 0
+			if(newlvmap["gext"] == null) newlvmap["gext"] = 0
+			if(newlvmap["gmas"] == null) newlvmap["gmas"] = 0
+			if(newlvmap["bbsc"] == null) newlvmap["bbsc"] = 0
+			if(newlvmap["badv"] == null) newlvmap["badv"] = 0
+			if(newlvmap["bext"] == null) newlvmap["bext"] = 0
+			if(newlvmap["bmas"] == null) newlvmap["bmas"] = 0
+			if(newlvmap["dbsc"] == null) newlvmap["dbsc"] = 0
+			if(newlvmap["dadv"] == null) newlvmap["dadv"] = 0
+			if(newlvmap["dext"] == null) newlvmap["dext"] = 0
+			if(newlvmap["dmas"] == null) newlvmap["dmas"] = 0
+			
+			if(newlvmap["gbsc"].greaterThan(0)) {
+				lvmap["gbsc"] = newlvmap["gbsc"] as Int
 			}
-			else {
-				lvmap = getLevelExist(name) as HashMap<String, Int>
+			if(newlvmap["gadv"].greaterThan(0)) {
+				lvmap["gadv"] = newlvmap["gadv"] as Int
+			}
+			if(newlvmap["gext"].greaterThan(0)) {
+				lvmap["gext"] = newlvmap["gext"] as Int
+			}
+			if(newlvmap["gmas"].greaterThan(0)) {
+				lvmap["gmas"] = newlvmap["gmas"] as Int
+			}
+			if(newlvmap["bbsc"].greaterThan(0)) {
+				lvmap["bbsc"] = newlvmap["bbsc"] as Int
+			}
+			if(newlvmap["badv"].greaterThan(0)) {
+				lvmap["badv"] = newlvmap["badv"] as Int
+			}
+			if(newlvmap["bext"].greaterThan(0)) {
+				lvmap["bext"] = newlvmap["bext"] as Int
+			}
+			if(newlvmap["bmas"].greaterThan(0)) {
+				lvmap["bmas"] = newlvmap["bmas"] as Int
+			}
+			if(newlvmap["dbsc"].greaterThan(0)) {
+				lvmap["dbsc"] = newlvmap["dbsc"] as Int
+			}
+			if(newlvmap["dadv"].greaterThan(0)) {
+				lvmap["dadv"] = newlvmap["dadv"] as Int
+			}
+			if(newlvmap["dext"].greaterThan(0)) {
+				lvmap["dext"] = newlvmap["dext"] as Int
+			}
+			if(newlvmap["dmas"].greaterThan(0)) {
+				lvmap["dmas"] = newlvmap["dmas"] as Int
 			}
 			
 			musicService.updateMusicUpdater(name, lvmap)
@@ -543,4 +608,6 @@ class UpdateController {
 		}
 		return true
 	}
+	
+	fun Int?.greaterThan(n: Int) = this != null && this > n
 }
