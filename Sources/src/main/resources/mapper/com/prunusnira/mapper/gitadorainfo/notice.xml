@@ -6,6 +6,6 @@
     </select>
 
     <select id="getNotice" resultType="notice">
-        select * from notice order by id desc limit 10 offset #{page*10+1}
+        select * from notice order by id desc limit 10 offset ${page}
     </select>
 </mapper>

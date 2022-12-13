@@ -1,15 +1,16 @@
 package com.prunusnira.gitadorainfo.model
 
 import org.apache.ibatis.type.Alias
+import java.sql.Timestamp
 
-@Alias("Notice")
+@Alias("notice")
 class Notice(
         var id: Int,
-        var nameK: String,
-        var nameE: String,
-        var nameJ: String,
-        var date: String,
+        var titleK: String,
+        var titleJ: String,
+        var titleE: String,
         var contentK: String,
-        var contentE: String,
         var contentJ: String,
+        var contentE: String,
+        var time: Timestamp
 ) {}
