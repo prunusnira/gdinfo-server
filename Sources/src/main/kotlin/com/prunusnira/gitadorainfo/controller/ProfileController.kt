@@ -159,15 +159,15 @@ class ProfileController {
 	
 	@RequestMapping(value=["/setopencount"])
 	@ResponseBody
-	fun opencount(@RequestParam(value="open", required=false) open: String,
+	fun opencount(@RequestParam(value="open") open: String,
 				  @RequestParam(value="id") userid: Int): String {
 		userService.updateOpenCount(open, userid)
 		return "200"
 	}
 	
-	@RequestMapping(value=["/setcomment"], method=[RequestMethod.GET])
+	@RequestMapping(value=["/setcomment"])
 	@ResponseBody
-	fun comment(@RequestParam(value="val", required=false) comment: String,
+	fun comment(@RequestParam(value="val") comment: String,
 				@RequestParam(value="id") userid: Int): String {
 		userService.updateComment(comment, userid)
 		return "200"

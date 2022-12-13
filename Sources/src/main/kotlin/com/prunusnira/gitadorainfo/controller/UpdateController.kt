@@ -215,7 +215,6 @@ class UpdateController {
 		}
 		
 		val uploadList = ArrayList<Skill>()
-		println("size: "+musicData.size)
 		
 		for(i in 0 until musicData.size) {
 			val jsonMusic = musicData[i] as JSONObject
@@ -384,7 +383,6 @@ class UpdateController {
 		}
 		
 		val uploadList = ArrayList<Skill>()
-		println("size: "+musicData.size)
 		
 		for(i in 0..musicData.size-1) {
 			val jsonMusic = musicData[i] as JSONObject
