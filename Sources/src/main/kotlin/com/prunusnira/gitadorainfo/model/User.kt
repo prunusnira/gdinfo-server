@@ -22,6 +22,8 @@ data class User(var id: Int,
 				
 		   var gskill: Double,
 		   var dskill: Double,
+			var gskillhv: Double,
+			var dskillhv: Double,
 		   var gskillnx: Double,
 		   var dskillnx: Double,
 		   var gskillex: Double,
@@ -59,15 +61,17 @@ data class User(var id: Int,
 	
 	constructor(token: String)
 			: this(0, "", "", "", token, 0.0, 0.0,
-					0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-					0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.0,
 					0, 0, 0.0, 0.0, 0, 0, "", 0, 0, 0, "",
 					Timestamp(0), 0, "", null)
 	
 	constructor(name: String, gskill: Double, dskill: Double)
 			: this(0, "", "", name, "", gskill, dskill,
-					0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-					0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0, 0, 0.0, 0.0,
 					0, 0, 0.0, 0.0, 0, 0, "", 0, 0, 0, "",
 					Timestamp(0), 0, "", null)
 	
@@ -81,7 +85,8 @@ data class User(var id: Int,
 				gexclv: Double, dexclv: Double,
 				gexcnum: Int, dexcnum: Int)
 			: this(0, "", title, name, token, gskill, dskill,
-					0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 					gskillall, dskillall, gclearlv, dclearlv,
 					gclearnum, dclearnum, gfclv, dfclv,
 					gfcnum, dfcnum, gexclv, dexclv, gexcnum, dexcnum,

@@ -12,7 +12,7 @@ package com.prunusnira.gitadorainfo.data
 
 class Const {
 	enum class INFOVER(val value: Int) {
-		CURRENT(0), TB(1), TBRE(2), MX(3), EXC(4), NX(5), HV(6)
+		CURRENT(0), TB(1), TBRE(2), MX(3), EXC(4), NX(5), HV(6), FU(7)
 	}
 	
 	companion object {
@@ -84,6 +84,6 @@ class Const {
 				return list.size/size + 1
 		}
 		
-		val currentVer = 29
+		val currentVer = 30
 	}
 }

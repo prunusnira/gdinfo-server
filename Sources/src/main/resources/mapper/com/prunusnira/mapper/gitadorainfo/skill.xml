@@ -12,6 +12,7 @@
     		cleartime,
     		rank,
     		rate,
+			ratehv,
     		ratenx,
     		rateex,
     		ratemx,
@@ -35,6 +36,7 @@
 			s.cleartime as cleartime,
 			s.rank as rank,
 			s.rate as rate,
+			s.ratehv as ratehv,
 			s.ratenx as ratenx,
 			s.rateex as rateex,
 			s.ratemx as ratemx,
@@ -72,6 +74,7 @@
 			s.patterncode as patterncode,
 			s.rank as rank,
 			s.rate as rate,
+			s.ratehv as ratehv,
 			s.ratenx as ratenx,
 			s.rateex as rateex,
 			s.ratemx as ratemx,
@@ -193,6 +196,7 @@
 		s.patterncode as patterncode,
 		s.rank as rank,
 		s.rate as rate,
+		s.ratehv as ratehv,
 		s.ratenx as ratenx,
 		s.rateex as rateex,
 		s.ratemx as ratemx,
@@ -236,6 +240,9 @@
 		<if test='version == 5'>
 			inner join music_nx m
 		</if>
+		<if test='version == 6'>
+			inner join music_hv m
+		</if>
 		on s.musicid = m.id
 		and s.userid = #{userid}
 		<if test='version == 0'>
@@ -255,6 +262,9 @@
 		</if>
 		<if test='version == 5'>
 			and ratenx > 0
+		</if>
+		<if test='version == 6'>
+			and ratehv > 0
 		</if>
 		where
 		<if test='gtype == "gf"'>
@@ -284,6 +294,9 @@
 		<if test='version == 5'>
 			order by ratenx*level desc
 		</if>
+		<if test='version == 5'>
+			order by ratehv*level desc
+		</if>
 		limit 100
     </select>
     
@@ -296,6 +309,7 @@
 			sa.patterncode,
 			sa.rank,
 			sa.rate,
+			sa.ratehv,
 			sa.ratenx,
 			sa.rateex,
 			sa.ratemx,
@@ -328,6 +342,9 @@
 				<if test='version == 5'>
 					a.level*a.ratenx*20 AS skill
 				</if>
+				<if test='version == 6'>
+					a.level*a.ratehv*20 AS skill
+				</if>
 				FROM
 				(SELECT
 					m.name as mname,
@@ -337,6 +354,7 @@
 					s.patterncode as patterncode,
 					s.rank as rank,
 					s.rate as rate,
+					s.ratehv as ratehv,
 					s.ratenx as ratenx,
 					s.rateex as rateex,
 					s.ratemx as ratemx,
@@ -381,6 +399,9 @@
 					</if>
 					<if test='version == 5'>
 						music_nx as m
+					</if>
+					<if test='version == 6'>
+						music_hv as m
 					</if>
 				WHERE
 					s.musicid = m.id
@@ -428,6 +449,9 @@
 					<if test='version == 5'>
 						AND s.ratenx > 0
 					</if>
+					<if test='version == 6'>
+						AND s.ratehv > 0
+					</if>
 				) a
 			) sa
 		INNER JOIN
@@ -451,6 +475,9 @@
 			<if test='version == 5'>
 				MAX(a.level*a.ratenx*20) AS skill
 			</if>
+			<if test='version == 6'>
+				MAX(a.level*a.ratehv*20) AS skill
+			</if>
 			FROM
 			(SELECT
 				m.id as musicid,
@@ -458,6 +485,7 @@
 				s.patterncode as patterncode,
 				s.rank as rank,
 				s.rate as rate,
+				s.ratehv as ratehv,
 				s.ratenx as ratenx,
 				s.rateex as rateex,
 				s.ratemx as ratemx,
@@ -502,6 +530,9 @@
 				</if>
 				<if test='version == 5'>
 					music_nx as m
+				</if>
+				<if test='version == 6'>
+					music_hv as m
 				</if>
 			WHERE
 				s.musicid = m.id
@@ -550,6 +581,9 @@
 				<if test='version == 5'>
 					AND s.ratenx > 0
 				</if>
+				<if test='version == 6'>
+					AND s.ratehv > 0
+				</if>
 				) a
 				GROUP BY musicid
 			) sb
@@ -564,8 +598,11 @@
     	SELECT
     		p.id as userid,
     		p.name as name,
+			<if test='version == 30'>
+				s.rate as rate,
+			</if>
     		<if test='version == 29'>
-    		s.rate as rate,
+    		s.ratehv as rate,
     		</if>
     		<if test='version == 28'>
     		s.ratenx as rate,
@@ -586,6 +623,9 @@
     		s.rank as rank
     	FROM
 			skill as s
+			<if test='version == 30'>
+				USE INDEX(ptrank_fuzzup)
+			</if>
 			<if test='version == 29'>
     		USE INDEX(ptrank_hv)
     		</if>
@@ -609,8 +649,11 @@
     	WHERE s.musicid=#{mid}
     		AND s.patterncode=#{p}
     		AND s.userid=p.id
+			<if test='version == 30'>
+				AND s.rate > 0
+			</if>
     		<if test='version == 29'>
-    		AND s.rate > 0
+    		AND s.ratehv > 0
     		</if>
     		<if test='version == 28'>
     		AND s.ratenx > 0
@@ -628,8 +671,11 @@
     		AND s.ratetb > 0
     		</if>
     	ORDER BY
+			<if test='version == 30'>
+				s.rate
+			</if>
     		<if test='version == 29'>
-    		s.rate
+    		s.ratehv
     		</if>
     		<if test='version == 28'>
     		s.ratenx
@@ -709,17 +755,8 @@
     <!-- 신작 출시 시 구작 스킬 업데이트로 변경 -->
     <insert id="addResultOld">
          INSERT INTO skill ( userid, musicid, version, patterncode, rank,
-         	<if test='gver == "nx"'>
-         	ratenx
-         	</if>
-         	<if test='gver == "ex"'>
-         	rateex
-         	</if>
-         	<if test='gver == "mx"'>
-         	ratemx
-         	</if>
-         	<if test='gver == "tbre"'>
-         	ratetbre
+         	<if test='gver == "hv"'>
+         	ratehv
          	</if>
          )
          VALUES
@@ -728,17 +765,8 @@
          		#{item.patterncode}, #{item.rank}, #{item.rate} )
 		</foreach>
 		ON DUPLICATE KEY UPDATE
-			<if test='gver == "nx"'>
-         	ratenx = VALUES(ratenx)
-         	</if>
-			<if test='gver == "ex"'>
-         	rateex = VALUES(rateex)
-         	</if>
-			<if test='gver == "mx"'>
-         	ratemx = VALUES(ratemx)
-         	</if>
-         	<if test='gver == "tbre"'>
-         	ratetbre = VALUES(ratetbre)
+			<if test='gver == "hv"'>
+         	ratehv = VALUES(ratehv)
          	</if>
     </insert>
     
