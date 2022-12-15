@@ -96,7 +96,7 @@ class SkillController {
 		var hsend = ArrayList<SkillTable>()
 		var osend = ArrayList<SkillTable>()
 		
-		if((ptype == 0 || ptype == 3 || ptype == 5 || ptype == 7 || ptype == 9 || ptype == 11)
+		if((ptype == 0 || ptype == 3 || ptype == 5 || ptype == 7 || ptype == 9 || ptype == 11 || ptype == 13)
 			&& skillMap.get(0)!!.size != 0) {
 			sendList = Const.getPagedList(skillMap.get(0)!!, page, 30)
 			pages = Const.getListPages(skillMap.get(0)!!, 30)
@@ -109,7 +109,7 @@ class SkillController {
 				sendList = Const.getPagedList(skillMap.get(0)!!, 2, 25)
 			}
 		}
-		else if(ptype == 2 || ptype == 4 || ptype == 6 || ptype == 8 || ptype == 10 || ptype == 12) {
+		else if(ptype == 2 || ptype == 4 || ptype == 6 || ptype == 8 || ptype == 10 || ptype == 12 || ptype == 14) {
 			hsend = Const.getPagedList(skillMap.get(1)!!, 1, 25)
 			osend = Const.getPagedList(skillMap.get(2)!!, 1, 25)
 		}

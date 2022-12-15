@@ -294,7 +294,7 @@
 		<if test='version == 5'>
 			order by ratenx*level desc
 		</if>
-		<if test='version == 5'>
+		<if test='version == 6'>
 			order by ratehv*level desc
 		</if>
 		limit 100

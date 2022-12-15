@@ -20,6 +20,7 @@ class SkillTable(var musicid: Int,
 				 var patterncode: Int,
 				 var rank: String,
 				 var rate: Int,
+				 var ratehv: Int,
 				 var ratenx: Int,
 				 var rateex: Int,
 				 var ratemx: Int,
@@ -34,16 +35,16 @@ class SkillTable(var musicid: Int,
 	constructor(musicid: Int, mname: String, hurigana: String, ishot: String,
 				patterncode: Long, version: Int, level: Int)
 		: this(musicid, mname, hurigana, ishot, patterncode.toInt(), "EXC",
-			10000, 0, 0 ,0 ,0, 0,
+			10000, 0, 0 ,0 ,0, 0, 0,
 			version, 1, 1, level, "Y",
 			"1111111111111111111111111111111111111111111111111111111111111111")
 	constructor(musicid: Int, mname: String, hurigana: String, ishot: String,
-				patterncode: Int, rank: String, rate: Int,
+				patterncode: Int, rank: String, rate: Int, ratehv:Int,
 				ratenx: Int, rateex: Int, ratemx: Int, ratetbre: Int, ratetb: Int,
 				version: Int, combo: Int, playtime: Int,
 				level: Long, checkfc: String, meter: String)
 		: this(musicid, mname, hurigana, ishot, patterncode, rank, rate,
-			ratenx, rateex, ratemx, ratetbre, ratetb,
+			ratehv, ratenx, rateex, ratemx, ratetbre, ratetb,
 			version, combo, playtime,
 			level.toInt(), checkfc, meter)
 }

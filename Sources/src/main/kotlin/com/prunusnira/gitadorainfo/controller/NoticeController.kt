@@ -14,23 +14,19 @@ class NoticeController {
     @Autowired
     lateinit var noticeService: NoticeService
 
-    @RequestMapping(value=["/topnotice"], produces=["text/plain;charset=UTF-8"])
-    @ResponseBody
-    fun getTopNotice(): String {
-        val mapper = ObjectMapper()
-        val node = mapper.createObjectNode()
-        val data = noticeService.getTopNotice()
-        node.putPOJO("notice", mapper.writeValueAsString(data))
-        return node.toString()
-    }
-
     @RequestMapping(value=["/notice/{page}"], produces=["text/plain;charset=UTF-8"])
     @ResponseBody
     fun getNotice(@PathVariable("page") page: Int): String {
         val mapper = ObjectMapper()
         val node = mapper.createObjectNode()
-        val data = noticeService.getNotice((page-1)*10)
-        node.putPOJO("notice", mapper.writeValueAsString(data))
+        if(page > 0) {
+            val data = noticeService.getNotice((page - 1) * 10)
+            node.putPOJO("notice", mapper.writeValueAsString(data))
+        }
+        else {
+            val data = noticeService.getTopNotice()
+            node.putPOJO("notice", mapper.writeValueAsString(data))
+        }
         return node.toString()
     }
 }
