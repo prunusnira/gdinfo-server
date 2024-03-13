@@ -271,6 +271,14 @@ class SkillService {
 				other.addAll(getSkillTarget(Const.INFOVER.HV.value,
 					user.id, "o", gtype))
 			}
+			15 -> all.addAll(getSkillTop(Const.INFOVER.FU.value,
+					user.id, gtype))
+			16 -> {
+				hot.addAll(getSkillTarget(Const.INFOVER.FU.value,
+						user.id, "h", gtype))
+				other.addAll(getSkillTarget(Const.INFOVER.FU.value,
+						user.id, "o", gtype))
+			}
 		}
 		skillMap.put(0, all)
 		skillMap.put(1, hot)

@@ -21,6 +21,7 @@ data class Skill(var userid: Int,
 			var cleartime: Int,
 			var rank: String,
 			var rate: Int,
+			 var ratefu: Int,
 			 var ratehv: Int,
 			var ratenx: Int,
 			var rateex: Int,
@@ -34,25 +35,25 @@ data class Skill(var userid: Int,
 			var level: Int) {
 	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int, rank: String, rate: Int)
 			: this(userid, musicid, version, patterncode, 0, 0, rank, rate,
-				0, 0, 0, 0, 0, 0, 0, 0, "", "", 0)
+				0, 0, 0, 0, 0, 0, 0, 0, 0, "", "", 0)
 	
 	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int,
 				rank: String, rate: Int, score: Int, combo: Int, checkfc: String)
 			: this(userid, musicid, version, patterncode, 0, 0, rank, rate,
-				0, 0, 0, 0, 0, 0, score, combo, checkfc, "", 0)
+				0, 0, 0, 0, 0, 0, 0, score, combo, checkfc, "", 0)
 	
 	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int,
 				playtime: Int, cleartime: Int, rank: String, rate: Int,
 				score: Int, combo: Int, checkfc: String, meter: String)
 			: this(userid, musicid, version, patterncode,
-					playtime, cleartime, rank, rate, 0, 0, 0, 0, 0, 0, score, combo,
+					playtime, cleartime, rank, rate, 0, 0, 0, 0, 0, 0, 0, score, combo,
 					checkfc, meter, 0)
 	
 	constructor(userid: Int, musicid: Int, version: Int, patterncode: Int,
-				playtime: Int, cleartime: Int, rank: String, rate: Int, ratehv: Int,
+				playtime: Int, cleartime: Int, rank: String, rate: Int, ratefu: Int, ratehv: Int,
 				ratenx: Int, rateex: Int, ratemx: Int, ratetbre: Int, ratetb: Int,
 				score: Int, combo: Int, checkfc: String, meter: String)
 			: this(userid, musicid, version, patterncode,
-					playtime, cleartime, rank, rate, ratehv, ratenx, rateex, ratemx, ratetbre, ratetb,
+					playtime, cleartime, rank, rate, ratefu, ratehv, ratenx, rateex, ratemx, ratetbre, ratetb,
 					score, combo, checkfc, meter, 0)
 }
