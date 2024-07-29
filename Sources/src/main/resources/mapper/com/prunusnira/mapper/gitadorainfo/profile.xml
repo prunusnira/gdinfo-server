@@ -40,7 +40,7 @@
     	WHERE NOT gskill = 0 OR NOT dskill = 0 OR NOT gskilltb = 0 OR NOT dskilltb = 0
     	 	OR NOT gskilltbre = 0 OR NOT dskilltbre = 0 OR NOT gskillmx = 0 OR NOT dskillmx = 0
     	 	OR NOT gskillex = 0 OR NOT dskillex = 0 OR NOT gskillnx = 0 OR NOT dskillnx = 0
-			OR NOT gskillhv = 0 OR NOT dskillhv = 0
+			OR NOT gskillhv = 0 OR NOT dskillhv = 0 OR NOT gskillfu = 0 OR NOT dskillfu = 0
     	ORDER BY updatetime DESC LIMIT 10
     </select>
 
@@ -63,6 +63,10 @@
     <!-- 신작 나오면 업데이트 -->
     <update id="updateOldSkill">
          UPDATE profile SET
+			<if test='gver == "fu"'>
+				gskillfu = #{gf},
+				dskillfu = #{dm},
+			</if>
          	<if test='gver == "hv"'>
          		gskillhv = #{gf},
          		dskillhv = #{dm},
@@ -153,6 +157,8 @@
     		name="",
     		gskill=0,
     		dskill=0,
+    		gskillfu=0,
+    		dskillfu=0,
 			gskillhv=0,
 			dskillhv=0,
     		gskillnx=0,

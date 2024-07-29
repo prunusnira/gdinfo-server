@@ -57,6 +57,10 @@ class SkillController {
 	 * 10: EX 스킬표
 	 * 11: NX TOP 100
 	 * 12: NX 스킬표
+	 * 13: HV TOP 100
+	 * 14: HV 스킬표
+	 * 15: FU TOP 100
+	 * 16: FU 스킬표
 	 * 1000: EXC
 	 */
 	@RequestMapping(value=["/skill/{ptype}/{id}/{gtype}/{page}/{order}"],
@@ -96,7 +100,8 @@ class SkillController {
 		var hsend = ArrayList<SkillTable>()
 		var osend = ArrayList<SkillTable>()
 		
-		if((ptype == 0 || ptype == 3 || ptype == 5 || ptype == 7 || ptype == 9 || ptype == 11 || ptype == 13)
+		if((ptype == 0 || ptype == 3 || ptype == 5 || ptype == 7 || ptype == 9 ||
+						ptype == 11 || ptype == 13 || ptype == 15)
 			&& skillMap.get(0)!!.size != 0) {
 			sendList = Const.getPagedList(skillMap.get(0)!!, page, 30)
 			pages = Const.getListPages(skillMap.get(0)!!, 30)
@@ -109,7 +114,8 @@ class SkillController {
 				sendList = Const.getPagedList(skillMap.get(0)!!, 2, 25)
 			}
 		}
-		else if(ptype == 2 || ptype == 4 || ptype == 6 || ptype == 8 || ptype == 10 || ptype == 12 || ptype == 14) {
+		else if(ptype == 2 || ptype == 4 || ptype == 6 || ptype == 8 || ptype == 10 ||
+				ptype == 12 || ptype == 14 || ptype == 16) {
 			hsend = Const.getPagedList(skillMap.get(1)!!, 1, 25)
 			osend = Const.getPagedList(skillMap.get(2)!!, 1, 25)
 		}
