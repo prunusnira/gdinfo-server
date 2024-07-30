@@ -17,7 +17,6 @@ import com.prunusnira.gitadorainfo.service.MusicService
 import com.prunusnira.gitadorainfo.service.SkillService
 import com.prunusnira.gitadorainfo.service.UpdateService
 import com.prunusnira.gitadorainfo.service.UserService
-import com.prunusnira.gitadorainfo.tool.IPLogger
 import org.apache.commons.lang3.RandomStringUtils
 import org.apache.commons.lang3.StringUtils
 import org.json.simple.JSONArray
@@ -62,8 +61,6 @@ class UpdateController {
 	@Value("classpath:/templates/crawlertest/index.html")
 	lateinit var resource: Resource
 	
-	val logger = LoggerFactory.getLogger(javaClass)
-	
 	@RequestMapping(value=["/$/update"],
 		produces=["text/plain;charset=UTF-8"])
 	@ResponseBody
@@ -79,7 +76,7 @@ class UpdateController {
 		var code = ""
 		
 		if(tokenval == null) {
-			tokenval = session.getAttribute("token") as String?;
+			tokenval = session.getAttribute("token") as String?
 		}
 		
 		if(tokenval != null) {
@@ -176,7 +173,7 @@ class UpdateController {
 	fun uploadBoard(req: HttpServletRequest,
 					@PathVariable("id") id: Int,
 					@RequestBody imgStr: String): Int {
-		val imageByte = Base64.getDecoder().decode(imgStr)
+		val imageByte = Base64.getDecoder().decode(imgStr.replace("\"", ""))
 		val bis = ByteArrayInputStream(imageByte)
 		val img = ImageIO.read(bis)
 		bis.close()
